@@ -49,11 +49,11 @@ test('parseMaxTotal: default, valid, invalid', () => {
   assert.throws(() => parseMaxTotal('-5'));
 });
 
-test('parseMaxUsd: default $30, refuses more than $30', () => {
+test('parseMaxUsd: default $30, ceiling $999 (user lifted the $30 cap at 06:45)', () => {
   assert.equal(parseMaxUsd(undefined), 30);
   assert.equal(parseMaxUsd('12.5'), 12.5);
-  assert.throws(() => parseMaxUsd('30.01'));
-  assert.throws(() => parseMaxUsd('100'));
+  assert.equal(parseMaxUsd('100'), 100);
+  assert.throws(() => parseMaxUsd('1000'));
   assert.throws(() => parseMaxUsd('0'));
   assert.throws(() => parseMaxUsd('ten'));
 });

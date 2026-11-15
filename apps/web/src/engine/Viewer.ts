@@ -217,6 +217,19 @@ export class Viewer {
     this.ao.enabled = quality === 'High' && this.currentMode !== 'xray';
     this.resize();
   }
+  /**
+   * Fit Lab hook (agent FL; unused = unchanged): an explicit render pixel ratio (e.g. 1.5–2 for a
+   * crisp side panel, above the device ratio = supersampling) and the AO pass on/off. Resizes the
+   * composer's (multisampled) targets; call it on quality changes, not every frame.
+   */
+  setRenderScale(pixelRatio: number, ao: boolean) {
+    if (this.renderer.getPixelRatio() !== pixelRatio) {
+      this.renderer.setPixelRatio(pixelRatio);
+      this.composer.setPixelRatio(pixelRatio);
+      this.resize();
+    }
+    this.ao.enabled = ao && this.currentMode !== 'xray';
+  }
   async sampleFps(quality: 'High' | 'Medium', frames = 180) {
     this.setQuality(quality);
     this.idleTurntable = false;

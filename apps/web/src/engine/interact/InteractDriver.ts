@@ -11,7 +11,7 @@
 //     closed teeth are welded (weld.ts). Only a region round the opened parts moves;
 //  3. open teeth are free cloth edges: the fronts hang under gravity with body contact.
 import { ClothSolver, type BodyCollider, type ClothAsset } from '../cloth/ClothSolver.ts';
-import { INTERACT } from './config.ts';
+import { INTERACT, splitMaterial } from './config.ts';
 import { expandPositions, PANEL, splitSeams, type SeamSplit, type ZipLine } from './seam.ts';
 import { weldPairs, type WeldSet } from './weld.ts';
 import {
@@ -156,7 +156,8 @@ export function unrolledAsset(split: SeamSplit): ClothAsset {
     ...split.asset,
     panels: split.asset.panels.map((p) => (p === PANEL.hood ? SOLVER_HOOD_PANEL : p)),
     config: {
-      ...c,
+      // Lofted jackets (the puffer) hold their shape in the split solver (config.ts LOFTED_SPLIT).
+      ...splitMaterial(c, split.asset.maximum_loft_m ?? 0),
       substeps: 1,
       dt: c.dt / n,
       selfEvery: (c.selfEvery ?? 1) * n,

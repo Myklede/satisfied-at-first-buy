@@ -33,6 +33,7 @@ const lines = [
   '',
   `Captured ${capture[0]} to ${capture[1]} (UTC); finished ${report.completedAt}. No browser, camera, Decart or service restart.`,
   'GET /health succeeded first; then /body/capabilities, /garment/options, /products, sequential POST /body/fit → /fit/garment on 127.0.0.1:8001. Cached checkpoints resumed without refitting.',
+  'Service caveat: POST /fit/garment also starts a background warm_cloth thread (app.py). Sequential client requests do not imply one backend job or pause already queued service work. Do not repeat the sweep during a demo/user test.',
   `Product DQ4920-206; regular preference, neutral shape, default service density, t-shirt layer ${meta.options.layer_presets_cm['t-shirt']} cm, no known measurements. All inputs synthetic.`,
   `Grid: 9 heights 155–195 by 5 cm × female/male × BMI targets 18.5,20,22.5,25,27.5,30; weight rounded to 0.1 kg = 108 cases. Plus 18 fixed-${fixed}-kg height controls = 126.`,
   `All ${rows.length}/${rows.length} body fits converged; ${warnings.length} carry the limited-input warning: inferred shape/density/surface landmarks need tape validation. Convergence does not establish anthropometric accuracy.`,

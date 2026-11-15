@@ -1,11 +1,99 @@
 # Satisfied at First Buy
 
-`satisfy-at-the-first-buy` is a local 3D **fit** studio for online shopping.
-It builds a real Anny body mesh and compares it with two tape-measured jackets.
-The kiosk includes optional local webcam scanning, X-ray fit comparisons, hand
-pull with a tension readout, and indicative fit in motion. The displayed jacket
-uses a tape-based wrapped shell; motion uses CPU physics with WebAssembly kernels.
-Material/contact constants and worn fit predictions still need calibration.
+A 3D **fit** try-on for online shopping that answers: **will it fit, and where won't it?**
+Compare two real jackets on a body fitted to your inputs, scroll into a see-through Fit Lab,
+and inspect where the collar, chest, sleeves and hem have too little or too much room.
+An optional Decart live view supplies the photoreal look; our local engine computes the fit.
+
+## What's ours, what isn't
+
+**Ours:** Anny-based body fitting, measured garment data, per-zone ease and size verdicts;
+the Three.js Fit Lab with see-through shells, tight-zone tints and on-image notes;
+preloaded S/M/L switching; pinch-driven cloth physics for the zip, hood and hem;
+the local camera-to-interaction bridge; and a loopback token server with session and spending caps.
+
+**Decart's:** the photoreal video render only. It never decides fit. Generated appearance and
+discrete garment-state changes are separate from our local cloth solver and numerical verdicts.
+The owned S jackets are tape-measured; other sizes use labelled grading estimates.
+Body shape from height/weight is a model estimate, not a validated camera scan or a guarantee of worn fit.
+
+## How it works
+
+```mermaid
+flowchart LR
+  Camera[Camera] --> MP[Local MediaPipe pose and hands]
+  MP --> Bus[StudioBus garment state]
+  Bus --> Cloth[Cloth solver: Web Worker + WASM kernels]
+  Bus --> Lab[Fit Lab: Three.js]
+  Cloth --> Lab
+  Inputs[Local body inputs] --> Body[FastAPI + PyTorch: Anny body]
+  Body --> Fit[Fit engine: ease per zone]
+  Fit -->|Size verdict and fit notes| Lab
+  Camera -->|User-started video stream| RTC[Decart SDK connection]
+  Tokens[127.0.0.1 token server: budget cap] -->|Short-lived client token| RTC
+  Bus -->|Jacket and garment-state prompt| RTC
+  RTC --> Cloud[Decart cloud: look only]
+  Cloud --> Photo[Photoreal live view]
+```
+
+Video goes directly from the SDK to Decart; the loopback token server supplies credentials,
+not a video proxy. Body measurements, fitting and the Fit Lab verdict stay on the machine.
+
+## Run the Studio
+
+After the one-time dependency setup in **Run on this Windows machine** below, start a fresh
+development session from the repository root. If the services are already running, use the
+preflight command instead of launching a second instance.
+
+```powershell
+$env:SATISFY_WEB_PORT = '5810'
+npm run dev
+```
+
+This starts Vite on **127.0.0.1:5810** and the body service on **127.0.0.1:8001**.
+For optional Decart rendering, set these names in the local, gitignored `.env` file:
+
+```dotenv
+DECART_API_KEY=
+DECART_MAX_USD=
+```
+
+Fill the key locally; choose a positive spending limit no higher than $30. A blank limit uses
+the server's $30 ceiling. The cap is a local usage/reservation allowance, not your Decart balance.
+In a second terminal, when the token server is not already running:
+
+```powershell
+node scripts/decart-token-server.mjs
+```
+
+In another terminal:
+
+```powershell
+npm run preflight:studio
+```
+
+Open **http://127.0.0.1:5810/studio.html**. The Fit Lab works without Decart or a key;
+the large view then uses the camera fallback. Preflight checks existing HTTP services and
+closed-jacket references, prints the local allowance and reported credits, and reminds you
+to check the Decart dashboard. It never opens a camera, starts a session or restarts a service.
+
+## Privacy and attribution
+
+Body inputs and fit calculations remain local. The Studio saves its body-input form in local
+browser storage; fitted meshes are held by the local service. Camera video goes to Decart
+only while a session started by the user is running. Recording/export is a separate user action.
+
+| Component | License / role                                                         |
+| --------- | ---------------------------------------------------------------------- |
+| Anny      | Apache-2.0 code; MakeHuman assets under CC0; local body model          |
+| MediaPipe | Apache-2.0; local pose and hand inference                              |
+| three.js  | MIT; Fit Lab rendering                                                 |
+| Decart    | Commercial hosted API; photoreal rendering. Its JavaScript SDK is MIT. |
+
+Licenses were checked against the installed packages and Anny's bundled license/metadata.
+Material/contact constants, graded sizes and worn-fit predictions still need calibration.
+
+The developer and local kiosk workflows below remain available independently of the cloud view.
 
 ## Before a judging session
 
@@ -24,18 +112,11 @@ checks before demoing; `npm run kiosk` starts its service in privacy mode.
 If the kiosk reports a fallback API port, check that instance with
 `npm run preflight -- --kiosk --api-port 8002` (substitute its reported port).
 
-During parallel agent work, browser tests must hold `.cache/locks/browser` for
-the entire job. Use `withBrowserSlot` from `scripts/lookdev/browser-slot.mjs`:
-it waits in 60-second polls for the six shared ports and at least 2.5 GiB free
-RAM, then acquires the lock atomically and releases its own lock in `finally`.
-Never stop another agent's service or remove its lock. Benchmarks also require
-a quiet machine. Preserve the existing Python environment; do not run `uv sync`.
-
 ## Run on this Windows machine
 
 Prerequisites: Node/npm (verified Node 26.13.0 / npm 11.20.0), Git, and a Python
 installation accessible through `py`. First setup needs dependency downloads;
-normal operation is entirely local after the model cache is warm.
+the local Fit Lab and kiosk work after the model cache is warm. Decart streaming requires a network connection.
 
 ```powershell
 npm ci --no-audit --no-fund
@@ -53,8 +134,8 @@ dependencies in `.venv`. Setup removes `PIP_NO_INDEX` from child-process environ
 The first Anny cache build can take minutes; the service logs its progress. Wait
 for `Application startup complete`. The web page retries connection while it warms.
 
-The body shown initially is the **172 cm / 65 kg male reference input**, not your
-personal measurements. Enter height, weight and body-model sex, then **Build my body**.
+The body shown initially is a labelled reference input, not your personal measurements.
+Enter height, weight and body-model sex, then **Build my body**.
 Expand optional measurements for tape constraints. Neutral shape reference is the
 default; the exposed Anny presets are optional shape controls.
 
@@ -129,12 +210,12 @@ screen").
 
 Operator keys (hidden):
 
-| Keys | Action |
-| --- | --- |
+| Keys         | Action                                                            |
+| ------------ | ----------------------------------------------------------------- |
 | Ctrl+Shift+R | Reset: forget this judge's body in the service, reload to attract |
 | Ctrl+Shift+D | Diagnostics overlay (fps, fit/solver ms, scan Hz + delegate, GPU) |
-| Ctrl+Shift+B | Accuracy board (table + mean absolute error per metric) |
-| Ctrl+Shift+Q | Quit (closes Chrome, the service and the server) |
+| Ctrl+Shift+B | Accuracy board (table + mean absolute error per metric)           |
+| Ctrl+Shift+Q | Quit (closes Chrome, the service and the server)                  |
 
 Reset also happens with **Start over** and after 90 s without input. All body
 data is in memory only; the board (`data/accuracy/board.json`, gitignored) is
@@ -194,8 +275,8 @@ npm run smoke:fit
 Tests include real CPU Anny fits for four reference inputs, independent deterministic
 fits, optional girth targets, extreme-shape landmark ordering, strict API validation,
 GLB normals/frame checks, analytic geometry, schemas and web client/camera math.
-`pytest` includes `slow` integration tests by default. To run only fast Python tests:
-`.venv/Scripts/python.exe -m pytest -m "not slow" -q`.
+Python checks use the repository interpreter through `node scripts/check-python.mjs test`;
+the pytest run includes `slow` integration tests by default.
 
 ## Check against a tape measure
 
@@ -244,8 +325,7 @@ labelled uncalibrated assumptions. No WebGPU implementation or M3 work is includ
 
 ## Troubleshooting
 
-- **EACCES on port 5173:** Windows reserves 5141–5240 on this laptop. The app uses
-  5710. If another application uses 5710 or 8001, stop your own conflicting process;
+- **EACCES on port 5173:** Windows reserves 5141–5240 on this laptop. The app uses 5710. If another application uses 5710 or 8001, stop your own conflicting process;
   do not alter system port reservations. Keep Vite, dev orchestration and CORS origins aligned.
 - **Service connecting:** first cache build is slow. Inspect the body-service log.
   Do not open the Vite URL on another machine; it intentionally binds to loopback.
@@ -265,10 +345,11 @@ labelled uncalibrated assumptions. No WebGPU implementation or M3 work is includ
 
 ## Privacy, accuracy and licenses
 
-Body meshes, measurements and input hashes remain in local RAM. There is no telemetry,
-webcam capture, remote body processing, or hosted upload. Dependency/model downloads
-are the only network activity in this milestone. Validation exports are an explicit
-local action; reports can contain personal derived measurements.
+Body fitting, measurement requests and meshes stay on the local machine. Studio body inputs
+also persist in local browser storage. Local inference and the kiosk do not require cloud
+rendering; a user-started Decart session sends camera video to the hosted renderer.
+Dependency/model setup downloads and optional cloud streaming require a network connection.
+Validation exports and recordings are explicit local actions; keep personal reports private.
 
 Anny is **Apache-2.0**; its MakeHuman assets are **CC0**. The project uses the standard
 Anny topology, never noncommercial SMPL/SMPL-X assets. Dependency purposes and licenses

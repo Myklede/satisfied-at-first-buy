@@ -29,6 +29,7 @@
     "kiosk:assets": "node scripts/kiosk-assets.mjs",
     "kiosk:soak": "node scripts/kiosk-soak.mjs",
     "preflight": "node scripts/preflight.mjs",
+    "preflight:studio": "node scripts/studio-preflight.mjs",
     "amazon-demo": "node scripts/amazon-demo.mjs",
     "sandbox": "node scripts/sandbox.mjs",
     "ar:score": "node scripts/ar-eval.mjs --all",

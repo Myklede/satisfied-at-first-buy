@@ -2283,7 +2283,9 @@ export class ClothSolver {
         for (let e = 0; e < region.hinges.length; e++) this.hingeLambda[region.hinges[e]] = 0;
         if (order > 0) this.contact(false, ids);
         for (let pass = 0; pass < c.iterations; pass++) this.stretch(h, pass % 2 === 1, edgeList);
-        this.hingeBend(h, region.hinges);
+        // hingePasses (default 1): extra Gauss-Seidel sweeps of the shape-memory hinges within
+        // this substep (lambdas accumulate), for lofted jackets that hold their shape (ZB).
+        for (let pass = 0; pass < (c.hingePasses ?? 1); pass++) this.hingeBend(h, region.hinges);
         this.limitTethers(h, region.tethers);
         // Rings, cuff stops and particle self-contact are global; they stay with the
         // kinematic remainder (documented gap). Layer pairs keep sleeve/torso apart locally.
@@ -2300,7 +2302,7 @@ export class ClothSolver {
         // Extra passes run in reverse order. (Alternating the direction per substep, or
         // sub-cycling the hinges, was measured to inject energy: 2-cycles between substeps.)
         for (let pass = 0; pass < c.iterations; pass++) this.stretch(h, pass % 2 === 1);
-        this.hingeBend(h);
+        for (let pass = 0; pass < (c.hingePasses ?? 1); pass++) this.hingeBend(h);
         this.limitTethers(h);
         this.constrainRings(h);
         if (this.guideMode === 1) this.cuffContact();

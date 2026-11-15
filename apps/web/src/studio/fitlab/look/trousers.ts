@@ -61,8 +61,8 @@ export const WAIST_RISE_M = 0.07;
 export const HEM_ABOVE_ANKLE_M = 0.035;
 /** A pelvis/leg component comes within this distance (m) of the body midline; arms do not. */
 const MIDLINE_REACH_M = 0.1;
-/** Default fabric: dark charcoal-navy cotton twill. */
-export const DEFAULT_TROUSERS_COLOUR = 0x2b303b;
+/** Default fabric: soft white cotton twill (user, 06:35: white trousers). */
+export const DEFAULT_TROUSERS_COLOUR = 0xeeece6;
 
 export interface TrousersOptions {
   /** Hip line (m, scene Y-up, rest pose): the waistband rises WAIST_RISE_M above it. */
@@ -71,7 +71,7 @@ export interface TrousersOptions {
   ankleY: number;
   /** Knee height (m); default halfway between the hip and the ankle. */
   kneeY?: number;
-  /** Fabric colour (default dark charcoal-navy). */
+  /** Fabric colour (default soft white). */
   colour?: number;
 }
 

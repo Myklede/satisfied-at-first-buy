@@ -148,6 +148,8 @@ interface Drag {
 const SAMPLE_LIMIT = 2000;
 /** Drag.hand of a programmatic hood hold (holdHood); webcam pinches use 'left' / 'right'. */
 const HOLD_HAND = 'studio-bridge';
+/** Seam copies closer than this (m) share one normal (a closed tooth; weld.ts makes them coincide). */
+const SEAM_WELD_M = 0.002;
 function push(list: number[], value: number) {
   list.push(value);
   if (list.length > SAMPLE_LIMIT) list.shift();
@@ -1109,6 +1111,7 @@ export class InteractController {
     (position.array as Float32Array).set(message.positions);
     position.needsUpdate = true;
     smoothNormals(position.array, geometry.index!.array, normal.array as Float32Array);
+    this.weldSeamNormals(position.array, normal.array as Float32Array);
     normal.needsUpdate = true;
     geometry.computeBoundingSphere();
     this.host.garment.details.update(position.array, this.topo!.triangles, normal.array);
@@ -1122,6 +1125,73 @@ export class InteractController {
     this.counters.maxGap = Math.max(this.counters.maxGap, f.maxGapM);
     this.counters.particles = Math.max(this.counters.particles, f.particles);
     if (f.restful && !this.drag && this.sliderTarget === 0) this.startRestore();
+  }
+
+  /** Split vertices sharing one shell vertex (the seam copies), built once: [start, count] runs. */
+  private seamGroups?: { order: Int32Array; runs: Int32Array };
+
+  /**
+   * Studio continuity fix (agent ZB, 2026-11-15): the seam split duplicates every zip / hood line
+   * vertex, so smoothNormals sees each copy from one side only. Where the two copies coincide (a
+   * closed tooth) their one-sided normals tilt apart, and the shell's loft/puff shading opens a
+   * lens-shaped gap and a jagged line along a CLOSED zip. Copies within SEAM_WELD_M of each other
+   * share their summed normal (as the measured shell's single vertex does); open edges keep
+   * their own.
+   */
+  private weldSeamNormals(positions: ArrayLike<number>, normals: Float32Array) {
+    const topo = this.topo;
+    if (!topo) return;
+    if (!this.seamGroups) {
+      const n = topo.source.length,
+        count = new Map<number, number[]>();
+      for (let i = 0; i < n; i++) {
+        const k = topo.source[i];
+        const list = count.get(k);
+        if (list) list.push(i);
+        else count.set(k, [i]);
+      }
+      const order: number[] = [],
+        runs: number[] = [];
+      for (const list of count.values())
+        if (list.length > 1) {
+          runs.push(order.length, list.length);
+          order.push(...list);
+        }
+      this.seamGroups = { order: Int32Array.from(order), runs: Int32Array.from(runs) };
+    }
+    const { order, runs } = this.seamGroups,
+      limit2 = SEAM_WELD_M * SEAM_WELD_M;
+    for (let r = 0; r < runs.length; r += 2) {
+      const start = runs[r],
+        len = runs[r + 1],
+        first = order[start] * 3;
+      let x = 0,
+        y = 0,
+        z = 0,
+        together = true;
+      for (let j = 0; j < len; j++) {
+        const i = order[start + j] * 3;
+        const dx = positions[i] - positions[first],
+          dy = positions[i + 1] - positions[first + 1],
+          dz = positions[i + 2] - positions[first + 2];
+        if (dx * dx + dy * dy + dz * dz > limit2) {
+          together = false;
+          break;
+        }
+        x += normals[i];
+        y += normals[i + 1];
+        z += normals[i + 2];
+      }
+      if (!together) continue;
+      const l = Math.hypot(x, y, z);
+      if (!(l > 1e-12)) continue;
+      for (let j = 0; j < len; j++) {
+        const i = order[start + j] * 3;
+        normals[i] = x / l;
+        normals[i + 1] = y / l;
+        normals[i + 2] = z / l;
+      }
+    }
   }
 
   /** Never drawn: H's hood geometry with a two-sided material, for picking only. */
@@ -1232,6 +1302,7 @@ export class InteractController {
     for (let i = 0; i < p.length; i++) p[i] = r.from[i] + (target[i] - r.from[i]) * e;
     position.needsUpdate = true;
     smoothNormals(p, geometry.index!.array, geometry.getAttribute('normal').array as Float32Array);
+    this.weldSeamNormals(p, geometry.getAttribute('normal').array as Float32Array);
     geometry.getAttribute('normal').needsUpdate = true;
     this.host.garment.details.update(p, this.topo.triangles, geometry.getAttribute('normal').array);
     if (t < 1) return;

@@ -158,15 +158,15 @@ async function boot(): Promise<void> {
   shell.setRecordSource(() =>
     view.isLive ? (view.output.srcObject as MediaStream | null) : camera.stream,
   );
-  // Review H4: a click while starting cancels; clicks closer than 800 ms apart are ignored, so a
-  // double-click cannot start and immediately cancel (or start twice).
-  let lastToggle = 0;
-  shell.onDecartToggle(() => {
-    const now = performance.now();
-    if (now - lastToggle < 800) return;
-    lastToggle = now;
+  // Separate Start and Stop buttons (user 06:49): a jacket card only selects the jacket; Decart
+  // runs only from Start. Review H4 still holds: start() refuses a second attempt while one is
+  // pending or live, and Stop cancels a pending start (and frees it for the next Start).
+  shell.onDecartStart(() => {
+    if (view.isLive || view.isStarting) return;
+    void view.start();
+  });
+  shell.onDecartStop(() => {
     if (view.isLive || view.isStarting) void view.stop('stopped by user');
-    else void view.start();
   });
   await view.init();
 }

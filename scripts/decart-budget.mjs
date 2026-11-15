@@ -30,10 +30,11 @@ const MAX_SESSION_S = Math.max(...Object.values(SESSION_LIMITS_S));
 export const DEFAULT_MAX_TOTAL_S = 900;
 /** Accepted range for DECART_MAX_TOTAL_S (one trial session .. 10 h). */
 export const MAX_TOTAL_RANGE_S = [SESSION_LIMIT_S, 36000];
-/** DECART_MAX_USD default and ceiling: the user's own top-up limit, $30 in total
- *  (USER-RULES 2026-11-15 00:45). A higher value is refused, not clamped. */
+/** DECART_MAX_USD default and ceiling. The default stays $30 (USER-RULES 2026-11-15 00:45); at
+ *  06:45 the user lifted the $30 ceiling ("remove the cap, I will watch the money myself"), so
+ *  .env may set up to $999. A higher value is refused, not clamped. */
 export const DEFAULT_MAX_USD = 30;
-export const MAX_USD_CEILING = 30;
+export const MAX_USD_CEILING = 999;
 /** USD per streamed second for lucy-vton 3.6/3.5 at 720p, standard speed.
  *  Source: https://docs.platform.decart.ai/getting-started/pricing (read 2026-11-15). */
 export const USD_PER_SECOND = 0.02;

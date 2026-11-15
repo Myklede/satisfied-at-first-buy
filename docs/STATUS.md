@@ -1,3 +1,23 @@
+# Current Studio handoff — 2026-11-15, P34b (window closed 05:00)
+
+P34b A and C are complete; the rolling review window closed at 05:00. Source/CPU review was paused from the lead's 04:20 USER TEST through the cutoff, with no explicit lift received. That interval is not claimed as source or runtime acceptance. This section supersedes the older readiness summaries below. No app/package edit, browser/Vite job, Decart session, key access, upload, push or service restart was performed by CX-DAY.
+
+**Hold interval:** source scans paused automatically at 04:20:38; no CPU probe or new API/browser work ran during the hold. Only safe documentation/coordination continued. The read-only watcher exited normally at 05:00:00; no CX-DAY process or browser/heavy lease remains.
+
+- **Collar sweep:** [67-line report](look/collar-sweep.md) and [126 synthetic cases](look/collar-sweep.csv), `c311d20` plus clarification `c22d4cd`. Health was checked first; loopback requests completed at 03:31. BMI-grid S collar tight/snug: male 44/54, female 25/54; 18 extra controls are separate. All fits converged and all warn that limited-input shape needs tape validation. Eleven decreasing neck-height edges are HIGH model/section-consistency observations, with all input pairs recorded; no monotonic clamp or comfort guarantee.
+- **Truth audit:** [current findings](requests/CX-DAY-truth-audit.md), `2b6b2d8`, `32902c2`, `c22d4cd`. FL `5367662` and its new scripted physics image resolve the missing collar tint/notes path. The tight-priority fix passes the cached 756-state probe, but three snug states still disappear under Loose. Recommendation/estimated-grade cues and pending-size fallback disclosure remain owner follow-ups. These are source/cached-response checks and inspection of existing owner images, not our browser run.
+- **Submission refresh:** `f8a5c0f` updates [submission](SUBMISSION.md), the [180-second script](DEMO-SCRIPT-2MIN.md) and [23-question Q&A](JUDGE-QA.md) for Look-first, scroll-to-see-through, warm S/M/L, image notes, conditional collar comparison and hem pull. Measured examples retain FL/ZB RESULT scope; real-person/cloud/billing figures stay TBD. Earlier story/shot-list/claim-register drafts require the stated reconciliation before use; nothing was submitted.
+
+Validation: `node --test --test-concurrency=1 scripts/research/collar-sweep.test.mjs` **7/7 pass**; scoped ESLint/Prettier pass. Offline report regeneration confirms 126 cases, 67 CSV columns and 67 Markdown lines. Published-document checks pass 35 local links, six contiguous beats totaling 180 seconds, and 23 Q&A. Full app/backend suites and startup were not run under this task's no-browser/no-Vite restriction.
+
+Reproduce the report without service work: `node scripts/research/collar-report.mjs` (saved ignored P34b cache required). The request runner is `node scripts/research/collar-sweep.mjs`; do not repeat fresh fits during user/demo timing. `/fit/garment` also queues background cloth warming, so one client request at a time does not mean one backend job. Gates stop new client requests, not service work already queued.
+
+Use the existing `/studio.html` services; this task starts/restarts none. Only the user starts Decart, uses free credits first and approves/performs top-ups within the $30 total rule. DC RESULT 4/5 reports security fixes and echoed token constraints; the lead owns confirmation of the running server version. A configured budget is not a certified billing ceiling. Current real-camera acceptance and the section/comfort model remain unvalidated. Next: owners resolve the retained findings and supply scoped fixes/results after the hold is lifted; the owner supplies approved public footage and final submission links. Foreign working changes and the shared append-only sync log are not staged with these docs.
+
+---
+
+## Previous handoff — prompt 32b, preserved historical scope
+
 # Current Studio handoff — 2026-11-15, prompt 32b
 
 The user pivoted to **Decart photoreal video + our local Fit Lab**. This section supersedes the older product/readiness summary below; its all-local network claims do not apply to enabled Decart/Studio sessions. RC5 is frozen as the manual offline fallback. [Pivot](../prompts/31-decart-pivot-plan.md), [current submission pack](SUBMISSION.md)

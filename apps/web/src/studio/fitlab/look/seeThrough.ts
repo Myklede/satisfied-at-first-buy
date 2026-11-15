@@ -52,7 +52,7 @@ export const SEE_THROUGH = {
   fadeStart: 0.25,
   fadeEnd: 0.55,
   /** Opacity of the real jacket left at reveal 1: quilting, seams and colour stay faintly legible. */
-  film: 0.08,
+  film: 0.2, // user 06:25: the jacket read too faint in see-through; keep its form legible
   /** Tight-zone tint fades in over this reveal range (only as reveal approaches 1). */
   tintStart: 0.55,
   tintEnd: 0.95,
@@ -67,11 +67,11 @@ export const SEE_THROUGH = {
   claySpecular: 0.1,
   clayEnv: 0.45,
   /** Glass front faces: fill, fresnel rim, silhouette line (ndv threshold + opacity). */
-  front: { fill: 0.14, rim: 0.6, edge: 0.8, edgeNdv: 0.12, lines: 0.45, sheen: 0.35 },
+  front: { fill: 0.24, rim: 0.8, edge: 1.0, edgeNdv: 0.14, lines: 0.75, sheen: 0.4 },
   /** Glass back faces (the far side and the lining seen through openings): quieter. */
-  back: { fill: 0.06, rim: 0.25, edge: 0.35, edgeNdv: 0.1, lines: 0.2, sheen: 0 },
+  back: { fill: 0.1, rim: 0.35, edge: 0.5, edgeNdv: 0.1, lines: 0.35, sheen: 0 },
   glass: '#fbfaf7',
-  rim: '#ffffff',
+  rim: '#dde3ea', // light cool grey: a white rim vanished on the light panel background
   edgeColour: '#33404c',
 } as const;
 

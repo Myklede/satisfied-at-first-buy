@@ -11,11 +11,12 @@
 //   verdict  POST /fit/garment per jacket (the kiosk's request: t-shirt layer, 'regular');
 //   3D       LiveTryOnEngine with only its kiosk-look mirror, posed from the Studio's Perception
 //            (PerceptionSource, no second tracker); the S/M/L shells skinned to the same pose.
-import { Vector3, type Mesh } from 'three';
+import { Vector3, type Mesh, type Scene } from 'three';
 import { api, type GarmentFitResponse, type GarmentSpec } from '../../api';
 import type { GarmentLayer } from '../../engine/GarmentLayer';
 import type { LiveAvatar } from '../../engine/live/LiveAvatar';
 import { LiveTryOnEngine } from '../../engine/live/LiveTryOnEngine';
+import { liveNeutral } from '../../engine/live/livePose';
 import type { LiveTryOnState } from '../../engine/live/contract';
 import { skinVertices } from '../../engine/motion/rig';
 import type { Viewer } from '../../engine/Viewer';
@@ -58,13 +59,18 @@ import type {
   TightZone,
   ZoneId,
 } from './look/types';
+import { applyProductLook, disposeProductLook } from './look/productLook';
 import { createTrousersFromRest, trousersHeights, type Trousers } from './look/trousers';
 import { PerceptionSource, type FrameSize } from './perceptionSource';
 import { loadPerson, parsePerson, savePerson } from './personStore';
+import { maxAnisotropy, renderRatio, SHARP, StillDetector } from './sharpness';
 import { MeshAnchors, SizeShells, writeFitZones } from './sizes';
 import { createAnnotationLayer } from './ui/annotations';
 import { mountScrollHint } from './ui/scrollHint';
+import { enableOrbit, type FitLabOrbit } from './look/orbit';
 import { createSizePicker } from './ui/sizePicker';
+import { SliceView } from './ui/sliceView';
+import type { CtPickable, CtStack, CtStackLayer } from './look/ctTypes';
 import { buildVerdict, type FitLabVerdict } from './verdict';
 import './fitlab.css';
 
@@ -126,9 +132,31 @@ const seeThroughModules = import.meta.glob<{
 }>('./look/seeThrough.ts');
 const scrollRevealModules = import.meta.glob<{
   createScrollReveal?: (
-    opts: ScrollRevealOptions & { controls?: { target: Vector3; update(): unknown } },
-  ) => ScrollReveal;
+    opts: ScrollRevealOptions & {
+      controls?: { target: Vector3; update(): unknown };
+      ctStage?: boolean;
+      ctAim?: () => { x: number; y: number; z: number } | null;
+      onCtPhase?: (phase: number) => void;
+    },
+  ) => ScrollReveal & { ctPhase?(): number };
 }>('./look/scrollReveal.ts');
+/** CT stage layers (CL: 3D cut caps; VX: scanner + gap callouts), loaded when present. */
+// v2 contract (look/ctTypes.ts): CL's caps are a CtStackLayer that may also be CtPickable; VX's
+// scanner takes CL's pickable for hover, glow, info card and ruler.
+type CtCapFactory = (scene: Scene) => CtStackLayer & Partial<CtPickable>;
+type CtScannerFactory = (
+  scene: Scene,
+  host: HTMLElement,
+  cap?: CtPickable,
+  requestRender?: () => void,
+) => CtStackLayer;
+const ctCapModules = import.meta.glob<{ createCtCap?: CtCapFactory }>('./look/ctCap.ts');
+const ctScannerModules = import.meta.glob<{ createCtScanner?: CtScannerFactory }>(
+  './look/ctScanner.ts',
+);
+/** CS: layers in the CT stack (hem to collar) and the stack's minimum refresh interval (ms). */
+const CT_STACK_LAYERS = 7;
+const CT_STACK_REFRESH_MS = 250;
 async function optional<M, T>(
   mods: Record<string, () => Promise<M>>,
   pick: (m: M) => T | undefined,
@@ -203,6 +231,8 @@ export class FitLab implements FitLabPanel {
   private annotations?: AnnotationLayer;
   private picker?: SizePicker;
   private hint?: { hide(): void; dispose(): void };
+  /** OR: drag-to-rotate (camera only; the wheel stays the reveal's). */
+  private orbit?: FitLabOrbit;
   private trousers?: Trousers;
   private trousersFor?: object;
   private reveal = 0;
@@ -214,6 +244,17 @@ export class FitLab implements FitLabPanel {
   private bodyVersion = -1;
   private meshAnchors = new MeshAnchors();
   private pulseStart = -Infinity;
+  /** CT slice (agent CT): cross-section card; `?ct=0` turns it off. */
+  private ct?: SliceView;
+  /** CS: CT stage (wheel past the see-through): phase 0..1, its layers and the clip plane. */
+  private ctPhase = 0;
+  private ctLayers: CtStackLayer[] = [];
+  private ctCap?: CtStackLayer & Partial<CtPickable>;
+  private ctStack: CtStack | null = null;
+  private ctStackAt = -Infinity;
+  private ctAimAt = new Vector3();
+  private offCtSlice?: () => void;
+  private shellBySize = new Map<SizeLabel, GarmentLayer>();
 
   constructor(private options: FitLabOptions = {}) {
     // An explicit person wins; else the values entered on this machine (localStorage), else the
@@ -270,6 +311,7 @@ export class FitLab implements FitLabPanel {
 
   private onReveal(t: number) {
     this.reveal = t;
+    this.still.touch(performance.now());
     this.seeThrough?.setReveal(t);
     if (t > 0.05) this.hint?.hide();
   }
@@ -405,6 +447,8 @@ export class FitLab implements FitLabPanel {
       // jacket copies it through its source map), so the see-through tints it and notes anchor.
       const target = view.viewer.garment.pickTarget;
       if (target) writeFitZones(target.mesh.geometry, target.asset);
+      void applyProductLook(view.viewer.garment);
+      this.sharpenTextures();
       this.styleParts();
     });
     return this.physicsLoad;
@@ -476,11 +520,17 @@ export class FitLab implements FitLabPanel {
     this.scroll?.dispose();
     this.seeThrough?.dispose();
     this.annotations?.dispose();
+    this.offCtSlice?.();
+    for (const layer of this.ctLayers) layer.dispose();
+    this.ctLayers = [];
+    this.ct?.dispose();
     this.picker?.dispose();
     this.hint?.dispose();
+    this.orbit?.dispose();
     this.trousers?.removeFromParent();
     this.trousers?.dispose();
     this.shells?.dispose();
+    disposeProductLook();
     this.engine?.dispose();
     this.engine = undefined;
     this.root?.remove();
@@ -559,15 +609,22 @@ export class FitLab implements FitLabPanel {
     const view = engine.kioskView;
     if (!view) throw new Error('The Fit Lab 3D view could not start');
     view.viewer.setQuality(PANEL_QUALITY);
+    view.viewer.setRenderScale(renderRatio('fast'), false);
+    this.measureRender(view.viewer);
     view.frame('full');
-    // The wheel belongs to the reveal (R); no orbit, so the camera stays on the body's axis.
-    view.viewer.controls.enabled = false;
+    // OR: drag rotates (rotate only, damped, polar band); the wheel stays the reveal's (R), which
+    // keeps the orbit direction. ZB's grabs stop the pointerdown before it reaches the controls.
+    this.orbit = enableOrbit(view.viewer.controls, this.canvasHost!);
     view.viewer.idleTurntable = false;
     this.shells = new SizeShells(view.viewer);
     // Each new shell (first load, a jacket switch, a new body) is styled as soon as it exists,
     // so a new jacket is never left opaque in the see-through.
-    this.shells.onBuilt = () => {
+    this.shells.onBuilt = (shell) => {
+      // LK: the product look (photo fabric, AR material, hood drape) on the shell's own material.
+      void applyProductLook(shell.layer);
+      this.shellBySize.set(shell.size, shell.layer);
       this.styleParts();
+      this.sharpenTextures();
       this.clipTrousers();
     };
     this.offState = engine.onState((s) =>
@@ -617,11 +674,147 @@ export class FitLab implements FitLabPanel {
         controls: viewer.controls,
         framing: () => this.framing(),
         onReveal: (t) => this.onReveal(t),
+        ctStage: new URLSearchParams(location.search).get('ct') !== '0',
+        ctAim: () => this.ctAim(),
+        onCtPhase: (p) => this.onCtPhase(p),
       });
     this.annotations = createAnnotationLayer();
     this.annotations.mount(this.stage!);
+    if (new URLSearchParams(location.search).get('ct') !== '0') {
+      this.startSlice(viewer);
+      void this.startCtStage(viewer);
+    }
     if (!createSeeThrough || !createScrollReveal)
       console.warn('[fitlab] see-through / scroll reveal not available yet (R): Look only');
+  }
+
+  /** CT slice: the cross-section of the meshes on screen (see-through only). */
+  private startSlice(viewer: Viewer) {
+    const view = this.engine?.kioskView;
+    if (!view) return;
+    const physicsMesh = () =>
+      this.interactMesh?.visible ? this.interactMesh : viewer.garment.pickTarget?.mesh;
+    this.ct = new SliceView(this.stage!, {
+      scene: viewer.scene,
+      camera: viewer.camera,
+      canvas: view.canvas,
+      reveal: () => this.reveal,
+      selected: () => {
+        if (this.physics) {
+          const mesh = physicsMesh();
+          const target = viewer.garment.pickTarget;
+          // The solver's own shell: its welds close the zipped seam (ZB's opened split has none).
+          const welds = target && mesh === target.mesh ? target.asset.welds : undefined;
+          return mesh ? { mesh, solver: true, welds } : null;
+        }
+        const target = this.shells?.current()?.layer.pickTarget;
+        return target ? { mesh: target.mesh, solver: false, welds: target.asset.welds } : null;
+      },
+      ghosts: () =>
+        [...this.shellBySize.entries()].flatMap(([size, layer]) => {
+          const target = layer.parent ? layer.pickTarget : undefined;
+          return target ? [{ size, mesh: target.mesh, welds: target.asset.welds }] : [];
+        }),
+      size: () => this.shown?.size ?? 'M',
+      body: () =>
+        (viewer.body.children.find((c) => (c as { isMesh?: boolean }).isMesh) as Mesh) ?? null,
+      states: () => this.states,
+      anchorY: (zone) => {
+        const mesh = this.physics ? physicsMesh() : undefined;
+        const at = mesh
+          ? this.meshAnchors.anchor(mesh, zone, new Vector3())
+          : this.shells?.anchor(zone, new Vector3());
+        return at ? at.y : null;
+      },
+      mirrored: () => !this.physics && (this.engine?.mirrorDisplay ?? false),
+      redraw: () => viewer.controls.dispatchEvent({ type: 'change' }),
+    });
+  }
+
+  /** CS: the CT stage layers (CL's caps, VX's scanner), whichever exist. */
+  private async startCtStage(viewer: Viewer) {
+    const [cap, scanner] = await Promise.all([
+      optional(ctCapModules, (m) => m.createCtCap),
+      optional(ctScannerModules, (m) => m.createCtScanner),
+    ]).catch((e: unknown) => {
+      console.warn('[fitlab] CT stage layers failed to load', e);
+      return [undefined, undefined];
+    });
+    if (this.disposed) return;
+    try {
+      if (cap) this.ctCap = cap(viewer.scene);
+      if (this.ctCap) this.ctLayers.push(this.ctCap);
+    } catch (e) {
+      console.warn('[fitlab] CT cap layer failed', e);
+    }
+    try {
+      const pick = this.ctCap?.pick ? (this.ctCap as CtPickable) : undefined;
+      // VX's 4th arg: hover glow / pulses redraw the draw-on-change panel at once.
+      const redraw = () => viewer.controls.dispatchEvent({ type: 'change' });
+      if (scanner) this.ctLayers.push(scanner(viewer.scene, this.stage!, pick, redraw));
+    } catch (e) {
+      console.warn('[fitlab] CT scanner layer failed', e);
+    }
+    this.offCtSlice = this.ct?.onSlice(() => {
+      if (this.ctPhase > 0) this.updateCt(viewer);
+    });
+    if (this.ctPhase > 0) this.updateCt(viewer);
+  }
+
+  /** CS: CT phase from the wheel (called before the camera is placed). */
+  private onCtPhase(p: number) {
+    const was = this.ctPhase;
+    this.ctPhase = p;
+    // The camera may look down on the cut only in the CT stage; OR's band is back at phase 0.
+    this.orbit?.relax(p > 0);
+    const viewer = this.engine?.kioskView?.viewer;
+    if (!viewer || (p === 0 && was === 0)) return;
+    if (was === 0) this.ctStack = null; // a fresh stack on each entry into the stage
+    this.still.touch(performance.now());
+    this.updateCt(viewer);
+  }
+
+  /** CS: the CT camera aims between the body (close framing) and the stack's middle layer. */
+  private ctAim(): { x: number; y: number; z: number } | null {
+    const n = this.ctStack?.slices.length ?? 0;
+    const mid = n ? this.ctCap?.layerCentre?.(Math.floor(n / 2), this.ctAimAt) : null;
+    if (!mid) return null;
+    return mid.add(this.framing().closeCenter).multiplyScalar(0.5);
+  }
+
+  /** CS: CT's layer stack (hem to collar), re-cut at most every CT_STACK_REFRESH_MS. */
+  private refreshStack(force: boolean) {
+    const now = performance.now();
+    if (!force && now - this.ctStackAt < CT_STACK_REFRESH_MS) return;
+    const ct = this.ct as (SliceView & { stack?(n: number): CtStack | null }) | undefined;
+    if (!ct?.stack) return;
+    this.ctStackAt = now;
+    try {
+      this.ctStack = ct.stack(CT_STACK_LAYERS);
+    } catch (e) {
+      console.warn('[fitlab] CT stack failed', e);
+    }
+  }
+
+  /** CS: layers for the current phase and stack (no clipping in v2); asks for one redraw. */
+  private updateCt(viewer: Viewer) {
+    const p = this.ctPhase;
+    if (p > 0) this.refreshStack(this.ctStack == null);
+    this.ct?.setCtFade(p);
+    const stack = this.ctStack;
+    for (const layer of this.ctLayers) {
+      try {
+        layer.update(p, stack, viewer.camera);
+      } catch (e) {
+        console.warn('[fitlab] CT stage layer update failed', e);
+      }
+    }
+    viewer.controls.dispatchEvent({ type: 'change' });
+  }
+
+  /** CT slice cost (ms per re-slice: last and mean), for checks. */
+  sliceStats() {
+    return this.ct ? { ...this.ct.stats } : null;
   }
 
   /** Body built or rebuilt: S/M/L shells, trousers, framing, styling. */
@@ -630,6 +823,11 @@ export class FitLab implements FitLabPanel {
     const shown = this.shown;
     const f = shown && this.fits.get(shown.jacket);
     if (!avatar || !shown || !f || !this.shells) return;
+    // Idle display: until a person is tracked the avatar would stand in the rig's display A-pose
+    // (27 deg arms); show the engine's own arms-down stand instead (the same pose its
+    // nobody-tracked fallback eases to). Display only: verdicts come from the measured shell.
+    if (!this.physics)
+      avatar.applyPose(liveNeutral(avatar.live.rig.neutralPose), performance.now());
     const shells = this.shells;
     const garment = this.engine?.kioskView?.viewer.garment;
     // The S/M/L shells are built only once the engine's own jacket is on screen: by then the
@@ -745,6 +943,8 @@ export class FitLab implements FitLabPanel {
 
   private startLoop() {
     const anchor = new Vector3();
+    const mirrorRight = new Vector3();
+    const mirrorRel = new Vector3();
     const tick = () => {
       this.raf = requestAnimationFrame(tick);
       const view = this.engine?.kioskView;
@@ -754,12 +954,15 @@ export class FitLab implements FitLabPanel {
       view.viewer.garment.visible = this.physics || !this.shells?.ready;
       if (avatar && !this.physics) this.shells?.update(avatar);
       this.syncTrousers(view.viewer);
+      this.adaptQuality(view.viewer);
       const sincePulse = performance.now() - this.pulseStart;
       if (sincePulse >= 0 && sincePulse < COLLAR_PULSE_MS + 100) this.pushTight();
       const now = performance.now();
+      this.ct?.tick(now);
       if (!this.annotations || now - this.lastAnn < 50) return;
       this.lastAnn = now;
-      const visible = annotationVisibility(this.reveal);
+      // CS: the on-image notes point at parts the CT stage clips away: fade them out.
+      const visible = annotationVisibility(this.reveal) * Math.max(0, 1 - this.ctPhase / 0.3);
       const items: Annotation[] = [];
       // In physics the notes anchor on the solver's shell, or ZB's opened jacket while it shows.
       const physicsMesh = this.physics
@@ -777,10 +980,15 @@ export class FitLab implements FitLabPanel {
             ? this.meshAnchors.anchor(physicsMesh, s.zone, anchor)
             : this.shells?.anchor(s.zone, anchor);
           if (!at) continue;
-          // A CSS-mirrored canvas: the camera sits on the body's axis (x = 0), so mirroring the
-          // image equals mirroring the anchor's x.
+          // A CSS-mirrored canvas flips the image about the camera's vertical plane: reflect the
+          // anchor through that plane (the camera can orbit, so not simply x -> -x).
           const point = at.clone();
-          if (mirrored && !this.physics) point.x = -point.x;
+          if (mirrored && !this.physics) {
+            const cam = view.viewer.camera;
+            const right = mirrorRight.set(1, 0, 0).applyQuaternion(cam.quaternion);
+            const side = mirrorRel.subVectors(point, cam.position).dot(right);
+            point.addScaledVector(right, -2 * side);
+          }
           const [title, detail] = splitCallout(s);
           items.push({
             id: s.zone,
@@ -826,6 +1034,63 @@ export class FitLab implements FitLabPanel {
         keep.push(a, b, c);
     }
     trousers.geometry.setIndex(keep);
+  }
+
+  // ---------------------------------------------------------------- sharpness
+
+  private still = new StillDetector();
+  private sharpMode: 'fast' | 'full' = 'fast';
+  private sharpAo = false;
+  private renderMs = 0;
+
+  /** Fast ratio while the camera moves; full ratio (+ AO in the Look) once still for 300 ms. */
+  private adaptQuality(viewer: Viewer) {
+    const now = performance.now();
+    const mode = this.still.update(viewer.camera.position, viewer.camera.quaternion, now);
+    const ao = mode === 'full' && !this.physics && this.reveal <= SHARP.aoMaxReveal;
+    if (mode === this.sharpMode && ao === this.sharpAo) return;
+    this.sharpMode = mode;
+    this.sharpAo = ao;
+    viewer.setRenderScale(renderRatio(mode), ao);
+    // KioskMirrorView draws on change: one redraw at the new quality even if nothing moves.
+    viewer.controls.dispatchEvent({ type: 'change' });
+  }
+
+  /** Max anisotropic filtering on every jacket texture (shells, physics shell, their decals). */
+  private sharpenTextures() {
+    const viewer = this.engine?.kioskView?.viewer;
+    if (!viewer) return;
+    const layers = [viewer.garment, ...(this.shells?.layers() ?? [])];
+    const decals = layers
+      .map(
+        (l) =>
+          (l as unknown as { decalUniforms?: Record<string, { value?: unknown }> }).decalUniforms,
+      )
+      .filter((u): u is Record<string, { value?: unknown }> => !!u);
+    maxAnisotropy(layers, viewer.renderer.capabilities.getMaxAnisotropy(), decals);
+  }
+
+  /** CPU time of the panel's composer draw (exponential mean), for renderStats(). */
+  private measureRender(viewer: Viewer) {
+    const composer = viewer.composer;
+    const draw = composer.render.bind(composer);
+    composer.render = (delta?: number) => {
+      const t0 = performance.now();
+      draw(delta);
+      this.renderMs = this.renderMs * 0.9 + (performance.now() - t0) * 0.1;
+    };
+  }
+
+  /** Panel render diagnostics: pixel ratio, AO, draws per second, CPU ms per draw. */
+  renderStats() {
+    const view = this.engine?.kioskView;
+    return {
+      pixelRatio: view?.viewer.renderer.getPixelRatio() ?? null,
+      mode: this.sharpMode,
+      ao: this.sharpAo,
+      drawFps: view?.drawFps ?? 0,
+      renderMs: Math.round(this.renderMs * 100) / 100,
+    };
   }
 
   private syncTrousers(viewer: Viewer) {

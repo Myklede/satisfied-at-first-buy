@@ -204,6 +204,12 @@ export class DecartView {
         this.log('(hood removed by prompt; reference shows hood)', 'warn');
       this.onState(); // the state may have moved while connecting
     } catch (err) {
+      if (attempt.cancelled) {
+        // Stopped by the user meanwhile; a newer Start may own the status now.
+        if (current) await this.end(current, 'cancelled while connecting');
+        this.log(`cancelled start ended: ${errText(err)}`, 'warn');
+        return;
+      }
       if (current) await this.end(current, 'start failed', false, true);
       this.fail(err);
     } finally {
@@ -213,12 +219,20 @@ export class DecartView {
 
   private cancelled(): void {
     this.log('Decart start cancelled');
-    this.deps.onStatus({ kind: 'idle' });
+    // Stop already reported idle; a newer Start may be running and owns the status.
+    if (!this.attempt && !this.live) this.deps.onStatus({ kind: 'idle' });
   }
 
   /** Stop button / tab hide / unload: cancels a pending start and ends the live session. */
   async stop(reason: string, unloading = false): Promise<void> {
-    if (this.attempt) this.attempt.cancelled = true;
+    // Release the pending attempt at once: a slow connect/openSession must not keep isStarting
+    // true after Stop, or the next Start is refused (user report 06:49). The cancelled attempt
+    // still cleans up its own session (alive() is false after every await).
+    if (this.attempt) {
+      this.attempt.cancelled = true;
+      this.attempt = null;
+      this.deps.onStatus({ kind: 'idle' });
+    }
     const current = this.live;
     if (current) await this.end(current, reason, unloading);
   }

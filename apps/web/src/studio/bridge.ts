@@ -63,6 +63,8 @@ export interface StudioBridge {
   setFitLab(link: FitLabLink | null): void;
   /** Enter the Fit Lab physics now (e.g. a "try the zip" button), before any pinch. */
   prewarm(): void;
+  /** Diagnostics: the Fit Lab InteractController while physics runs. */
+  interact(): FitLabPhysics['interact'];
   /** Draws the current hand cursor / grab feedback into `canvas` once (device-pixel sized). */
   drawOverlay(canvas: HTMLCanvasElement, view?: Partial<OverlayView>): void;
   /** Keeps `canvas` sized to its CSS box and redrawn every display frame. Returns detach(). */
@@ -203,6 +205,7 @@ export function createBridge(options: BridgeOptions): StudioBridge {
   return {
     setFitLab,
     prewarm: () => physics?.prewarm(),
+    interact: () => physics?.interact,
     drawOverlay,
     attachOverlay,
     snapshot: () => ({

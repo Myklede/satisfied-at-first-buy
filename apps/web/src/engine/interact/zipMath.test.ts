@@ -159,3 +159,25 @@ describe('interaction texts', () => {
     expect(interactHint({ ...base, hasHood: false })).not.toMatch(/hood/);
   });
 });
+
+describe('lofted split material (ZB 2026-11-15)', () => {
+  it('per garment: puffer stiffest (loft cubed), parka firm, thin shells unchanged', async () => {
+    const { splitMaterial, LOFTED_SPLIT } = await import('./config');
+    const base = {
+      hingeCompliance: 1e-3,
+      bendCompliance: 2e-4,
+      iterations: 2,
+      dampingPerSecond: 3,
+      loftMinimumRatio: 0.25,
+    };
+    expect(splitMaterial(base, 0.002)).toBe(base); // thin shell: unchanged
+    const parka = splitMaterial(base, 0.01); // parka FB7675-100, loft 1.0 cm: firm, heavy drape
+    expect(parka.hingeCompliance).toBeCloseTo(1e-3 / 5, 12);
+    expect(parka.hingePasses).toBe(2);
+    const puffer = splitMaterial(base, 0.0275); // puffer DQ4920-206, loft 2.75 cm
+    expect(puffer.hingeCompliance).toBeCloseTo(1e-3 / 2.75 ** 3, 12);
+    expect(puffer.hingePasses).toBe(LOFTED_SPLIT.hingePasses);
+    expect(puffer.dampingPerSecond).toBeGreaterThan(base.dampingPerSecond);
+    expect(puffer.loftMinimumRatio).toBe(0.6);
+  });
+});

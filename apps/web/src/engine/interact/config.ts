@@ -128,3 +128,94 @@ export const INTERACT = {
   /** Hover glow / grab pick radius around the zip pull (px), UX. */
   pullPickPx: 30,
 } as const;
+
+/**
+ * Split-solver material for LOFTED jackets (agent ZB, 2026-11-15; user: "the puffer is floppy and
+ * watery, it should be thick and hold its shape"). Applied only to the zip/hood split solver of a
+ * jacket whose loft (product loft_cm -> asset.maximum_loft_m) is at least minLoftM: the puffer
+ * DQ4920-206 (loft 2.75 cm); the parka FB7675-100 (loft 1.0 cm) gets PADDED_SPLIT below. The
+ * measured shell solver (fit numbers, the hem pull's give) is never changed.
+ */
+export const LOFTED_SPLIT = {
+  /** m. Threshold between the two products' loft (1.0 vs 2.75 cm, data/products *.json). */
+  minLoftM: 0.02,
+  /**
+   * Reference loft (m) of the unchanged shell config. Bending stiffness of a quilted panel grows
+   * with its thickness cubed (plate theory, D = E t^3 / 12(1 - nu^2)), so the hinge (shape-memory)
+   * compliance is divided by (loft / referenceLoftM)^3: x20.8 stiffer at 2.75 cm.
+   */
+  referenceLoftM: 0.01,
+  /**
+   * Hinge Gauss-Seidel passes per substep. With one sweep per substep the hinges cannot converge
+   * however small their compliance (alpha << 1/m already). Visual A/B on the puffer (.cache/zb/zip):
+   * 4 passes + 4 iterations part the opened fronts as thick panels; 3 + 3 let them fall back
+   * together (tuned visually for a down puffer). Cost: split step p50 ~65 ms vs ~42-54 ms.
+   */
+  hingePasses: 4,
+  /** Stretch sweeps per substep (shell config 2): lower stretch / less rubber-band sag (visual). */
+  iterations: 4,
+  /** 1/s velocity decay (shell config 3, "air/fill damping"): a lofted fill damps ripples (visual). */
+  dampingPerSecond: 9,
+  /** Compressed-fill floor (shell config 0.25): the fill keeps 60 % of its loft off the body, so
+   *  the panels hold their volume (tuned visually for a down puffer; not a measured modulus). */
+  loftMinimumRatio: 0.6,
+} as const;
+
+/**
+ * Split-solver material for PADDED (insulated, not lofted-down) jackets: the parka FB7675-100
+ * (loft 1.0 cm, "100% polyester; synthetic insulation"). User 2026-11-15: a thick padded parka
+ * holds its silhouette with a heavy drape, never hangs like a sheet. Firmer than the shell config,
+ * softer than the puffer (tuned visually; see .cache/zb/zip before/after shots).
+ */
+export const PADDED_SPLIT = {
+  /** m. Below this loft the shell config is used unchanged. */
+  minLoftM: 0.005,
+  /** Hinge compliance divisor (visual: firm panel with drape; the puffer's is (2.75)^3 = 20.8). */
+  hingeStiffer: 5,
+  /**
+   * 2 / 2 (the shell's own sweep count + one hinge pass more): the long parka has ~2x the puffer's
+   * opened region, and 3 / 3 slowed its split step to ~70 ms so it took > 10 s to settle and
+   * restore after closing (e2e 04:08-04:13); the stiffness comes from hingeStiffer instead.
+   */
+  hingePasses: 2,
+  iterations: 2,
+  /** 1/s velocity decay (shell 3): a heavy padded drape settles without ringing (visual). */
+  dampingPerSecond: 6,
+  /**
+   * Compressed-fill floor: the shell's own 0.25 is kept. 0.4 was tried: the opened parka then never
+   * came to rest (fill floor fighting the measured shell's contact), so it never restored to the
+   * measured shell and the hem pull could not start (e2e 2026-11-15 04:08).
+   */
+  loftMinimumRatio: 0,
+} as const;
+
+/**
+ * The split solver's config for an asset, per garment by its loft: lofted (puffer) stiffest and
+ * loftiest, padded (parka) firm with a heavy drape, anything thinner unchanged.
+ */
+export function splitMaterial(config: Record<string, number>, maximumLoftM: number) {
+  let stiffer: number,
+    m: {
+      hingePasses: number;
+      iterations: number;
+      dampingPerSecond: number;
+      loftMinimumRatio: number;
+    };
+  if (maximumLoftM >= LOFTED_SPLIT.minLoftM) {
+    const ratio = maximumLoftM / LOFTED_SPLIT.referenceLoftM;
+    stiffer = ratio * ratio * ratio;
+    m = LOFTED_SPLIT;
+  } else if (maximumLoftM >= PADDED_SPLIT.minLoftM) {
+    stiffer = PADDED_SPLIT.hingeStiffer;
+    m = PADDED_SPLIT;
+  } else return config;
+  return {
+    ...config,
+    hingeCompliance: (config.hingeCompliance ?? 0) / stiffer,
+    bendCompliance: (config.bendCompliance ?? 0) / stiffer,
+    hingePasses: m.hingePasses,
+    iterations: Math.max(config.iterations ?? 1, m.iterations),
+    dampingPerSecond: Math.max(config.dampingPerSecond ?? 0, m.dampingPerSecond),
+    loftMinimumRatio: Math.max(config.loftMinimumRatio ?? 0, m.loftMinimumRatio),
+  };
+}
