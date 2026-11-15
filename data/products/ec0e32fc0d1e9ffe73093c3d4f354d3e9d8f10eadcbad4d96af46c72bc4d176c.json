@@ -1,0 +1,332 @@
+{
+  "product_id": "ec0e32fc0d1e9ffe73093c3d4f354d3e9d8f10eadcbad4d96af46c72bc4d176c",
+  "url": "https://www.ebay.com/itm/278055652565",
+  "brand": "Nike",
+  "category": "jacket",
+  "chart_type": "garment",
+  "unit": "cm",
+  "owned_size": "S",
+  "sizes": {
+    "S": {
+      "shoulder": {
+        "value_cm": 47.0,
+        "source": "tape_measured",
+        "source_detail": "User tape, zipped and laid flat; Update 2. shoulder: 47 cm, measured along the stated endpoints."
+      },
+      "chest": {
+        "value_cm": 120.0,
+        "source": "tape_measured",
+        "source_detail": "User tape, zipped and laid flat; Update 2. Raw flat 60 cm × 2 = 120 cm circumference."
+      },
+      "hem": {
+        "value_cm": 110.0,
+        "source": "tape_measured",
+        "source_detail": "User tape, zipped and laid flat; Update 2. Raw flat 55 cm × 2 = 110 cm circumference. Elastic hem measured relaxed; stretched maximum was not supplied."
+      },
+      "length_hps": {
+        "value_cm": 65.0,
+        "source": "tape_measured",
+        "source_detail": "User tape, zipped and laid flat; Update 2. length_hps: 65 cm, measured along the stated endpoints."
+      },
+      "sleeve": {
+        "value_cm": 65.0,
+        "source": "tape_measured",
+        "source_detail": "User tape, zipped and laid flat; Update 2. sleeve: 65 cm, measured along the stated endpoints."
+      },
+      "bicep": {
+        "value_cm": 48.0,
+        "source": "tape_measured",
+        "source_detail": "User tape, zipped and laid flat; Update 2. Raw flat 24 cm × 2 = 48 cm circumference."
+      },
+      "collar_inner": {
+        "value_cm": 35.0,
+        "source": "tape_measured",
+        "source_detail": "user tape measurement 2026-11-12; zipped collar, top inner edge circumference; puffer size S only."
+      },
+      "collar_height": {
+        "value_cm": 8.0,
+        "source": "tape_measured",
+        "source_detail": "user tape measurement 2026-11-12; collar seam to top inner edge height; puffer size S only."
+      }
+    },
+    "XS": {
+      "chest": {
+        "value_cm": 112.35000000000001,
+        "source": "derived_grading",
+        "source_detail": "Owned S outer chest 120 + Nike body-chart midpoint grade -7.65 cm. Equivalent to constant inner design ease with unchanged loft. Hem uses hip chart grade; estimated. No shoulder, length, sleeve or bicep grade is assumed."
+      },
+      "hem": {
+        "value_cm": 102.35000000000001,
+        "source": "derived_grading",
+        "source_detail": "Owned S outer hem 110 + Nike body-chart midpoint grade -7.65 cm. Equivalent to constant inner design ease with unchanged loft. Hem uses hip chart grade; estimated. No shoulder, length, sleeve or bicep grade is assumed."
+      }
+    },
+    "M": {
+      "chest": {
+        "value_cm": 127.6,
+        "source": "derived_grading",
+        "source_detail": "Owned S outer chest 120 + Nike body-chart midpoint grade +7.6 cm. Equivalent to constant inner design ease with unchanged loft. Hem uses hip chart grade; estimated. No shoulder, length, sleeve or bicep grade is assumed."
+      },
+      "hem": {
+        "value_cm": 117.6,
+        "source": "derived_grading",
+        "source_detail": "Owned S outer hem 110 + Nike body-chart midpoint grade +7.6 cm. Equivalent to constant inner design ease with unchanged loft. Hem uses hip chart grade; estimated. No shoulder, length, sleeve or bicep grade is assumed."
+      }
+    },
+    "L": {
+      "chest": {
+        "value_cm": 135.85,
+        "source": "derived_grading",
+        "source_detail": "Owned S outer chest 120 + Nike body-chart midpoint grade +15.85 cm. Equivalent to constant inner design ease with unchanged loft. Hem uses hip chart grade; estimated. No shoulder, length, sleeve or bicep grade is assumed."
+      },
+      "hem": {
+        "value_cm": 125.85,
+        "source": "derived_grading",
+        "source_detail": "Owned S outer hem 110 + Nike body-chart midpoint grade +15.85 cm. Equivalent to constant inner design ease with unchanged loft. Hem uses hip chart grade; estimated. No shoulder, length, sleeve or bicep grade is assumed."
+      }
+    },
+    "XL": {
+      "chest": {
+        "value_cm": 145.4,
+        "source": "derived_grading",
+        "source_detail": "Owned S outer chest 120 + Nike body-chart midpoint grade +25.4 cm. Equivalent to constant inner design ease with unchanged loft. Hem uses hip chart grade; estimated. No shoulder, length, sleeve or bicep grade is assumed."
+      },
+      "hem": {
+        "value_cm": 133.5,
+        "source": "derived_grading",
+        "source_detail": "Owned S outer hem 110 + Nike body-chart midpoint grade +23.5 cm. Equivalent to constant inner design ease with unchanged loft. Hem uses hip chart grade; estimated. No shoulder, length, sleeve or bicep grade is assumed."
+      }
+    }
+  },
+  "fabric": {
+    "composition": "100% polyester ripstop shell; Thermore EcoDown synthetic insulation"
+  },
+  "notes": "Source: user-approved prompts/02b-demo-jackets-addendum.md Update 2. Nike chart is BODY data, stored separately; other garment girths are explicitly derived grading. Owned shoulder/sleeve geometry is authorised. Missing dimensions stay absent. Loft is an effective shell thickness estimate, not a direct lining-girth measurement.",
+  "title": "Nike Life Therma-FIT Men's Puffer",
+  "style": "DQ4920-206",
+  "colourway": "Rattan/Rattan",
+  "url_aliases": [
+    "https://www.nike.com/t/life-therma-fit-mens-puffer-jacket-dt05Gx"
+  ],
+  "construction": "set_in",
+  "fit_intent": "loose",
+  "loft_cm": 2.75,
+  "loft_uncertainty_cm": 0.25,
+  "hem_elastic": true,
+  "body_chart_type": "body",
+  "body_chart": {
+    "XS": {
+      "chest": {
+        "min_cm": 80.0,
+        "max_cm": 88.9,
+        "source": "retailer_chart",
+        "source_detail": "https://www.nike.com/size-fit/mens_tops_alpha; body range, not garment size"
+      },
+      "waist": {
+        "min_cm": 64.8,
+        "max_cm": 73.7,
+        "source": "retailer_chart",
+        "source_detail": "https://www.nike.com/size-fit/mens_tops_alpha; body range, not garment size"
+      },
+      "hip": {
+        "min_cm": 80.0,
+        "max_cm": 88.9,
+        "source": "retailer_chart",
+        "source_detail": "https://www.nike.com/size-fit/mens_tops_alpha; body range, not garment size"
+      }
+    },
+    "S": {
+      "chest": {
+        "min_cm": 88.9,
+        "max_cm": 95.3,
+        "source": "retailer_chart",
+        "source_detail": "https://www.nike.com/size-fit/mens_tops_alpha; body range, not garment size"
+      },
+      "waist": {
+        "min_cm": 73.7,
+        "max_cm": 81.3,
+        "source": "retailer_chart",
+        "source_detail": "https://www.nike.com/size-fit/mens_tops_alpha; body range, not garment size"
+      },
+      "hip": {
+        "min_cm": 88.9,
+        "max_cm": 95.3,
+        "source": "retailer_chart",
+        "source_detail": "https://www.nike.com/size-fit/mens_tops_alpha; body range, not garment size"
+      }
+    },
+    "M": {
+      "chest": {
+        "min_cm": 95.3,
+        "max_cm": 104.1,
+        "source": "retailer_chart",
+        "source_detail": "https://www.nike.com/size-fit/mens_tops_alpha; body range, not garment size"
+      },
+      "waist": {
+        "min_cm": 81.3,
+        "max_cm": 88.9,
+        "source": "retailer_chart",
+        "source_detail": "https://www.nike.com/size-fit/mens_tops_alpha; body range, not garment size"
+      },
+      "hip": {
+        "min_cm": 95.3,
+        "max_cm": 104.1,
+        "source": "retailer_chart",
+        "source_detail": "https://www.nike.com/size-fit/mens_tops_alpha; body range, not garment size"
+      }
+    },
+    "L": {
+      "chest": {
+        "min_cm": 104.1,
+        "max_cm": 111.8,
+        "source": "retailer_chart",
+        "source_detail": "https://www.nike.com/size-fit/mens_tops_alpha; body range, not garment size"
+      },
+      "waist": {
+        "min_cm": 88.9,
+        "max_cm": 96.5,
+        "source": "retailer_chart",
+        "source_detail": "https://www.nike.com/size-fit/mens_tops_alpha; body range, not garment size"
+      },
+      "hip": {
+        "min_cm": 104.1,
+        "max_cm": 111.8,
+        "source": "retailer_chart",
+        "source_detail": "https://www.nike.com/size-fit/mens_tops_alpha; body range, not garment size"
+      }
+    },
+    "XL": {
+      "chest": {
+        "min_cm": 111.8,
+        "max_cm": 123.2,
+        "source": "retailer_chart",
+        "source_detail": "https://www.nike.com/size-fit/mens_tops_alpha; body range, not garment size"
+      },
+      "waist": {
+        "min_cm": 96.5,
+        "max_cm": 109.2,
+        "source": "retailer_chart",
+        "source_detail": "https://www.nike.com/size-fit/mens_tops_alpha; body range, not garment size"
+      },
+      "hip": {
+        "min_cm": 111.8,
+        "max_cm": 119.4,
+        "source": "retailer_chart",
+        "source_detail": "https://www.nike.com/size-fit/mens_tops_alpha; body range, not garment size"
+      }
+    }
+  },
+  "visual": {
+    "quilting": {
+      "value": "horizontal",
+      "source": "photo_estimate",
+      "approximate": true,
+      "source_detail": "User-approved prompts/03-realism.md Part B; Claude's photo estimates scaled by owned HPS length. "
+    },
+    "chamber_height": {
+      "value_cm": 14.5,
+      "source": "photo_estimate",
+      "approximate": true,
+      "uncertainty_cm": 1.5,
+      "source_detail": "User-approved prompts/03-realism.md Part B; Claude's photo estimates scaled by owned HPS length. Approximate, not garment tape; user may override."
+    },
+    "yoke_depth": {
+      "value_cm": 7.0,
+      "source": "photo_estimate",
+      "approximate": true,
+      "uncertainty_cm": 1.5,
+      "source_detail": "User-approved prompts/03-realism.md Part B; Claude's photo estimates scaled by owned HPS length. Approximate, not garment tape; user may override."
+    },
+    "sleeve_chamber_height": {
+      "value_cm": 10.5,
+      "source": "photo_estimate",
+      "approximate": true,
+      "uncertainty_cm": 1.0,
+      "source_detail": "User-approved prompts/03-realism.md Part B; Claude's photo estimates scaled by owned HPS length. Approximate, not garment tape; user may override."
+    },
+    "hood": {
+      "value": "removable",
+      "source": "retailer_copy",
+      "approximate": false,
+      "source_detail": "User-approved prompts/03-realism.md Part B; Claude's photo estimates scaled by owned HPS length. "
+    },
+    "hood_features": [
+      {
+        "value": "quilted_centre_panel",
+        "source": "photo_estimate",
+        "approximate": true,
+        "source_detail": "User-approved prompts/03-realism.md Part B; Claude's photo estimates scaled by owned HPS length. "
+      },
+      {
+        "value": "metal_attachment_zip",
+        "source": "retailer_copy",
+        "approximate": false,
+        "source_detail": "User-approved prompts/03-realism.md Part B; Claude's photo estimates scaled by owned HPS length. "
+      },
+      {
+        "value": "side_panels",
+        "source": "retailer_copy",
+        "approximate": false,
+        "source_detail": "User-approved prompts/03-realism.md Part B; Claude's photo estimates scaled by owned HPS length. "
+      }
+    ],
+    "front": {
+      "value": "storm_flap",
+      "source": "retailer_copy",
+      "approximate": false,
+      "source_detail": "User-approved prompts/03-realism.md Part B; Claude's photo estimates scaled by owned HPS length. "
+    },
+    "storm_flap_width": {
+      "value_cm": 6.5,
+      "source": "photo_estimate",
+      "approximate": true,
+      "uncertainty_cm": 1.0,
+      "source_detail": "User-approved prompts/03-realism.md Part B; Claude's photo estimates scaled by owned HPS length. Approximate, not garment tape; user may override."
+    },
+    "pockets": {
+      "value": "angled_welt",
+      "source": "retailer_copy",
+      "approximate": false,
+      "source_detail": "User-approved prompts/03-realism.md Part B; Claude's photo estimates scaled by owned HPS length. "
+    },
+    "pocket_top": {
+      "value_cm": 37.0,
+      "source": "photo_estimate",
+      "approximate": true,
+      "uncertainty_cm": 2.0,
+      "source_detail": "User-approved prompts/03-realism.md Part B; Claude's photo estimates scaled by owned HPS length. Approximate, not garment tape; user may override."
+    },
+    "pocket_length": {
+      "value_cm": 16.0,
+      "source": "photo_estimate",
+      "approximate": true,
+      "uncertainty_cm": 1.0,
+      "source_detail": "User-approved prompts/03-realism.md Part B; Claude's photo estimates scaled by owned HPS length. Approximate, not garment tape; user may override."
+    },
+    "cuffs": {
+      "value": "hook_and_loop",
+      "source": "photo_estimate",
+      "approximate": true,
+      "source_detail": "User-approved prompts/03-realism.md Part B; Claude's photo estimates scaled by owned HPS length. "
+    },
+    "hem": {
+      "value": "elastic",
+      "source": "photo_estimate",
+      "approximate": true,
+      "source_detail": "User-approved prompts/03-realism.md Part B; Claude's photo estimates scaled by owned HPS length. Men's elastic relaxed hem independently confirmed by user tape."
+    },
+    "finish": {
+      "value": "glossy_ripstop",
+      "source": "retailer_copy",
+      "approximate": false,
+      "source_detail": "User-approved prompts/03-realism.md Part B; Claude's photo estimates scaled by owned HPS length. "
+    },
+    "colour_hex": {
+      "value": "#cdb89f",
+      "source": "photo_estimate",
+      "approximate": true,
+      "source_detail": "Paper-calibrated from the user's photos, user-confirmed 2026-11-12: median of 7 regions over 3 flat-lay photos (puffer-a4-*) normalised to the US Letter sheet (reflectance 0.90) with body_service.lookdev.colour, range #c2ac93-#d7bea5, Lab about 75/+3/+14 (docs/look/jacket-reference-spec.md, night update). The user chose this swatch (B) over the studio-photo estimate #cecbbf."
+    },
+    "logo": "omitted"
+  }
+}

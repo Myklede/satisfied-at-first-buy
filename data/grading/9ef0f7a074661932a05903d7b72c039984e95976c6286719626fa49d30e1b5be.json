@@ -1,0 +1,429 @@
+{
+  "version": "chart-midpoints-free-mass-v1",
+  "body_engine": "anny-0.6.2-gate-b-v4",
+  "product_id": "9ef0f7a074661932a05903d7b72c039984e95976c6286719626fa49d30e1b5be",
+  "height_cm": 167.1,
+  "height_sd_cm": 5.5,
+  "height_source": "https://openrepository.aut.ac.nz/server/api/core/bitstreams/d707fec4-33ba-42e7-bf86-ccf9ffa9b14a/content",
+  "references": {
+    "XS": {
+      "measurements": {
+        "chest": 79.91132157365445,
+        "waist": 63.73203657674507,
+        "hip": 87.58742147827743,
+        "neck_base": 31.057161870067183,
+        "upper_arm": 18.579678833038642,
+        "wrist": 15.372199265675976,
+        "stature": 167.19820499420166,
+        "shoulder_width": 33.624757287405195,
+        "arm_length": 42.64397971328295,
+        "shoulder_arc": 38.647351338848935,
+        "back_length": 45.4001610248641
+      },
+      "phenotypes": {
+        "gender": 1.0,
+        "age": 0.6666666666666666,
+        "african": 0.3333333333333333,
+        "asian": 0.3333333333333333,
+        "caucasian": 0.3333333333333333,
+        "height": 0.3462032675743103,
+        "weight": 0.06995018571615219,
+        "muscle": 0.9490084052085876,
+        "proportions": 0.9455007910728455,
+        "cupsize": 0.9892899394035339,
+        "firmness": 0.5105328559875488
+      },
+      "local_changes": {
+        "measure-bust-circ-incr": -0.9992385506629944,
+        "measure-waist-circ-incr": -0.09489080309867859,
+        "measure-hips-circ-incr": 0.0709523931145668,
+        "measure-shoulder-dist-incr": -0.9999867677688599,
+        "measure-upperarm-length-incr": -0.9994739890098572,
+        "measure-lowerarm-length-incr": 0.0,
+        "measure-napetowaist-dist-incr": 0.9997663497924805,
+        "measure-upperarm-circ-incr": -0.9995794892311096,
+        "measure-wrist-circ-incr": 0.0,
+        "measure-neck-circ-incr": 0.0
+      },
+      "residuals": {
+        "stature": 0.09820499420166584,
+        "chest": 0.41132157365444755,
+        "waist": 0.23203657674506672,
+        "hip": 0.08742147827743452
+      },
+      "converged": true,
+      "mass_kg_computed": 46.31522495299578
+    },
+    "S": {
+      "measurements": {
+        "chest": 86.49942356798589,
+        "waist": 70.50981410508658,
+        "hip": 94.48437039859596,
+        "neck_base": 36.582005245280364,
+        "upper_arm": 23.478570695536533,
+        "wrist": 14.672296416808377,
+        "stature": 167.11061000823975,
+        "shoulder_width": 37.96949198160664,
+        "arm_length": 49.20164375052499,
+        "shoulder_arc": 45.53033840564088,
+        "back_length": 36.21269878654997
+      },
+      "phenotypes": {
+        "gender": 1.0,
+        "age": 0.6666666666666666,
+        "african": 0.3333333333333333,
+        "asian": 0.3333333333333333,
+        "caucasian": 0.3333333333333333,
+        "height": 0.43192362785339355,
+        "weight": 0.4723522663116455,
+        "muscle": 0.6217202544212341,
+        "proportions": 0.5663294792175293,
+        "cupsize": 0.55295729637146,
+        "firmness": 0.38349443674087524
+      },
+      "local_changes": {
+        "measure-bust-circ-incr": -0.21547065675258636,
+        "measure-waist-circ-incr": 0.14311496913433075,
+        "measure-hips-circ-incr": -0.37385040521621704,
+        "measure-shoulder-dist-incr": -0.32355180382728577,
+        "measure-upperarm-length-incr": -0.3732115924358368,
+        "measure-lowerarm-length-incr": 0.0,
+        "measure-napetowaist-dist-incr": -0.47971799969673157,
+        "measure-upperarm-circ-incr": -0.3691824674606323,
+        "measure-wrist-circ-incr": 0.0,
+        "measure-neck-circ-incr": 0.0
+      },
+      "residuals": {
+        "stature": 0.010610008239751778,
+        "chest": -0.0005764320141139478,
+        "waist": 0.009814105086576319,
+        "hip": -0.01562960140404357
+      },
+      "converged": true,
+      "mass_kg_computed": 55.01080844551325
+    },
+    "M": {
+      "measurements": {
+        "chest": 93.50760729814851,
+        "waist": 77.50392087169624,
+        "hip": 101.51509486421264,
+        "neck_base": 36.32978750520618,
+        "upper_arm": 27.973248413211515,
+        "wrist": 14.77059890881391,
+        "stature": 167.0999526977539,
+        "shoulder_width": 39.801600665843836,
+        "arm_length": 49.51275381917162,
+        "shoulder_arc": 48.01785107507135,
+        "back_length": 36.532405090982934
+      },
+      "phenotypes": {
+        "gender": 1.0,
+        "age": 0.6666666666666666,
+        "african": 0.3333333333333333,
+        "asian": 0.3333333333333333,
+        "caucasian": 0.3333333333333333,
+        "height": 0.43175482749938965,
+        "weight": 0.5328570604324341,
+        "muscle": 0.4463356137275696,
+        "proportions": 0.5839740037918091,
+        "cupsize": 0.5319424271583557,
+        "firmness": 0.7220099568367004
+      },
+      "local_changes": {
+        "measure-bust-circ-incr": 0.18606996536254883,
+        "measure-waist-circ-incr": 0.6319531202316284,
+        "measure-hips-circ-incr": 0.0679788812994957,
+        "measure-shoulder-dist-incr": 0.08628138899803162,
+        "measure-upperarm-length-incr": -0.22794286906719208,
+        "measure-lowerarm-length-incr": 0.0,
+        "measure-napetowaist-dist-incr": -0.472019761800766,
+        "measure-upperarm-circ-incr": 0.1545613408088684,
+        "measure-wrist-circ-incr": 0.0,
+        "measure-neck-circ-incr": 0.0
+      },
+      "residuals": {
+        "stature": -4.730224608806566e-05,
+        "chest": 0.007607298148514019,
+        "waist": 0.003920871696237782,
+        "hip": 0.015094864212642278
+      },
+      "converged": true,
+      "mass_kg_computed": 61.82013496756554
+    },
+    "L": {
+      "measurements": {
+        "chest": 100.540575543804,
+        "waist": 84.32887529617672,
+        "hip": 108.48072619834745,
+        "neck_base": 37.538906610690105,
+        "upper_arm": 31.878147535208328,
+        "wrist": 15.59228216504988,
+        "stature": 167.10000038146973,
+        "shoulder_width": 41.60064942323088,
+        "arm_length": 53.87258111185527,
+        "shoulder_arc": 50.102813117623256,
+        "back_length": 36.10398831000059
+      },
+      "phenotypes": {
+        "gender": 1.0,
+        "age": 0.6666666666666666,
+        "african": 0.3333333333333333,
+        "asian": 0.3333333333333333,
+        "caucasian": 0.3333333333333333,
+        "height": 0.43377363681793213,
+        "weight": 0.6408339142799377,
+        "muscle": 0.349311500787735,
+        "proportions": 0.6875075101852417,
+        "cupsize": 0.5682514309883118,
+        "firmness": 0.47638174891471863
+      },
+      "local_changes": {
+        "measure-bust-circ-incr": 0.398324579000473,
+        "measure-waist-circ-incr": 0.8432089686393738,
+        "measure-hips-circ-incr": 0.24139626324176788,
+        "measure-shoulder-dist-incr": 0.4852413535118103,
+        "measure-upperarm-length-incr": 0.4588945209980011,
+        "measure-lowerarm-length-incr": 0.0,
+        "measure-napetowaist-dist-incr": -0.4839056134223938,
+        "measure-upperarm-circ-incr": 0.4868607223033905,
+        "measure-wrist-circ-incr": 0.0,
+        "measure-neck-circ-incr": 0.0
+      },
+      "residuals": {
+        "stature": 3.814697322468419e-07,
+        "chest": 0.040575543803996084,
+        "waist": -0.17112470382328127,
+        "hip": -0.01927380165254533
+      },
+      "converged": true,
+      "mass_kg_computed": 71.19176469743252
+    },
+    "XL": {
+      "measurements": {
+        "chest": 109.57086570290897,
+        "waist": 93.03422375642629,
+        "hip": 116.26571392539307,
+        "neck_base": 46.03268470924654,
+        "upper_arm": 36.791266100398246,
+        "wrist": 17.0930495092274,
+        "stature": 167.10002422332764,
+        "shoulder_width": 43.98526940893754,
+        "arm_length": 56.908180778290394,
+        "shoulder_arc": 50.995129145506844,
+        "back_length": 35.402451117837565
+      },
+      "phenotypes": {
+        "gender": 1.0,
+        "age": 0.6666666666666666,
+        "african": 0.3333333333333333,
+        "asian": 0.3333333333333333,
+        "caucasian": 0.3333333333333333,
+        "height": 0.43506723642349243,
+        "weight": 0.7616110444068909,
+        "muscle": 0.2219659388065338,
+        "proportions": 0.7677228450775146,
+        "cupsize": 0.6863675713539124,
+        "firmness": 0.4062192142009735
+      },
+      "local_changes": {
+        "measure-bust-circ-incr": 0.5795809626579285,
+        "measure-waist-circ-incr": 0.915152907371521,
+        "measure-hips-circ-incr": 0.3956940770149231,
+        "measure-shoulder-dist-incr": 0.8724774122238159,
+        "measure-upperarm-length-incr": 0.8873527646064758,
+        "measure-lowerarm-length-incr": 0.0,
+        "measure-napetowaist-dist-incr": -0.4867800772190094,
+        "measure-upperarm-circ-incr": 0.8588955402374268,
+        "measure-wrist-circ-incr": 0.0,
+        "measure-neck-circ-incr": 0.0
+      },
+      "residuals": {
+        "stature": 2.4223327642403092e-05,
+        "chest": 0.570865702908975,
+        "waist": 0.034223756426285945,
+        "hip": 0.26571392539307226
+      },
+      "converged": true,
+      "mass_kg_computed": 84.65557403862476
+    },
+    "2XL": {
+      "measurements": {
+        "chest": 119.20776366771679,
+        "waist": 102.96000203740645,
+        "hip": 123.98510774153743,
+        "neck_base": 52.83488226870531,
+        "upper_arm": 39.28374756087871,
+        "wrist": 19.07679433382492,
+        "stature": 167.10000038146973,
+        "shoulder_width": 45.71821629853583,
+        "arm_length": 56.998297645971284,
+        "shoulder_arc": 53.61637433459357,
+        "back_length": 36.76406029871197
+      },
+      "phenotypes": {
+        "gender": 1.0,
+        "age": 0.6666666666666666,
+        "african": 0.3333333333333333,
+        "asian": 0.3333333333333333,
+        "caucasian": 0.3333333333333333,
+        "height": 0.4408591091632843,
+        "weight": 0.8707540035247803,
+        "muscle": 0.11687179654836655,
+        "proportions": 0.8463678359985352,
+        "cupsize": 0.7570961117744446,
+        "firmness": 0.31023237109184265
+      },
+      "local_changes": {
+        "measure-bust-circ-incr": 0.7704272270202637,
+        "measure-waist-circ-incr": 0.9474390149116516,
+        "measure-hips-circ-incr": 0.5025566816329956,
+        "measure-shoulder-dist-incr": 0.9201651811599731,
+        "measure-upperarm-length-incr": 0.9317171573638916,
+        "measure-lowerarm-length-incr": 0.0,
+        "measure-napetowaist-dist-incr": -0.5955828428268433,
+        "measure-upperarm-circ-incr": 0.9119052886962891,
+        "measure-wrist-circ-incr": 0.0,
+        "measure-neck-circ-incr": 0.0
+      },
+      "residuals": {
+        "stature": 3.814697322468419e-07,
+        "chest": 0.20776366771679022,
+        "waist": -0.03999796259354582,
+        "hip": -0.014892258462566588
+      },
+      "converged": true,
+      "mass_kg_computed": 98.93333435058594
+    }
+  },
+  "fields": {
+    "shoulder": {
+      "XS": {
+        "raw_delta_cm": -6.882987066791948,
+        "delta_cm": -6.882987066791948,
+        "uncertainty_cm": 3.2265495443887238
+      },
+      "S": {
+        "raw_delta_cm": 0.0,
+        "delta_cm": 0.0,
+        "uncertainty_cm": 3.0
+      },
+      "M": {
+        "raw_delta_cm": 2.4875126694304655,
+        "delta_cm": 2.4875126694304655,
+        "uncertainty_cm": 3.081875042979459
+      },
+      "L": {
+        "raw_delta_cm": 4.572474711982373,
+        "delta_cm": 4.572474711982373,
+        "uncertainty_cm": 3.1505003645475944
+      },
+      "XL": {
+        "raw_delta_cm": 5.464790739865961,
+        "delta_cm": 5.464790739865961,
+        "uncertainty_cm": 3.1798704312942117
+      },
+      "2XL": {
+        "raw_delta_cm": 8.08603592895269,
+        "delta_cm": 8.08603592895269,
+        "uncertainty_cm": 3.2661472029278262
+      }
+    },
+    "sleeve": {
+      "XS": {
+        "raw_delta_cm": -6.557664037242034,
+        "delta_cm": -6.557664037242034,
+        "uncertainty_cm": 3.215841724744651
+      },
+      "S": {
+        "raw_delta_cm": 0.0,
+        "delta_cm": 0.0,
+        "uncertainty_cm": 3.0
+      },
+      "M": {
+        "raw_delta_cm": 0.3111100686466344,
+        "delta_cm": 0.3111100686466344,
+        "uncertainty_cm": 3.0102400082439047
+      },
+      "L": {
+        "raw_delta_cm": 4.670937361330282,
+        "delta_cm": 4.670937361330282,
+        "uncertainty_cm": 3.1537412057888483
+      },
+      "XL": {
+        "raw_delta_cm": 7.706537027765407,
+        "delta_cm": 7.706537027765407,
+        "uncertainty_cm": 3.253656215755295
+      },
+      "2XL": {
+        "raw_delta_cm": 7.796653895446298,
+        "delta_cm": 7.796653895446298,
+        "uncertainty_cm": 3.256622360412655
+      }
+    },
+    "length_hps": {
+      "XS": {
+        "raw_delta_cm": 9.187462238314126,
+        "delta_cm": 0.0,
+        "uncertainty_cm": 12.187462238314126
+      },
+      "S": {
+        "raw_delta_cm": 0.0,
+        "delta_cm": 0.0,
+        "uncertainty_cm": 3.0
+      },
+      "M": {
+        "raw_delta_cm": 0.31970630443296244,
+        "delta_cm": 0.0,
+        "uncertainty_cm": 3.3197063044329624
+      },
+      "L": {
+        "raw_delta_cm": -0.10871047654938337,
+        "delta_cm": 0.0,
+        "uncertainty_cm": 3.1087104765493834
+      },
+      "XL": {
+        "raw_delta_cm": -0.8102476687124067,
+        "delta_cm": 0.0,
+        "uncertainty_cm": 3.8102476687124067
+      },
+      "2XL": {
+        "raw_delta_cm": 0.5513615121619964,
+        "delta_cm": 0.5513615121619964,
+        "uncertainty_cm": 3.0181477457623638
+      }
+    },
+    "bicep": {
+      "XS": {
+        "raw_delta_cm": -4.898891862497891,
+        "delta_cm": -4.898891862497891,
+        "uncertainty_cm": 3.161244196551397
+      },
+      "S": {
+        "raw_delta_cm": 0.0,
+        "delta_cm": 0.0,
+        "uncertainty_cm": 3.0
+      },
+      "M": {
+        "raw_delta_cm": 4.494677717674982,
+        "delta_cm": 4.494677717674982,
+        "uncertainty_cm": 3.1479397214076146
+      },
+      "L": {
+        "raw_delta_cm": 8.399576839671795,
+        "delta_cm": 8.399576839671795,
+        "uncertainty_cm": 3.2764672209347387
+      },
+      "XL": {
+        "raw_delta_cm": 13.312695404861714,
+        "delta_cm": 13.312695404861714,
+        "uncertainty_cm": 3.4381796811893444
+      },
+      "2XL": {
+        "raw_delta_cm": 15.805176865342176,
+        "delta_cm": 15.805176865342176,
+        "uncertainty_cm": 3.5202182690567443
+      }
+    }
+  },
+  "note": "Estimated model-based grades; monotone projection anchored at owned tape. Bands are uncalibrated sensitivity allowances, not brand measurements or confidence intervals."
+}

@@ -1,0 +1,4 @@
+packages/api-types/index.d.ts
+packages/api-types/openapi.json
+**/dist/
+apps/web/public/vision/

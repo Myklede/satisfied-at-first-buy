@@ -1,0 +1,326 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "KnownMeasurements": {
+      "additionalProperties": false,
+      "properties": {
+        "chest_cm": {
+          "anyOf": [
+            {
+              "maximum": 200,
+              "minimum": 45,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Chest Cm"
+        },
+        "waist_cm": {
+          "anyOf": [
+            {
+              "maximum": 200,
+              "minimum": 40,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Waist Cm"
+        },
+        "hip_cm": {
+          "anyOf": [
+            {
+              "maximum": 200,
+              "minimum": 50,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Hip Cm"
+        },
+        "shoulder_width_cm": {
+          "anyOf": [
+            {
+              "maximum": 65,
+              "minimum": 20,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Shoulder Width Cm"
+        },
+        "shoulder_arc_cm": {
+          "anyOf": [
+            {
+              "maximum": 100,
+              "minimum": 20,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Shoulder Arc Cm"
+        },
+        "arm_length_cm": {
+          "anyOf": [
+            {
+              "maximum": 100,
+              "minimum": 30,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Arm Length Cm"
+        },
+        "back_length_cm": {
+          "anyOf": [
+            {
+              "maximum": 80,
+              "minimum": 25,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Back Length Cm"
+        },
+        "upper_arm_cm": {
+          "anyOf": [
+            {
+              "maximum": 70,
+              "minimum": 12,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Upper Arm Cm"
+        },
+        "wrist_cm": {
+          "anyOf": [
+            {
+              "maximum": 35,
+              "minimum": 10,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Wrist Cm"
+        },
+        "neck_base_cm": {
+          "anyOf": [
+            {
+              "maximum": 65,
+              "minimum": 20,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Neck Base Cm"
+        }
+      },
+      "title": "KnownMeasurements",
+      "type": "object"
+    },
+    "ScanMeasurements": {
+      "additionalProperties": false,
+      "description": "Names match @satisfy/vision ScanMeasurementName. Fitted with weight 1/sigma^2.",
+      "properties": {
+        "shoulder_width_cm": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ScanValue"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "chest_cm": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ScanValue"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "waist_cm": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ScanValue"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "hip_cm": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ScanValue"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "arm_length_cm": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ScanValue"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "calibration": {
+          "default": "uncalibrated",
+          "pattern": "^[A-Za-z0-9_.:-]{1,64}$",
+          "title": "Calibration",
+          "type": "string"
+        }
+      },
+      "title": "ScanMeasurements",
+      "type": "object"
+    },
+    "ScanValue": {
+      "additionalProperties": false,
+      "description": "One @satisfy/vision ScanMeasurement: value and 1-sigma uncertainty in cm.",
+      "properties": {
+        "value_cm": {
+          "exclusiveMinimum": 0,
+          "title": "Value Cm",
+          "type": "number"
+        },
+        "sigma_cm": {
+          "maximum": 100000.0,
+          "minimum": 0.1,
+          "title": "Sigma Cm",
+          "type": "number"
+        },
+        "method": {
+          "default": "",
+          "maxLength": 400,
+          "title": "Method",
+          "type": "string"
+        }
+      },
+      "required": [
+        "value_cm",
+        "sigma_cm"
+      ],
+      "title": "ScanValue",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "height_cm": {
+      "maximum": 220,
+      "minimum": 120,
+      "title": "Height Cm",
+      "type": "number"
+    },
+    "weight_kg": {
+      "maximum": 200,
+      "minimum": 30,
+      "title": "Weight Kg",
+      "type": "number"
+    },
+    "sex": {
+      "enum": [
+        "female",
+        "male"
+      ],
+      "title": "Sex",
+      "type": "string"
+    },
+    "known_measurements": {
+      "$ref": "#/$defs/KnownMeasurements"
+    },
+    "shape_reference": {
+      "default": "neutral",
+      "enum": [
+        "neutral",
+        "african",
+        "asian",
+        "caucasian"
+      ],
+      "title": "Shape Reference",
+      "type": "string"
+    },
+    "density_kg_m3": {
+      "default": 1010.0,
+      "enum": [
+        980.0,
+        1010.0
+      ],
+      "title": "Density Kg M3",
+      "type": "number"
+    },
+    "scan_measurements": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ScanMeasurements"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "person_id": {
+      "pattern": "^[a-zA-Z0-9_-]{1,48}$",
+      "title": "Person Id",
+      "type": "string"
+    },
+    "notes": {
+      "maxLength": 2000,
+      "title": "Notes",
+      "type": "string"
+    }
+  },
+  "required": [
+    "height_cm",
+    "weight_kg",
+    "sex",
+    "person_id",
+    "notes"
+  ],
+  "title": "PersonData",
+  "type": "object"
+}

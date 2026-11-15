@@ -1,0 +1,238 @@
+.capture-lab {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  box-sizing: border-box;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 24px;
+  background: #111b20;
+  color: #eef3f0;
+  font: 17px/1.4 system-ui;
+}
+.capture-lab * {
+  box-sizing: border-box;
+}
+.capture-lab h1 {
+  margin: 4px 0;
+  font-size: 34px;
+  line-height: 1.1;
+}
+.capture-lab h2 {
+  margin: 12px 0;
+  font-size: clamp(26px, 2.6vw, 40px);
+  line-height: 1.15;
+}
+.capture-lab p {
+  margin: 4px 0;
+}
+.capture-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+.capture-eyebrow {
+  color: #a4e3c8;
+  letter-spacing: 0.12em;
+  font-size: 13px;
+}
+.capture-status {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+.capture-status b {
+  border: 1px solid #526560;
+  border-radius: 20px;
+  padding: 6px 14px;
+}
+.capture-status b.on {
+  color: #a4e3c8;
+  border-color: #a4e3c8;
+}
+.capture-status small {
+  color: #b5c7c1;
+}
+.capture-grid {
+  flex: 1;
+  min-height: 280px;
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
+  gap: 18px;
+}
+.capture-frame {
+  position: relative;
+  min-height: 0;
+  border: 1px solid #465d56;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #030707;
+}
+.capture-video-host {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+}
+.capture-video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transform: scaleX(-1);
+}
+.capture-placeholder {
+  position: absolute;
+  inset: 20px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  font-size: 24px;
+  color: #b5c7c1;
+}
+.capture-preview-note {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  right: 12px;
+  width: fit-content;
+  max-width: calc(100% - 24px);
+  padding: 5px 12px;
+  background: #071513df;
+  border-radius: 8px;
+  font-size: 13px;
+}
+.capture-cue {
+  border-radius: 16px;
+  border: 1px solid #465d56;
+  background: #1a2a2b;
+  padding: 22px;
+  overflow: auto;
+}
+.capture-countdown {
+  display: block;
+  font-size: 64px;
+  color: #a4e3c8;
+  line-height: 1.1;
+}
+.capture-progress {
+  height: 10px;
+  margin: 18px 0;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #344842;
+}
+.capture-progress i {
+  display: block;
+  height: 100%;
+  background: #a4e3c8;
+  transition: width 0.1s linear;
+}
+.capture-cue p {
+  color: #c1d1cc;
+  font-size: 15px;
+}
+.capture-cue small {
+  display: block;
+  margin-top: 14px;
+  color: #a4e3c8;
+}
+.capture-cue .capture-metrics {
+  margin-top: 14px;
+}
+.capture-controls {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.capture-controls label {
+  flex: 1;
+  min-width: 180px;
+  max-width: 340px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.capture-lab input,
+.capture-lab button {
+  font: inherit;
+  color: inherit;
+  background: #213332;
+  border: 1px solid #617c71;
+  border-radius: 10px;
+  padding: 10px 16px;
+  min-height: 44px;
+}
+.capture-lab input {
+  width: 100%;
+}
+.capture-lab button {
+  cursor: pointer;
+}
+.capture-lab button.primary {
+  background: #a4e3c8;
+  color: #10261e;
+  font-weight: 650;
+}
+.capture-lab button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.capture-lab :focus-visible {
+  outline: 3px solid #a4e3c8;
+  outline-offset: 3px;
+}
+.capture-privacy {
+  color: #b5c7c1;
+  font-size: 14px;
+}
+.capture-build {
+  border-left: 3px solid #edc57b;
+  padding: 10px 14px;
+  background: #3a301e;
+}
+.capture-build code {
+  display: block;
+  overflow-wrap: anywhere;
+}
+.capture-error {
+  color: #ffb4a8;
+}
+@media (max-height: 760px) {
+  .capture-lab {
+    padding: 14px;
+    gap: 12px;
+  }
+  .capture-lab h1 {
+    font-size: 28px;
+  }
+  .capture-cue {
+    padding: 16px;
+  }
+  .capture-lab h2 {
+    font-size: 27px;
+  }
+}
+@media (max-width: 800px) {
+  .capture-header {
+    flex-wrap: wrap;
+  }
+  .capture-status {
+    align-items: flex-start;
+  }
+  .capture-grid {
+    display: flex;
+    flex-direction: column;
+  }
+  .capture-frame {
+    min-height: 300px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .capture-progress i {
+    transition: none;
+  }
+}

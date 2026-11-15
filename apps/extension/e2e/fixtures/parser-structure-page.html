@@ -1,0 +1,72 @@
+<!doctype html>
+<!--
+  PARSER-STRUCTURE E2E FIXTURE: hand-written, NOT product data. Fake ASIN B0PARSER01, invented
+  numbers (same as services/body/tests/fixtures/fit_agent/parser-structure-garment.html).
+  It copies the structure the extension relies on: #productTitle, #feature-bullets, the size
+  dropdown, size swatches, and a "Size chart" link whose table appears only after the click
+  (as Amazon's AJAX popover does). Real pages saved by the user are tested from data/amazon-pages/.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Fixture product page (not Amazon)</title>
+  </head>
+  <body>
+    <p><strong>Parser-structure test page — not a real product.</strong></p>
+    <input type="hidden" name="ASIN" value="B0PARSER01" />
+    <h1><span id="productTitle">Fixture Brand Men's Lightweight Windbreaker Jacket</span></h1>
+    <a id="bylineInfo">Visit the Fixture Brand Store</a>
+    <div id="feature-bullets">
+      <ul>
+        <li><span>100% Nylon shell</span></li>
+        <li><span>Regular fit</span></li>
+      </ul>
+    </div>
+    <label
+      >Size:
+      <select id="native_dropdown_selected_size_name" name="dropdown_selected_size_name">
+        <option value="-1">Select</option>
+        <option value="0,B0PARSER01">Small</option>
+        <option value="1,B0PARSER01">Medium</option>
+        <option value="2,B0PARSER01">Large</option>
+        <option value="3,B0PARSER01">X-Large</option>
+      </select>
+    </label>
+    <p>Selected: <span id="selected-size">none</span></p>
+    <a href="#" id="size-chart-link">Size Chart</a>
+    <div id="popover-root"></div>
+    <script>
+      document
+        .getElementById('native_dropdown_selected_size_name')
+        .addEventListener('change', (e) => {
+          const select = e.target;
+          document.getElementById('selected-size').textContent =
+            select.options[select.selectedIndex].textContent;
+        });
+      document.getElementById('size-chart-link').addEventListener('click', (event) => {
+        event.preventDefault();
+        // Simulates Amazon filling the popover after a network round trip.
+        setTimeout(() => {
+          document.getElementById('popover-root').innerHTML = `
+            <div class="a-popover" aria-hidden="false">
+              <button class="a-button-close" data-action="a-popover-close">×</button>
+              <h4>Garment measurements (inches)</h4>
+              <table class="a-size-chart">
+                <tr><th>Size</th><th>Chest (1/2, pit to pit)</th><th>Length</th><th>Shoulder</th><th>Sleeve</th></tr>
+                <tr><td>Small</td><td>20 1/2</td><td>27</td><td>17</td><td>24.5</td></tr>
+                <tr><td>Medium</td><td>21½</td><td>28</td><td>17.75</td><td>25</td></tr>
+                <tr><td>Large</td><td>22 1/2</td><td>29</td><td>18.5</td><td>25.5</td></tr>
+                <tr><td>X-Large</td><td>23.5</td><td>30</td><td>19.25</td><td>26</td></tr>
+              </table>
+            </div>`;
+          document
+            .querySelector('[data-action="a-popover-close"]')
+            .addEventListener('click', () => {
+              document.querySelector('.a-popover').setAttribute('aria-hidden', 'true');
+              document.querySelector('.a-popover').style.display = 'none';
+            });
+        }, 400);
+      });
+    </script>
+  </body>
+</html>

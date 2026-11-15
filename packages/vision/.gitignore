@@ -1,0 +1,12 @@
+# Downloaded by `npm run fetch:models -w packages/vision` (pinned in models.lock.json).
+public/models/
+public/mediapipe/
+
+# Calibration pairs contain personal body measurements (CALIBRATION.md). Never commit.
+calibration/pairs/
+
+# Hand landmark recordings from lab/hands.html (hand geometry is body data). Never commit.
+test-data/hands/
+
+# Pose landmark recordings from lab/pose.html (body geometry is personal data). Never commit.
+test-data/pose/

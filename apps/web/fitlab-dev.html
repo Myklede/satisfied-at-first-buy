@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fit Lab dev</title>
+    <link rel="icon" href="data:," />
+    <style>
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        background: #0b0c0d;
+        color: #ddd;
+        font:
+          13px system-ui,
+          sans-serif;
+      }
+      #wrap {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        height: 100%;
+      }
+      #left {
+        padding: 12px;
+        overflow: auto;
+      }
+      #panel {
+        height: 100%;
+        min-height: 0;
+      }
+      pre {
+        white-space: pre-wrap;
+      }
+      button {
+        margin: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="wrap">
+      <div id="left">
+        <h3>Fit Lab dev (stub bus, synthetic pose, no camera)</h3>
+        <div>
+          <button data-jacket="FB7675-100">Parka FB7675-100</button>
+          <button data-jacket="DQ4920-206">Puffer DQ4920-206</button>
+          <button data-size="S">S</button><button data-size="M">M</button
+          ><button data-size="L">L</button>
+        </div>
+        <div><button data-zip="0.5">Zip open</button><button data-zip="0">Zip to top</button></div>
+        <p id="status"></p>
+        <pre id="out"></pre>
+      </div>
+      <div id="panel"></div>
+    </div>
+    <script type="module" src="/src/studio/fitlab/dev.ts"></script>
+  </body>
+</html>

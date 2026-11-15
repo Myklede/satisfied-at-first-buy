@@ -1,0 +1,47 @@
+{
+  "name": "satisfy-at-the-first-buy",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "apps/web",
+    "packages/api-types",
+    "packages/vision"
+  ],
+  "scripts": {
+    "setup:python": "node scripts/setup-python.mjs",
+    "dev": "node scripts/dev.mjs",
+    "gen:api": "node scripts/gen-api.mjs",
+    "lint": "eslint apps scripts eslint.config.mjs && prettier --check apps packages/api-types scripts *.json *.mjs && node scripts/check-python.mjs lint && node scripts/check-python.mjs format",
+    "typecheck": "npm run typecheck --workspace apps/web",
+    "test": "npm run test --workspace apps/web && node --test scripts/reference-photos.test.mjs && node scripts/check-python.mjs test",
+    "build": "npm run build --workspace apps/web",
+    "build:wasm": "node apps/web/src/engine/cloth/wasm/build.mjs",
+    "check:wasm": "node apps/web/src/engine/cloth/wasm/build.mjs --check",
+    "validate:body": "node scripts/validate-body.mjs",
+    "validate:garment": "node scripts/validate-garment.mjs",
+    "smoke:fit": "node scripts/smoke-fit.mjs",
+    "prepare:garments": "node scripts/prepare-garments.mjs",
+    "bench:web": "node scripts/bench-web.mjs",
+    "validate:realism": "node scripts/validate-realism.mjs",
+    "report:realism": "node scripts/report-realism.mjs",
+    "kiosk": "node scripts/kiosk.mjs",
+    "kiosk:assets": "node scripts/kiosk-assets.mjs",
+    "kiosk:soak": "node scripts/kiosk-soak.mjs",
+    "preflight": "node scripts/preflight.mjs",
+    "amazon-demo": "node scripts/amazon-demo.mjs",
+    "sandbox": "node scripts/sandbox.mjs",
+    "ar:score": "node scripts/ar-eval.mjs --all",
+    "ar:quick": "node scripts/ar-quick.mjs"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.39.1",
+    "assemblyscript": "0.28.20",
+    "eslint": "9.39.1",
+    "globals": "16.5.0",
+    "openapi-typescript": "7.10.1",
+    "playwright": "1.56.1",
+    "prettier": "3.6.2",
+    "typescript-eslint": "8.46.4"
+  }
+}

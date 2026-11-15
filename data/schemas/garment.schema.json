@@ -1,0 +1,689 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "BodyChartSize": {
+      "additionalProperties": false,
+      "properties": {
+        "chest": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SourcedMeasurement"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "waist": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SourcedMeasurement"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "hip": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SourcedMeasurement"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "title": "BodyChartSize",
+      "type": "object"
+    },
+    "Fabric": {
+      "additionalProperties": false,
+      "properties": {
+        "composition": {
+          "maxLength": 1000,
+          "minLength": 1,
+          "title": "Composition",
+          "type": "string"
+        },
+        "elastane_pct": {
+          "anyOf": [
+            {
+              "maximum": 100,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Elastane Pct"
+        },
+        "stretch_max": {
+          "anyOf": [
+            {
+              "maximum": 3,
+              "minimum": 1,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Stretch Max"
+        }
+      },
+      "required": [
+        "composition"
+      ],
+      "title": "Fabric",
+      "type": "object"
+    },
+    "GarmentSize": {
+      "additionalProperties": false,
+      "properties": {
+        "shoulder": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SourcedMeasurement"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "chest": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SourcedMeasurement"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "hem": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SourcedMeasurement"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "length_hps": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SourcedMeasurement"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "length_back": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SourcedMeasurement"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "sleeve": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SourcedMeasurement"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "bicep": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SourcedMeasurement"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "sleeve_cb": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SourcedMeasurement"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "chest_inner": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SourcedMeasurement"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "hem_inner": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SourcedMeasurement"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "collar_inner": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SourcedMeasurement"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "collar_height": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SourcedMeasurement"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "title": "GarmentSize",
+      "type": "object"
+    },
+    "ProductVisual": {
+      "additionalProperties": false,
+      "properties": {
+        "quilting": {
+          "$ref": "#/$defs/VisualFact"
+        },
+        "chamber_height": {
+          "$ref": "#/$defs/VisualMeasure"
+        },
+        "chamber_width": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/VisualMeasure"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "yoke_depth": {
+          "$ref": "#/$defs/VisualMeasure"
+        },
+        "sleeve_chamber_height": {
+          "$ref": "#/$defs/VisualMeasure"
+        },
+        "hood": {
+          "$ref": "#/$defs/VisualFact"
+        },
+        "hood_features": {
+          "items": {
+            "$ref": "#/$defs/VisualFact"
+          },
+          "title": "Hood Features",
+          "type": "array"
+        },
+        "front": {
+          "$ref": "#/$defs/VisualFact"
+        },
+        "storm_flap_width": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/VisualMeasure"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "pockets": {
+          "$ref": "#/$defs/VisualFact"
+        },
+        "pocket_top": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/VisualMeasure"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "pocket_length": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/VisualMeasure"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "cuffs": {
+          "$ref": "#/$defs/VisualFact"
+        },
+        "hem": {
+          "$ref": "#/$defs/VisualFact"
+        },
+        "finish": {
+          "$ref": "#/$defs/VisualFact"
+        },
+        "colour_hex": {
+          "$ref": "#/$defs/VisualFact"
+        },
+        "logo": {
+          "const": "omitted",
+          "default": "omitted",
+          "title": "Logo",
+          "type": "string"
+        }
+      },
+      "required": [
+        "quilting",
+        "chamber_height",
+        "yoke_depth",
+        "sleeve_chamber_height",
+        "hood",
+        "hood_features",
+        "front",
+        "pockets",
+        "cuffs",
+        "hem",
+        "finish",
+        "colour_hex"
+      ],
+      "title": "ProductVisual",
+      "type": "object"
+    },
+    "SourcedMeasurement": {
+      "additionalProperties": false,
+      "properties": {
+        "value_cm": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "maximum": 300,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Value Cm"
+        },
+        "min_cm": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "maximum": 300,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Min Cm"
+        },
+        "max_cm": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "maximum": 300,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Max Cm"
+        },
+        "source": {
+          "enum": [
+            "tape_measured",
+            "retailer_chart",
+            "web_lookup",
+            "derived_grading"
+          ],
+          "title": "Source",
+          "type": "string"
+        },
+        "source_detail": {
+          "maxLength": 1000,
+          "minLength": 1,
+          "title": "Source Detail",
+          "type": "string"
+        },
+        "uncertainty_cm": {
+          "anyOf": [
+            {
+              "maximum": 100,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Uncertainty Cm"
+        }
+      },
+      "required": [
+        "source",
+        "source_detail"
+      ],
+      "title": "SourcedMeasurement",
+      "type": "object"
+    },
+    "VisualFact": {
+      "additionalProperties": false,
+      "properties": {
+        "value": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Value",
+          "type": "string"
+        },
+        "source": {
+          "enum": [
+            "retailer_copy",
+            "photo_estimate",
+            "model_assumption"
+          ],
+          "title": "Source",
+          "type": "string"
+        },
+        "approximate": {
+          "title": "Approximate",
+          "type": "boolean"
+        },
+        "source_detail": {
+          "maxLength": 1200,
+          "minLength": 1,
+          "title": "Source Detail",
+          "type": "string"
+        }
+      },
+      "required": [
+        "value",
+        "source",
+        "approximate",
+        "source_detail"
+      ],
+      "title": "VisualFact",
+      "type": "object"
+    },
+    "VisualMeasure": {
+      "additionalProperties": false,
+      "properties": {
+        "value_cm": {
+          "exclusiveMinimum": 0,
+          "maximum": 200,
+          "title": "Value Cm",
+          "type": "number"
+        },
+        "source": {
+          "enum": [
+            "retailer_copy",
+            "photo_estimate",
+            "model_assumption"
+          ],
+          "title": "Source",
+          "type": "string"
+        },
+        "approximate": {
+          "title": "Approximate",
+          "type": "boolean"
+        },
+        "uncertainty_cm": {
+          "maximum": 100,
+          "minimum": 0,
+          "title": "Uncertainty Cm",
+          "type": "number"
+        },
+        "source_detail": {
+          "maxLength": 1200,
+          "minLength": 1,
+          "title": "Source Detail",
+          "type": "string"
+        }
+      },
+      "required": [
+        "value_cm",
+        "source",
+        "approximate",
+        "uncertainty_cm",
+        "source_detail"
+      ],
+      "title": "VisualMeasure",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "product_id": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Product Id",
+      "type": "string"
+    },
+    "url": {
+      "maxLength": 2000,
+      "pattern": "^https://[^\\s]+$",
+      "title": "Url",
+      "type": "string"
+    },
+    "brand": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Brand",
+      "type": "string"
+    },
+    "category": {
+      "const": "jacket",
+      "title": "Category",
+      "type": "string"
+    },
+    "chart_type": {
+      "enum": [
+        "garment",
+        "body"
+      ],
+      "title": "Chart Type",
+      "type": "string"
+    },
+    "unit": {
+      "const": "cm",
+      "default": "cm",
+      "title": "Unit",
+      "type": "string"
+    },
+    "owned_size": {
+      "anyOf": [
+        {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,23}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Owned Size"
+    },
+    "sizes": {
+      "maxProperties": 30,
+      "minProperties": 1,
+      "patternProperties": {
+        "^[A-Za-z0-9][A-Za-z0-9_.-]{0,23}$": {
+          "$ref": "#/$defs/GarmentSize"
+        }
+      },
+      "title": "Sizes",
+      "type": "object"
+    },
+    "fabric": {
+      "$ref": "#/$defs/Fabric"
+    },
+    "notes": {
+      "default": "",
+      "maxLength": 3000,
+      "title": "Notes",
+      "type": "string"
+    },
+    "title": {
+      "default": "",
+      "maxLength": 200,
+      "title": "Title",
+      "type": "string"
+    },
+    "style": {
+      "default": "",
+      "maxLength": 100,
+      "title": "Style",
+      "type": "string"
+    },
+    "colourway": {
+      "default": "",
+      "maxLength": 100,
+      "title": "Colourway",
+      "type": "string"
+    },
+    "url_aliases": {
+      "items": {
+        "maxLength": 2000,
+        "pattern": "^https://[^\\s]+$",
+        "type": "string"
+      },
+      "maxItems": 10,
+      "title": "Url Aliases",
+      "type": "array"
+    },
+    "construction": {
+      "default": "set_in",
+      "enum": [
+        "set_in",
+        "drop_shoulder",
+        "raglan"
+      ],
+      "title": "Construction",
+      "type": "string"
+    },
+    "fit_intent": {
+      "default": "regular",
+      "enum": [
+        "slim",
+        "regular",
+        "loose",
+        "oversized"
+      ],
+      "title": "Fit Intent",
+      "type": "string"
+    },
+    "loft_cm": {
+      "anyOf": [
+        {
+          "maximum": 10,
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Loft Cm"
+    },
+    "loft_uncertainty_cm": {
+      "default": 0.0,
+      "maximum": 2,
+      "minimum": 0,
+      "title": "Loft Uncertainty Cm",
+      "type": "number"
+    },
+    "hem_elastic": {
+      "default": false,
+      "title": "Hem Elastic",
+      "type": "boolean"
+    },
+    "body_chart_type": {
+      "const": "body",
+      "default": "body",
+      "title": "Body Chart Type",
+      "type": "string"
+    },
+    "body_chart": {
+      "patternProperties": {
+        "^[A-Za-z0-9][A-Za-z0-9_.-]{0,23}$": {
+          "$ref": "#/$defs/BodyChartSize"
+        }
+      },
+      "title": "Body Chart",
+      "type": "object"
+    },
+    "visual": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ProductVisual"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    }
+  },
+  "required": [
+    "product_id",
+    "url",
+    "brand",
+    "category",
+    "chart_type",
+    "sizes",
+    "fabric"
+  ],
+  "title": "GarmentSpec",
+  "type": "object"
+}

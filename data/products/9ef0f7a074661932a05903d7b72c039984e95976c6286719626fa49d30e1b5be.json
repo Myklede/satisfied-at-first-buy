@@ -1,0 +1,381 @@
+{
+  "product_id": "9ef0f7a074661932a05903d7b72c039984e95976c6286719626fa49d30e1b5be",
+  "url": "https://www.amazon.com/dp/B0C9TQTNYH",
+  "brand": "Nike",
+  "category": "jacket",
+  "chart_type": "garment",
+  "unit": "cm",
+  "owned_size": "S",
+  "sizes": {
+    "S": {
+      "shoulder": {
+        "value_cm": 60.0,
+        "source": "tape_measured",
+        "source_detail": "User tape, zipped and laid flat; Update 2. shoulder: 60 cm, measured along the stated endpoints."
+      },
+      "chest": {
+        "value_cm": 108.0,
+        "source": "tape_measured",
+        "source_detail": "User tape, zipped and laid flat; Update 2. Raw flat 54 cm × 2 = 108 cm circumference."
+      },
+      "hem": {
+        "value_cm": 108.0,
+        "source": "tape_measured",
+        "source_detail": "User tape, zipped and laid flat; Update 2. Raw flat 54 cm × 2 = 108 cm circumference."
+      },
+      "length_hps": {
+        "value_cm": 90.0,
+        "source": "tape_measured",
+        "source_detail": "User tape, zipped and laid flat; Update 2. length_hps: 90 cm, measured along the stated endpoints."
+      },
+      "sleeve": {
+        "value_cm": 53.0,
+        "source": "tape_measured",
+        "source_detail": "User tape, zipped and laid flat; Update 2. sleeve: 53 cm, measured along the stated endpoints. Corrected 53 cm replaces erroneous 70 cm. CB sleeve independently measured 82 cm."
+      },
+      "bicep": {
+        "value_cm": 40.0,
+        "source": "tape_measured",
+        "source_detail": "User tape, zipped and laid flat; Update 2. Raw flat 20 cm × 2 = 40 cm circumference."
+      },
+      "sleeve_cb": {
+        "value_cm": 82.0,
+        "source": "tape_measured",
+        "source_detail": "User tape, zipped and laid flat; Update 2. sleeve_cb: 82 cm, measured along the stated endpoints."
+      }
+    },
+    "XS": {
+      "chest": {
+        "value_cm": 101.0,
+        "source": "derived_grading",
+        "source_detail": "Owned S outer chest 108 + Nike body-chart midpoint grade -7 cm. Equivalent to constant inner design ease with unchanged loft. Hem uses hip chart grade; estimated. No shoulder, length, sleeve or bicep grade is assumed."
+      },
+      "hem": {
+        "value_cm": 101.0,
+        "source": "derived_grading",
+        "source_detail": "Owned S outer hem 108 + Nike body-chart midpoint grade -7 cm. Equivalent to constant inner design ease with unchanged loft. Hem uses hip chart grade; estimated. No shoulder, length, sleeve or bicep grade is assumed."
+      }
+    },
+    "M": {
+      "chest": {
+        "value_cm": 115.0,
+        "source": "derived_grading",
+        "source_detail": "Owned S outer chest 108 + Nike body-chart midpoint grade +7 cm. Equivalent to constant inner design ease with unchanged loft. Hem uses hip chart grade; estimated. No shoulder, length, sleeve or bicep grade is assumed."
+      },
+      "hem": {
+        "value_cm": 115.0,
+        "source": "derived_grading",
+        "source_detail": "Owned S outer hem 108 + Nike body-chart midpoint grade +7 cm. Equivalent to constant inner design ease with unchanged loft. Hem uses hip chart grade; estimated. No shoulder, length, sleeve or bicep grade is assumed."
+      }
+    },
+    "L": {
+      "chest": {
+        "value_cm": 122.0,
+        "source": "derived_grading",
+        "source_detail": "Owned S outer chest 108 + Nike body-chart midpoint grade +14 cm. Equivalent to constant inner design ease with unchanged loft. Hem uses hip chart grade; estimated. No shoulder, length, sleeve or bicep grade is assumed."
+      },
+      "hem": {
+        "value_cm": 122.0,
+        "source": "derived_grading",
+        "source_detail": "Owned S outer hem 108 + Nike body-chart midpoint grade +14 cm. Equivalent to constant inner design ease with unchanged loft. Hem uses hip chart grade; estimated. No shoulder, length, sleeve or bicep grade is assumed."
+      }
+    },
+    "XL": {
+      "chest": {
+        "value_cm": 130.5,
+        "source": "derived_grading",
+        "source_detail": "Owned S outer chest 108 + Nike body-chart midpoint grade +22.5 cm. Equivalent to constant inner design ease with unchanged loft. Hem uses hip chart grade; estimated. No shoulder, length, sleeve or bicep grade is assumed."
+      },
+      "hem": {
+        "value_cm": 129.5,
+        "source": "derived_grading",
+        "source_detail": "Owned S outer hem 108 + Nike body-chart midpoint grade +21.5 cm. Equivalent to constant inner design ease with unchanged loft. Hem uses hip chart grade; estimated. No shoulder, length, sleeve or bicep grade is assumed."
+      }
+    },
+    "2XL": {
+      "chest": {
+        "value_cm": 140.5,
+        "source": "derived_grading",
+        "source_detail": "Owned S outer chest 108 + Nike body-chart midpoint grade +32.5 cm. Equivalent to constant inner design ease with unchanged loft. Hem uses hip chart grade; estimated. No shoulder, length, sleeve or bicep grade is assumed."
+      },
+      "hem": {
+        "value_cm": 137.5,
+        "source": "derived_grading",
+        "source_detail": "Owned S outer hem 108 + Nike body-chart midpoint grade +29.5 cm. Equivalent to constant inner design ease with unchanged loft. Hem uses hip chart grade; estimated. No shoulder, length, sleeve or bicep grade is assumed."
+      }
+    }
+  },
+  "fabric": {
+    "composition": "100% polyester; synthetic insulation"
+  },
+  "notes": "Source: user-approved prompts/02b-demo-jackets-addendum.md Update 2. Nike chart is BODY data, stored separately; other garment girths are explicitly derived grading. Owned shoulder/sleeve geometry is authorised. Missing dimensions stay absent. Loft is an effective shell thickness estimate, not a direct lining-girth measurement.",
+  "title": "Nike Sportswear Classic Puffer — Women's Therma-FIT Parka",
+  "style": "FB7675-100",
+  "colourway": "White/Black",
+  "url_aliases": [
+    "https://www.amazon.com/dp/B0C9TPL7ZZ",
+    "https://www.amazon.com/dp/B0C9TRHGZV",
+    "https://www.nike.com/t/sportswear-classic-puffer-womens-therma-fit-loose-hooded-parka-BVM2pD"
+  ],
+  "construction": "set_in",
+  "fit_intent": "loose",
+  "loft_cm": 1.0,
+  "loft_uncertainty_cm": 0.0,
+  "hem_elastic": false,
+  "body_chart_type": "body",
+  "body_chart": {
+    "XXS": {
+      "chest": {
+        "min_cm": 70.0,
+        "max_cm": 76.0,
+        "source": "retailer_chart",
+        "source_detail": "https://img.nike.com.hk/resources/sizecart/womens-tops-sizing-chart_en.html; body range, not garment size"
+      },
+      "waist": {
+        "min_cm": 54.0,
+        "max_cm": 60.0,
+        "source": "retailer_chart",
+        "source_detail": "https://img.nike.com.hk/resources/sizecart/womens-tops-sizing-chart_en.html; body range, not garment size"
+      },
+      "hip": {
+        "min_cm": 78.0,
+        "max_cm": 84.0,
+        "source": "retailer_chart",
+        "source_detail": "https://img.nike.com.hk/resources/sizecart/womens-tops-sizing-chart_en.html; body range, not garment size"
+      }
+    },
+    "XS": {
+      "chest": {
+        "min_cm": 76.0,
+        "max_cm": 83.0,
+        "source": "retailer_chart",
+        "source_detail": "https://img.nike.com.hk/resources/sizecart/womens-tops-sizing-chart_en.html; body range, not garment size"
+      },
+      "waist": {
+        "min_cm": 60.0,
+        "max_cm": 67.0,
+        "source": "retailer_chart",
+        "source_detail": "https://img.nike.com.hk/resources/sizecart/womens-tops-sizing-chart_en.html; body range, not garment size"
+      },
+      "hip": {
+        "min_cm": 84.0,
+        "max_cm": 91.0,
+        "source": "retailer_chart",
+        "source_detail": "https://img.nike.com.hk/resources/sizecart/womens-tops-sizing-chart_en.html; body range, not garment size"
+      }
+    },
+    "S": {
+      "chest": {
+        "min_cm": 83.0,
+        "max_cm": 90.0,
+        "source": "retailer_chart",
+        "source_detail": "https://img.nike.com.hk/resources/sizecart/womens-tops-sizing-chart_en.html; body range, not garment size"
+      },
+      "waist": {
+        "min_cm": 67.0,
+        "max_cm": 74.0,
+        "source": "retailer_chart",
+        "source_detail": "https://img.nike.com.hk/resources/sizecart/womens-tops-sizing-chart_en.html; body range, not garment size"
+      },
+      "hip": {
+        "min_cm": 91.0,
+        "max_cm": 98.0,
+        "source": "retailer_chart",
+        "source_detail": "https://img.nike.com.hk/resources/sizecart/womens-tops-sizing-chart_en.html; body range, not garment size"
+      }
+    },
+    "M": {
+      "chest": {
+        "min_cm": 90.0,
+        "max_cm": 97.0,
+        "source": "retailer_chart",
+        "source_detail": "https://img.nike.com.hk/resources/sizecart/womens-tops-sizing-chart_en.html; body range, not garment size"
+      },
+      "waist": {
+        "min_cm": 74.0,
+        "max_cm": 81.0,
+        "source": "retailer_chart",
+        "source_detail": "https://img.nike.com.hk/resources/sizecart/womens-tops-sizing-chart_en.html; body range, not garment size"
+      },
+      "hip": {
+        "min_cm": 98.0,
+        "max_cm": 105.0,
+        "source": "retailer_chart",
+        "source_detail": "https://img.nike.com.hk/resources/sizecart/womens-tops-sizing-chart_en.html; body range, not garment size"
+      }
+    },
+    "L": {
+      "chest": {
+        "min_cm": 97.0,
+        "max_cm": 104.0,
+        "source": "retailer_chart",
+        "source_detail": "https://img.nike.com.hk/resources/sizecart/womens-tops-sizing-chart_en.html; body range, not garment size"
+      },
+      "waist": {
+        "min_cm": 81.0,
+        "max_cm": 88.0,
+        "source": "retailer_chart",
+        "source_detail": "https://img.nike.com.hk/resources/sizecart/womens-tops-sizing-chart_en.html; body range, not garment size"
+      },
+      "hip": {
+        "min_cm": 105.0,
+        "max_cm": 112.0,
+        "source": "retailer_chart",
+        "source_detail": "https://img.nike.com.hk/resources/sizecart/womens-tops-sizing-chart_en.html; body range, not garment size"
+      }
+    },
+    "XL": {
+      "chest": {
+        "min_cm": 104.0,
+        "max_cm": 114.0,
+        "source": "retailer_chart",
+        "source_detail": "https://img.nike.com.hk/resources/sizecart/womens-tops-sizing-chart_en.html; body range, not garment size"
+      },
+      "waist": {
+        "min_cm": 88.0,
+        "max_cm": 98.0,
+        "source": "retailer_chart",
+        "source_detail": "https://img.nike.com.hk/resources/sizecart/womens-tops-sizing-chart_en.html; body range, not garment size"
+      },
+      "hip": {
+        "min_cm": 112.0,
+        "max_cm": 120.0,
+        "source": "retailer_chart",
+        "source_detail": "https://img.nike.com.hk/resources/sizecart/womens-tops-sizing-chart_en.html; body range, not garment size"
+      }
+    },
+    "2XL": {
+      "chest": {
+        "min_cm": 114.0,
+        "max_cm": 124.0,
+        "source": "retailer_chart",
+        "source_detail": "https://img.nike.com.hk/resources/sizecart/womens-tops-sizing-chart_en.html; body range, not garment size"
+      },
+      "waist": {
+        "min_cm": 98.0,
+        "max_cm": 108.0,
+        "source": "retailer_chart",
+        "source_detail": "https://img.nike.com.hk/resources/sizecart/womens-tops-sizing-chart_en.html; body range, not garment size"
+      },
+      "hip": {
+        "min_cm": 120.0,
+        "max_cm": 128.0,
+        "source": "retailer_chart",
+        "source_detail": "https://img.nike.com.hk/resources/sizecart/womens-tops-sizing-chart_en.html; body range, not garment size"
+      }
+    }
+  },
+  "visual": {
+    "quilting": {
+      "value": "horizontal",
+      "source": "photo_estimate",
+      "approximate": true,
+      "source_detail": "The user's own photos (data/reference-photos, agent L1b): Parka1 (worn front), Parka2 (worn back), Parka3/Parka6 (flat front/back) show horizontal channels running from the zip to the side panel seams, with no vertical stitch lines; replaces the earlier retailer-photo 'box' estimate. chamber_width is kept but unused for horizontal quilting."
+    },
+    "chamber_height": {
+      "value_cm": 10.0,
+      "source": "photo_estimate",
+      "approximate": true,
+      "uncertainty_cm": 0.7,
+      "source_detail": "The user's flat-lay photos with a US Letter sheet (21.59 x 27.94 cm) as a ruler (agent L2; lead's reference-spec update 2026-11-12 night): parka-a4-1 (front) stitch lines 350-410 px apart at 36.6 px/cm (9.6-11.2 cm), parka-a4-3 (back) ~380 px at 36.4-37.6 px/cm (10.1-10.4 cm); lead's reading 9.5-10 cm. Replaces 15 cm, which came from an assumed px->cm scale on the worn photos. Approximate, not garment tape."
+    },
+    "chamber_width": {
+      "value_cm": 14.0,
+      "source": "photo_estimate",
+      "approximate": true,
+      "uncertainty_cm": 1.5,
+      "source_detail": "User-approved prompts/03-realism.md Part B; Claude's photo estimates scaled by owned HPS length. Approximate, not garment tape; user may override."
+    },
+    "yoke_depth": {
+      "value_cm": 5.0,
+      "source": "photo_estimate",
+      "approximate": true,
+      "uncertainty_cm": 1.5,
+      "source_detail": "Agent L3 (lead-approved): the user's worn-back photo Parka2 has its first stitch line ~90 px below HPS; at the 0.055 cm/px implied by the 10 cm channel pitch (US Letter flat-lays) that is ~5 cm, and the user's video back view (t 36 s, sleeve and body channels ~125 px = 10 cm) gives ~5 cm at the shoulders. The Letter sheets do not show the yoke. Replaces L2's unmeasured 7.5 cm. Approximate, not garment tape; user may override."
+    },
+    "sleeve_chamber_height": {
+      "value_cm": 10.5,
+      "source": "photo_estimate",
+      "approximate": true,
+      "uncertainty_cm": 1.0,
+      "source_detail": "User-approved prompts/03-realism.md Part B; Claude's photo estimates scaled by owned HPS length. Approximate, not garment tape; user may override."
+    },
+    "hood": {
+      "value": "attached",
+      "source": "retailer_copy",
+      "approximate": false,
+      "source_detail": "User-approved prompts/03-realism.md Part B; Claude's photo estimates scaled by owned HPS length. "
+    },
+    "hood_features": [
+      {
+        "value": "quilted_centre_panel",
+        "source": "photo_estimate",
+        "approximate": true,
+        "source_detail": "User-approved prompts/03-realism.md Part B; Claude's photo estimates scaled by owned HPS length. "
+      },
+      {
+        "value": "bungee_toggles",
+        "source": "retailer_copy",
+        "approximate": false,
+        "source_detail": "User-approved prompts/03-realism.md Part B; Claude's photo estimates scaled by owned HPS length. "
+      },
+      {
+        "value": "foldable_storm_bill",
+        "source": "retailer_copy",
+        "approximate": false,
+        "source_detail": "User-approved prompts/03-realism.md Part B; Claude's photo estimates scaled by owned HPS length. "
+      }
+    ],
+    "front": {
+      "value": "two_way_zip",
+      "source": "retailer_copy",
+      "approximate": false,
+      "source_detail": "User-approved prompts/03-realism.md Part B; Claude's photo estimates scaled by owned HPS length. "
+    },
+    "pockets": {
+      "value": "vertical_zip",
+      "source": "retailer_copy",
+      "approximate": false,
+      "source_detail": "User-approved prompts/03-realism.md Part B; Claude's photo estimates scaled by owned HPS length. "
+    },
+    "pocket_top": {
+      "value_cm": 31.5,
+      "source": "photo_estimate",
+      "approximate": true,
+      "uncertainty_cm": 3.0,
+      "source_detail": "Parka1 (worn front, agent L1a's reading): the slit starts 0.4 pitch below the second stitch line under the yoke = yoke 7.5 + 2.4 x 10 cm pitch (agent L2: L1a's 49.5 cm used the 15 cm pitch and a 13.5 cm yoke; Parka1 is now scaled 0.135 cm/px from the US Letter-measured 10 cm pitch). Approximate, not garment tape."
+    },
+    "pocket_length": {
+      "value_cm": 17.5,
+      "source": "photo_estimate",
+      "approximate": true,
+      "uncertainty_cm": 3.0,
+      "source_detail": "Parka1 (worn front): 128 px slit at 0.135 cm/px (74 px stitch pitch = 10 cm, US Letter flat-lay; agent L2). L1a's 26 cm used 0.203 cm/px from the superseded 15 cm pitch. Approximate, not garment tape."
+    },
+    "cuffs": {
+      "value": "inner_elastic",
+      "source": "photo_estimate",
+      "approximate": true,
+      "source_detail": "User-approved prompts/03-realism.md Part B; Claude's photo estimates scaled by owned HPS length. "
+    },
+    "hem": {
+      "value": "open",
+      "source": "photo_estimate",
+      "approximate": true,
+      "source_detail": "User-approved prompts/03-realism.md Part B; Claude's photo estimates scaled by owned HPS length. Men's elastic relaxed hem independently confirmed by user tape."
+    },
+    "finish": {
+      "value": "satin_matte",
+      "source": "retailer_copy",
+      "approximate": false,
+      "source_detail": "User-approved prompts/03-realism.md Part B; Claude's photo estimates scaled by owned HPS length. "
+    },
+    "colour_hex": {
+      "value": "#eeeff3",
+      "source": "model_assumption",
+      "approximate": true,
+      "source_detail": "Optic white with a faint cool cast (agent L1a, best effort before the A4-paper photos). Hue from the user's photos, uncalibrated: raw Parka3/4/6 cloth reads a* +1.3..+2.2, b* -2.3..-5.8 and the window-frame-balanced Parka1/2 read (+2.5, -3.8) and (-0.3, +2.4) (docs/look/colour-measurements.md, LOW reliability); chroma kept at a fraction of that. Lightness L* 94.5 is an assumption for bright white polyester (not measured). Lab (94.5, 0.6, -2.2). Replace with the paper-calibrated value when the A4 photos arrive."
+    },
+    "logo": "omitted"
+  }
+}

@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Satisfy Fit Agent — your profile</title>
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; style-src 'self' 'unsafe-inline'"
+    />
+    <style>
+      :root {
+        color-scheme: light dark;
+        --surface: #11181c;
+        --ink: #eef3f0;
+        --muted: #a9b6b4;
+        --accent: #a4e3c8;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: #0b1115;
+        color: var(--ink);
+        font:
+          16px/1.5 system-ui,
+          sans-serif;
+        padding: 32px 16px;
+      }
+      .card {
+        max-width: 700px;
+        margin: auto;
+        padding: 32px;
+        background: var(--surface);
+        border: 1px solid #36444a;
+        border-radius: 24px;
+        box-shadow: 0 20px 80px #0003;
+      }
+      h1 {
+        font-size: 36px;
+        letter-spacing: -0.035em;
+        margin: 0 0 12px;
+      }
+      h2 {
+        font-size: 18px;
+      }
+      fieldset {
+        border: 0;
+        padding: 0;
+        margin: 24px 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      legend {
+        font-weight: 600;
+        margin-bottom: 12px;
+      }
+      label {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        position: relative;
+      }
+      input,
+      select,
+      button {
+        font: inherit;
+        color: inherit;
+      }
+      input,
+      select {
+        width: 100%;
+        background: transparent;
+        border: 1px solid #637574;
+        border-radius: 12px;
+        padding: 12px;
+        min-height: 48px;
+      }
+      option {
+        background: var(--surface);
+      }
+      button {
+        cursor: pointer;
+        border: 1px solid #637574;
+        background: transparent;
+        border-radius: 24px;
+        padding: 12px 20px;
+        margin: 4px 4px 0 0;
+        min-height: 48px;
+      }
+      button.primary,
+      button[aria-pressed='true'] {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #11181c;
+      }
+      .danger {
+        color: #ffa79a;
+      }
+      .muted,
+      .unit-len,
+      .unit-mass {
+        color: var(--muted);
+        font-size: 13px;
+      }
+      .unit-len,
+      .unit-mass {
+        position: absolute;
+        right: 14px;
+        bottom: 14px;
+        pointer-events: none;
+      }
+      input[type='number'] {
+        padding-right: 44px;
+      }
+      .unit-toggle {
+        display: flex;
+        padding: 4px;
+        border: 1px solid #36444a;
+        border-radius: 30px;
+        width: max-content;
+      }
+      .unit-toggle button {
+        margin: 0;
+        min-height: 40px;
+        padding: 6px 20px;
+        border-color: transparent;
+      }
+      .units-select {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        clip-path: inset(50%);
+        overflow: hidden;
+      }
+      .consent {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        font-size: 14px;
+      }
+      .consent input {
+        width: 20px;
+        min-height: 20px;
+        accent-color: var(--accent);
+      }
+      #assumptions {
+        padding: 16px;
+        background: #a4e3c80c;
+        border-radius: 16px;
+        color: var(--muted);
+      }
+      #status {
+        min-height: 24px;
+        font-weight: 600;
+      }
+      details {
+        margin-top: 24px;
+        border-top: 1px solid #36444a;
+        padding-top: 16px;
+      }
+      summary {
+        cursor: pointer;
+        font-weight: 600;
+      }
+      table {
+        width: 100%;
+        font-size: 14px;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        text-align: left;
+        padding: 10px 0;
+        border-bottom: 1px solid #36444a;
+      }
+      th {
+        width: 45%;
+        font-weight: 500;
+        color: var(--muted);
+      }
+      :focus-visible {
+        outline: 3px solid var(--accent);
+        outline-offset: 3px;
+      }
+      @media (prefers-color-scheme: light) {
+        :root {
+          --surface: #f4f8f6;
+          --ink: #172a26;
+          --muted: #4a635c;
+          --accent: #176b50;
+        }
+        body {
+          background: #e8efeb;
+        }
+        button.primary,
+        button[aria-pressed='true'] {
+          color: white;
+        }
+        .danger {
+          color: #a83629;
+        }
+      }
+      @media (max-width: 480px) {
+        .card {
+          padding: 20px;
+        }
+        fieldset {
+          grid-template-columns: 1fr;
+        }
+        h1 {
+          font-size: 30px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="card">
+      <div class="muted">SATISFY / PRIVATE FIT PROFILE</div>
+      <h1>A better fit starts here.</h1>
+      <p class="muted">
+        Used only by the Fit Agent on this computer: the extension sends it to the local service at
+        127.0.0.1 to compute fit. It is never sent to Amazon, to an LLM, or anywhere else.
+      </p>
+      <form id="profile">
+        <p id="assumptions" aria-live="polite">
+          Enter your body details to see the model assumptions.
+        </p>
+        <div class="unit-toggle" role="group" aria-label="Measurement units">
+          <button type="button" id="units-imperial" aria-pressed="true">in / lb</button
+          ><button type="button" id="units-metric" aria-pressed="false">cm / kg</button>
+        </div>
+        <fieldset>
+          <legend>Your starting point</legend>
+          <label class="units-select"
+            >Units
+            <select id="units" class="units-select" tabindex="-1" aria-label="Units">
+              <option value="imperial">in / lb</option>
+              <option value="metric">cm / kg</option>
+            </select>
+          </label>
+          <label
+            >Height <input id="height" type="number" step="any" required />
+            <span class="unit-len">in</span></label
+          >
+          <label
+            >Weight <input id="weight" type="number" step="any" required />
+            <span class="unit-mass">lb</span></label
+          >
+          <label
+            >Body shape
+            <select id="sex" required>
+              <option value="">choose…</option>
+              <option value="female">female</option>
+              <option value="male">male</option>
+            </select>
+          </label>
+          <label
+            >Chest (optional, tape) <input id="chest" type="number" step="any" />
+            <span class="unit-len">in</span></label
+          >
+        </fieldset>
+        <fieldset>
+          <legend>How you like to wear tops</legend>
+          <label
+            >Fit
+            <select id="preference">
+              <option value="regular">regular</option>
+              <option value="fitted">fitted</option>
+              <option value="relaxed">relaxed</option>
+            </select></label
+          >
+          <label
+            >Under it
+            <select id="layer">
+              <option value="t-shirt">t-shirt</option>
+              <option value="hoodie">hoodie</option>
+            </select></label
+          >
+        </fieldset>
+        <label class="consent"
+          ><input id="remember" type="checkbox" /> Remember on this computer (opt-in; otherwise kept
+          only until the browser closes)</label
+        >
+        <button class="primary" type="submit" data-testid="save-profile">Save</button>
+        <button class="danger" type="button" id="delete" data-testid="delete-profile">
+          Delete everything
+        </button>
+      </form>
+      <p id="status" data-testid="profile-status"></p>
+      <details>
+        <summary>Show exactly what is stored on this computer</summary>
+        <div id="saved" data-testid="saved-profile" class="muted">No saved profile.</div>
+      </details>
+      <details>
+        <summary>Your learned preferences</summary>
+        <div id="learning" data-testid="learning"></div>
+      </details>
+    </main>
+    <script src="profile.js"></script>
+  </body>
+</html>

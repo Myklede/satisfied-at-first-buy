@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!--
+      Decart Lucy V-TON trial page (separate from the main app; docs/USER-RULES.md 2026-11-15 00:18).
+      CSP: only this origin, the loopback token server (5830), Vite HMR, and the Decart hosts from
+      https://docs.platform.decart.ai/integrations/network-requirements (api / lk / *.lkc).
+      platform.decart.ai (SDK telemetry) is deliberately NOT allowed; the SDK runs with telemetry off.
+      WebRTC media and STUN/TURN (UDP 7882/3478/19302) are not governed by CSP connect-src.
+    -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; media-src 'self' blob: mediastream:; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'none'; connect-src 'self' http://127.0.0.1:5830 http://localhost:5830 ws://127.0.0.1:5810 ws://localhost:5810 https://api.decart.ai wss://api.decart.ai https://lk.decart.ai wss://lk.decart.ai https://*.lkc.decart.ai wss://*.lkc.decart.ai blob: data:"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Decart V-TON trial</title>
+    <link rel="icon" href="data:," />
+    <style>
+      :root {
+        color-scheme: dark;
+        font:
+          14px/1.4 system-ui,
+          sans-serif;
+      }
+      body {
+        margin: 0;
+        background: #111;
+        color: #eee;
+      }
+      header {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+        padding: 8px 16px;
+        background: #1b1b1b;
+        border-bottom: 1px solid #333;
+        flex-wrap: wrap;
+      }
+      header h1 {
+        font-size: 16px;
+        margin: 0;
+      }
+      .warn {
+        color: #f5c26b;
+      }
+      .err {
+        color: #ff7b7b;
+      }
+      .ok {
+        color: #7be08f;
+      }
+      main {
+        display: grid;
+        grid-template-columns: 320px minmax(0, 1fr);
+        gap: 12px;
+        padding: 12px;
+      }
+      aside fieldset {
+        border: 1px solid #333;
+        margin: 0 0 10px;
+        padding: 8px;
+      }
+      aside legend {
+        color: #aaa;
+      }
+      select,
+      textarea,
+      button,
+      input[type='file'] {
+        width: 100%;
+        box-sizing: border-box;
+        margin: 3px 0;
+        font: inherit;
+      }
+      textarea {
+        height: 84px;
+      }
+      button {
+        padding: 5px;
+        cursor: pointer;
+      }
+      button:disabled {
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+      .row {
+        display: flex;
+        gap: 4px;
+      }
+      .row > * {
+        flex: 1;
+      }
+      #start {
+        font-size: 22px;
+        padding: 12px;
+        font-weight: 700;
+        background: #1f6f3a;
+        color: #fff;
+        border: 0;
+      }
+      #start.live {
+        background: #a32626;
+      }
+      #ref-preview {
+        width: 100%;
+        max-height: 180px;
+        object-fit: contain;
+        background: #fff;
+      }
+      .videos {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 8px;
+      }
+      .videos figure {
+        margin: 0;
+        min-width: 0;
+      }
+      .videos figcaption {
+        color: #aaa;
+        margin-bottom: 4px;
+      }
+      video {
+        width: 100%;
+        max-width: 100%;
+        max-height: 60vh;
+        object-fit: contain;
+        aspect-ratio: 16 / 9;
+        background: #000;
+      }
+      .mirror video {
+        transform: scaleX(-1);
+      }
+      #countdown {
+        font-size: 40px;
+        font-variant-numeric: tabular-nums;
+        font-weight: 700;
+      }
+      #log {
+        height: 160px;
+        overflow: auto;
+        background: #000;
+        padding: 6px;
+        font:
+          12px/1.35 ui-monospace,
+          monospace;
+        white-space: pre-wrap;
+      }
+      label.inline {
+        display: flex;
+        gap: 6px;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Decart Lucy V-TON trial</h1>
+      <span class="warn"
+        >While live, this page sends the input video to Decart's servers. Max 75 s per
+        session.</span
+      >
+      <span id="budget">Budget: …</span>
+      <span id="credits"></span>
+    </header>
+    <main>
+      <aside>
+        <fieldset>
+          <legend>1. Input source</legend>
+          <label class="inline"
+            ><input type="radio" name="source" value="camera" checked /> Camera (1280×720)</label
+          >
+          <select id="camera"></select>
+          <button id="allow-camera" type="button">List camera names (asks permission)</button>
+          <label class="inline"
+            ><input type="radio" name="source" value="tab" /> Share the RC5 tab (our 3D
+            jacket)</label
+          >
+          <label class="inline"
+            ><input type="checkbox" id="mirror" /> Mirror the view (display only)</label
+          >
+        </fieldset>
+        <fieldset>
+          <legend>2. Garment reference image</legend>
+          <select id="ref"></select>
+          <input id="ref-file" type="file" accept="image/png,image/jpeg,image/webp" />
+          <img id="ref-preview" alt="selected garment reference" />
+          <div class="row">
+            <button type="button" data-zip="closed" class="zip">Zip closed</button>
+            <button type="button" data-zip="half" class="zip">Half</button>
+            <button type="button" data-zip="open" class="zip">Open</button>
+          </div>
+          <div id="swap-result">Swap latency: –</div>
+        </fieldset>
+        <fieldset>
+          <legend>3. Prompt</legend>
+          <textarea id="prompt"></textarea>
+          <div class="row">
+            <button type="button" id="preset-replace">Preset: replace top</button>
+            <button type="button" id="preset-polish">Preset: keep exact shape</button>
+          </div>
+          <button type="button" id="apply-prompt">Apply prompt + image now (set)</button>
+        </fieldset>
+      </aside>
+      <section>
+        <div class="row" style="align-items: center; margin-bottom: 8px">
+          <button id="start" type="button">Start (75 s)</button>
+          <div style="text-align: center">
+            <div id="countdown">1:15</div>
+            <div id="state">idle</div>
+          </div>
+        </div>
+        <div class="videos" id="videos">
+          <figure>
+            <figcaption>Input (what is sent)</figcaption>
+            <video id="input-video" autoplay playsinline muted></video>
+          </figure>
+          <figure>
+            <figcaption>Decart output</figcaption>
+            <video id="output-video" autoplay playsinline muted></video>
+          </figure>
+        </div>
+        <div id="log"></div>
+      </section>
+    </main>
+    <script type="module" src="/src/decart/main.ts"></script>
+  </body>
+</html>

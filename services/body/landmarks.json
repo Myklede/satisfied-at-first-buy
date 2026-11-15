@@ -1,0 +1,74 @@
+{
+  "model": "anny-0.6.2-gate-a-v1",
+  "vertex_count": 13718,
+  "landmarks": {
+    "acromion_L": {
+      "vertex_index": 8260,
+      "rule": "superior-lateral surface within 0.085m of upperarm01.L"
+    },
+    "elbow_L": {
+      "vertex_index": 10022,
+      "rule": "surface nearest lowerarm01.L"
+    },
+    "wrist_L": {
+      "vertex_index": 10529,
+      "rule": "surface nearest wrist.L"
+    },
+    "HPS_L": {
+      "vertex_index": 7523,
+      "rule": "lateral neck base surface nearest offset neck01"
+    },
+    "heel_L": {
+      "vertex_index": 12912,
+      "rule": "lowest posterior foot surface"
+    },
+    "bust_L": {
+      "vertex_index": 8522,
+      "rule": "anterior maximum in chest quadrant"
+    },
+    "acromion_R": {
+      "vertex_index": 1604,
+      "rule": "superior-lateral surface within 0.085m of upperarm01.R"
+    },
+    "elbow_R": {
+      "vertex_index": 3370,
+      "rule": "surface nearest lowerarm01.R"
+    },
+    "wrist_R": {
+      "vertex_index": 3880,
+      "rule": "surface nearest wrist.R"
+    },
+    "HPS_R": {
+      "vertex_index": 828,
+      "rule": "lateral neck base surface nearest offset neck01"
+    },
+    "heel_R": {
+      "vertex_index": 6331,
+      "rule": "lowest posterior foot surface"
+    },
+    "bust_R": {
+      "vertex_index": 1866,
+      "rule": "anterior maximum in chest quadrant"
+    },
+    "C7": {
+      "vertex_index": 1492,
+      "rule": "neck01-level midline anterior/posterior extreme"
+    },
+    "neck_base_back": {
+      "vertex_index": 1492,
+      "rule": "neck01-level midline anterior/posterior extreme"
+    },
+    "neck_base_front": {
+      "vertex_index": 791,
+      "rule": "neck01-level midline anterior/posterior extreme"
+    },
+    "top_of_head": {
+      "vertex_index": 881,
+      "rule": "maximum Y"
+    },
+    "crotch": {
+      "vertex_index": 4409,
+      "rule": "lowest surface in midline below root (above knee)"
+    }
+  }
+}

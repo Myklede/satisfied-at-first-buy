@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="connect-src 'self' ws://127.0.0.1:* ws://localhost:* blob: data:"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Satisfy · Vision Lab · Replay</title>
+    <link rel="icon" href="data:," />
+    <style>
+      :root {
+        color-scheme: dark;
+        font-family: system-ui, sans-serif;
+        font-size: 14px;
+      }
+      body {
+        margin: 0;
+        padding: 12px;
+        background: #111;
+        color: #ddd;
+      }
+      h1 {
+        font-size: 16px;
+        margin: 0 0 8px;
+      }
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+      canvas {
+        background: #000;
+        border-radius: 6px;
+        display: block;
+      }
+      #timeline {
+        cursor: pointer;
+        margin-top: 8px;
+      }
+      #info {
+        font:
+          13px ui-monospace,
+          monospace;
+        white-space: pre;
+        margin-top: 8px;
+      }
+      .legend span {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        margin: 0 4px 0 12px;
+        vertical-align: middle;
+      }
+      select,
+      button {
+        font-size: 14px;
+      }
+      a {
+        color: #8cf;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Vision Lab · replay recorded hand files</h1>
+    <div class="row">
+      <a href="./">← Lab home</a>
+      <input id="files" type="file" accept=".json,application/json" multiple />
+      <select id="list"></select>
+    </div>
+    <div class="row">
+      <button id="play">▶ Play</button>
+      <button id="back">◀ 1 frame</button>
+      <button id="fwd">1 frame ▶</button>
+      <button id="nextIssue">Next disagreement ⏭</button>
+      <label
+        >Speed
+        <select id="speed">
+          <option value="0.25">0.25×</option>
+          <option value="0.5">0.5×</option>
+          <option value="1" selected>1×</option>
+          <option value="2">2×</option>
+        </select></label
+      >
+      <label><input id="mirror" type="checkbox" checked /> Mirrored</label>
+    </div>
+    <canvas id="view" width="960" height="540"></canvas>
+    <canvas id="timeline" width="960" height="134"></canvas>
+    <div class="legend">
+      <span style="background: #e33"></span>You held Space (grabbing)
+      <span style="background: #3c3"></span>Tracker grabbing
+      <span style="background: #3f3"></span>Grab progress, clear grip
+      <span style="background: #fb3"></span>Grab progress, ambiguous grip (dwell)
+      <span style="background: #fc3"></span>Openness (low = closed hand)
+      <span style="background: #888"></span>Grab / release levels
+    </div>
+    <div id="info">
+      Choose one or more recording files (packages/vision/test-data/hands/*.json).
+    </div>
+    <script type="module" src="./replay.ts"></script>
+  </body>
+</html>

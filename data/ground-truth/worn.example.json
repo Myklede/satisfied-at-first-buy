@@ -1,0 +1,9 @@
+{
+  "person_id": "me",
+  "product_id": "9ef0f7a074661932a05903d7b72c039984e95976c6286719626fa49d30e1b5be",
+  "size": "S",
+  "shoulder_offset_cm": null,
+  "cuff_offset_cm": null,
+  "hem_vs_hip_cm": null,
+  "notes": "Template only. Replace nulls with real signed tape readings while wearing this jacket over a thin t-shirt; never enter predictions as readings."
+}

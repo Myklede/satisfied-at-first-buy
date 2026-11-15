@@ -1,0 +1,52 @@
+{
+  "id": "uncalibrated",
+  "created": "2026-11-11",
+  "notes": "Raw silhouette geometry, not validated against tape for this setup.",
+  "entries": {
+    "shoulder_width_cm": {
+      "a": 1,
+      "b": 0,
+      "sigma_cm": 3,
+      "sigma_rel": 0,
+      "n_points": 0,
+      "n_persons": 0,
+      "source": "uncalibrated: a=1, b=0; σ from literature/heuristic (see calibration.ts constants)"
+    },
+    "chest_cm": {
+      "a": 1,
+      "b": 0,
+      "sigma_cm": 0,
+      "sigma_rel": 0.08,
+      "n_points": 0,
+      "n_persons": 0,
+      "source": "uncalibrated: a=1, b=0; σ from literature/heuristic (see calibration.ts constants)"
+    },
+    "waist_cm": {
+      "a": 1,
+      "b": 0,
+      "sigma_cm": 0,
+      "sigma_rel": 0.08,
+      "n_points": 0,
+      "n_persons": 0,
+      "source": "uncalibrated: a=1, b=0; σ from literature/heuristic (see calibration.ts constants)"
+    },
+    "hip_cm": {
+      "a": 1,
+      "b": 0,
+      "sigma_cm": 0,
+      "sigma_rel": 0.08,
+      "n_points": 0,
+      "n_persons": 0,
+      "source": "uncalibrated: a=1, b=0; σ from literature/heuristic (see calibration.ts constants)"
+    },
+    "arm_length_cm": {
+      "a": 1,
+      "b": 0,
+      "sigma_cm": 3,
+      "sigma_rel": 0,
+      "n_points": 0,
+      "n_persons": 0,
+      "source": "uncalibrated: a=1, b=0; σ from literature/heuristic (see calibration.ts constants)"
+    }
+  }
+}

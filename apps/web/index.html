@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Privacy (AGENTS.md §3): the page may only talk to this machine. Second layer behind
+         packages/vision/src/networkGuard.ts, which blocks MediaPipe's built-in usage logger. -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="connect-src 'self' http://127.0.0.1:* http://localhost:* ws://127.0.0.1:* ws://localhost:* blob: data:"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A local, measured 3D body studio. Satisfy at the First Buy."
+    />
+    <title>Satisfy — Body Studio</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <!-- Short release-candidate links (lead, final AR push): /?rc4 expands to the full flag set
+         before any module reads location.search. A long pasted URL was cut at 90 characters in a
+         user test, silently dropping most flags. Explicit flags in the URL win over the preset. -->
+    <script>
+      (function () {
+        var presets = {
+          rc4: 'kiosk&arfull=1&rec=1&f1turn=1&f1stab=1&f1tilt=1&f3warp=1&f3arms=1&f3depth=1&f3collar=1&f4edge=1&f4fill=1&f4res=1&poseWorker=1&posePipe=1&poseSync=1&poseClock=1&fastGeom=1&mirrorSkip=1&f3x=1&f4shadow=1&f3hood=1&f3head=1&f4sharp=1&f4nocuff=1&f4mask=1&f4light=1&f4xlook=1&f4xwarm=1&camHd=1&f1fade=1&f1close=1&f1fov=75&cam=Camo',
+          rc5: 'kiosk&arfull=1&rec=1&f1turn=1&f1stab=1&f1tilt=1&f3warp=1&f3arms=1&f3depth=1&f3collar=1&f4edge=1&f4fill=1&f4res=1&poseWorker=1&posePipe=1&poseSync=1&poseClock=1&fastGeom=1&mirrorSkip=1&f3x=1&f4shadow=1&f3hood=1&f3head=1&f4sharp=1&f4nocuff=1&f4mask=1&f4light=1&f4xlook=1&f4xwarm=1&camHd=1&f1fade=1&f1close=1&f1fov=75&cam=Camo&f3flat=1&f3flatx=1&f3rigid=1&f3side=1&f3shoulder=1&f3xrigid=1&f1turnscale=1&f1side=1&f1yawfast=1&f4grain=1&f4stable=1&f4tex=1',
+        };
+        var given = new URLSearchParams(location.search);
+        for (var name in presets) {
+          if (!given.has(name)) continue;
+          var merged = new URLSearchParams(presets[name]);
+          given.forEach(function (value, key) {
+            if (key !== name) merged.set(key, value);
+          });
+          merged.set('preset', name);
+          history.replaceState(null, '', location.pathname + '?' + merged.toString().replace(/kiosk=&/, 'kiosk&'));
+          break;
+        }
+      })();
+    </script>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

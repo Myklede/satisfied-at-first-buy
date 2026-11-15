@@ -1,0 +1,582 @@
+{
+ "source": "packages/vision/src/poseSynth.ts poseSkeleton (P3 reference FK)",
+ "frame": "P3 body frame: X forward, Y up, Z subject right",
+ "cases": [
+  {
+   "pose": {
+    "trunk_flexion": 0,
+    "trunk_lateral": 0,
+    "trunk_twist": 0,
+    "shoulder_L_plane": 0,
+    "shoulder_R_plane": 0,
+    "shoulder_L_elevation": 30,
+    "shoulder_R_elevation": 30,
+    "shoulder_L_axial": 0,
+    "shoulder_R_axial": 0,
+    "elbow_L_flexion": 20,
+    "elbow_R_flexion": 20,
+    "hip_L_flexion": 0,
+    "hip_R_flexion": 0,
+    "knee_L_flexion": 0,
+    "knee_R_flexion": 0,
+    "pelvis_drop_m": 0
+   },
+   "directions": {
+    "trunk": [
+     0,
+     1,
+     0
+    ],
+    "shoulder_line": [
+     0,
+     0,
+     1
+    ],
+    "humerus_L": [
+     0,
+     -0.8660254037844388,
+     -0.4999999999999999
+    ],
+    "humerus_R": [
+     0,
+     -0.8660254037844388,
+     0.4999999999999999
+    ],
+    "forearm_L": [
+     0.3420201433256687,
+     -0.8137976813493738,
+     -0.4698463103929541
+    ],
+    "forearm_R": [
+     0.3420201433256687,
+     -0.8137976813493738,
+     0.4698463103929541
+    ],
+    "thigh_L": [
+     0,
+     -1,
+     0
+    ],
+    "thigh_R": [
+     0,
+     -1,
+     0
+    ],
+    "shank_L": [
+     0,
+     -1,
+     0
+    ],
+    "shank_R": [
+     0,
+     -1,
+     0
+    ]
+   }
+  },
+  {
+   "pose": {
+    "trunk_flexion": 0,
+    "trunk_lateral": 0,
+    "trunk_twist": 0,
+    "shoulder_L_plane": 40,
+    "shoulder_R_plane": 40,
+    "shoulder_L_elevation": 170,
+    "shoulder_R_elevation": 170,
+    "shoulder_L_axial": 0,
+    "shoulder_R_axial": 0,
+    "elbow_L_flexion": 10,
+    "elbow_R_flexion": 10,
+    "hip_L_flexion": 0,
+    "hip_R_flexion": 0,
+    "knee_L_flexion": 0,
+    "knee_R_flexion": 0,
+    "pelvis_drop_m": 0
+   },
+   "directions": {
+    "trunk": [
+     0,
+     1,
+     0
+    ],
+    "shoulder_line": [
+     0,
+     0,
+     1
+    ],
+    "humerus_L": [
+     0.11161889704894963,
+     0.9848077530122081,
+     -0.13302222155948898
+    ],
+    "humerus_R": [
+     0.11161889704894963,
+     0.9848077530122081,
+     0.13302222155948898
+    ],
+    "forearm_L": [
+     0.24294537675596603,
+     0.9698463103929541,
+     -0.019382418065742757
+    ],
+    "forearm_R": [
+     0.24294537675596603,
+     0.9698463103929541,
+     0.019382418065742757
+    ],
+    "thigh_L": [
+     0,
+     -1,
+     0
+    ],
+    "thigh_R": [
+     0,
+     -1,
+     0
+    ],
+    "shank_L": [
+     0,
+     -1,
+     0
+    ],
+    "shank_R": [
+     0,
+     -1,
+     0
+    ]
+   }
+  },
+  {
+   "pose": {
+    "trunk_flexion": 0,
+    "trunk_lateral": 0,
+    "trunk_twist": 0,
+    "shoulder_L_plane": 90,
+    "shoulder_R_plane": 90,
+    "shoulder_L_elevation": 80,
+    "shoulder_R_elevation": 80,
+    "shoulder_L_axial": 0,
+    "shoulder_R_axial": 0,
+    "elbow_L_flexion": 25,
+    "elbow_R_flexion": 25,
+    "hip_L_flexion": 0,
+    "hip_R_flexion": 0,
+    "knee_L_flexion": 0,
+    "knee_R_flexion": 0,
+    "pelvis_drop_m": 0
+   },
+   "directions": {
+    "trunk": [
+     0,
+     1,
+     0
+    ],
+    "shoulder_line": [
+     0,
+     0,
+     1
+    ],
+    "humerus_L": [
+     0.9848077530122081,
+     -0.17364817766693041,
+     -9.251858538542973e-17
+    ],
+    "humerus_R": [
+     0.9848077530122081,
+     -0.17364817766693041,
+     9.251858538542973e-17
+    ],
+    "forearm_L": [
+     0.8925389352890299,
+     -0.1573786956242628,
+     0.4226182617406994
+    ],
+    "forearm_R": [
+     0.8925389352890299,
+     -0.1573786956242628,
+     -0.4226182617406994
+    ],
+    "thigh_L": [
+     0,
+     -1,
+     0
+    ],
+    "thigh_R": [
+     0,
+     -1,
+     0
+    ],
+    "shank_L": [
+     0,
+     -1,
+     0
+    ],
+    "shank_R": [
+     0,
+     -1,
+     0
+    ]
+   }
+  },
+  {
+   "pose": {
+    "trunk_flexion": 0,
+    "trunk_lateral": 0,
+    "trunk_twist": 0,
+    "shoulder_L_plane": 125,
+    "shoulder_R_plane": -60,
+    "shoulder_L_elevation": 45,
+    "shoulder_R_elevation": 50,
+    "shoulder_L_axial": -40,
+    "shoulder_R_axial": 30,
+    "elbow_L_flexion": 125,
+    "elbow_R_flexion": 60,
+    "hip_L_flexion": 0,
+    "hip_R_flexion": 0,
+    "knee_L_flexion": 0,
+    "knee_R_flexion": 0,
+    "pelvis_drop_m": 0
+   },
+   "directions": {
+    "trunk": [
+     0,
+     1,
+     0
+    ],
+    "shoulder_line": [
+     0,
+     0,
+     1
+    ],
+    "humerus_L": [
+     0.5792279653395691,
+     -0.7071067811865477,
+     0.40557978767263886
+    ],
+    "humerus_R": [
+     -0.6634139481689384,
+     -0.6427876096865393,
+     0.383022221559489
+    ],
+    "forearm_L": [
+     -0.3871675201059424,
+     0.7779003469768581,
+     0.4949468269908376
+    ],
+    "forearm_R": [
+     0.2843383795479831,
+     -0.6531007789277389,
+     0.7018625638114687
+    ],
+    "thigh_L": [
+     0,
+     -1,
+     0
+    ],
+    "thigh_R": [
+     0,
+     -1,
+     0
+    ],
+    "shank_L": [
+     0,
+     -1,
+     0
+    ],
+    "shank_R": [
+     0,
+     -1,
+     0
+    ]
+   }
+  },
+  {
+   "pose": {
+    "trunk_flexion": 90,
+    "trunk_lateral": 0,
+    "trunk_twist": 0,
+    "shoulder_L_plane": 90,
+    "shoulder_R_plane": 90,
+    "shoulder_L_elevation": 100,
+    "shoulder_R_elevation": 100,
+    "shoulder_L_axial": 0,
+    "shoulder_R_axial": 0,
+    "elbow_L_flexion": 10,
+    "elbow_R_flexion": 10,
+    "hip_L_flexion": 15,
+    "hip_R_flexion": 15,
+    "knee_L_flexion": 30,
+    "knee_R_flexion": 30,
+    "pelvis_drop_m": 0
+   },
+   "directions": {
+    "trunk": [
+     1,
+     6.123233995736766e-17,
+     0
+    ],
+    "shoulder_line": [
+     0,
+     0,
+     1
+    ],
+    "humerus_L": [
+     0.17364817766693041,
+     -0.9848077530122081,
+     -9.251858538542973e-17
+    ],
+    "humerus_R": [
+     0.17364817766693041,
+     -0.9848077530122081,
+     9.251858538542973e-17
+    ],
+    "forearm_L": [
+     0.17101007166283427,
+     -0.9698463103929541,
+     0.17364817766693028
+    ],
+    "forearm_R": [
+     0.17101007166283427,
+     -0.9698463103929541,
+     -0.17364817766693028
+    ],
+    "thigh_L": [
+     0.25881904510252074,
+     -0.9659258262890683,
+     0
+    ],
+    "thigh_R": [
+     0.25881904510252074,
+     -0.9659258262890683,
+     0
+    ],
+    "shank_L": [
+     -0.2588190451025208,
+     -0.9659258262890683,
+     0
+    ],
+    "shank_R": [
+     -0.2588190451025208,
+     -0.9659258262890683,
+     0
+    ]
+   }
+  },
+  {
+   "pose": {
+    "trunk_flexion": 10,
+    "trunk_lateral": 0,
+    "trunk_twist": 0,
+    "shoulder_L_plane": 0,
+    "shoulder_R_plane": 0,
+    "shoulder_L_elevation": 0,
+    "shoulder_R_elevation": 0,
+    "shoulder_L_axial": 0,
+    "shoulder_R_axial": 0,
+    "elbow_L_flexion": 0,
+    "elbow_R_flexion": 0,
+    "hip_L_flexion": 90,
+    "hip_R_flexion": 90,
+    "knee_L_flexion": 90,
+    "knee_R_flexion": 90,
+    "pelvis_drop_m": 0
+   },
+   "directions": {
+    "trunk": [
+     0.17364817766693036,
+     0.9848077530122081,
+     0
+    ],
+    "shoulder_line": [
+     0,
+     0,
+     1
+    ],
+    "humerus_L": [
+     -0.17364817766693036,
+     -0.9848077530122081,
+     0
+    ],
+    "humerus_R": [
+     -0.17364817766693036,
+     -0.9848077530122081,
+     0
+    ],
+    "forearm_L": [
+     -0.17364817766693033,
+     -0.984807753012208,
+     0
+    ],
+    "forearm_R": [
+     -0.17364817766693033,
+     -0.984807753012208,
+     0
+    ],
+    "thigh_L": [
+     1,
+     -6.123233995736766e-17,
+     0
+    ],
+    "thigh_R": [
+     1,
+     -6.123233995736766e-17,
+     0
+    ],
+    "shank_L": [
+     0,
+     -1,
+     0
+    ],
+    "shank_R": [
+     0,
+     -1,
+     0
+    ]
+   }
+  },
+  {
+   "pose": {
+    "trunk_flexion": 0,
+    "trunk_lateral": -10,
+    "trunk_twist": 20,
+    "shoulder_L_plane": 10,
+    "shoulder_R_plane": 40,
+    "shoulder_L_elevation": 60,
+    "shoulder_R_elevation": 175,
+    "shoulder_L_axial": 45,
+    "shoulder_R_axial": 0,
+    "elbow_L_flexion": 90,
+    "elbow_R_flexion": 0,
+    "hip_L_flexion": 0,
+    "hip_R_flexion": 0,
+    "knee_L_flexion": 0,
+    "knee_R_flexion": 0,
+    "pelvis_drop_m": 0
+   },
+   "directions": {
+    "trunk": [
+     0,
+     0.9848077530122081,
+     -0.17364817766693036
+    ],
+    "shoulder_line": [
+     0.3420201433256687,
+     0.16317591116653496,
+     0.9254165783983234
+    ],
+    "humerus_L": [
+     -0.15038373318043527,
+     -0.640502942869116,
+     -0.7530874537334408
+    ],
+    "humerus_R": [
+     0.07547908730517333,
+     0.9886274801410763,
+     -0.1300715683363738
+    ],
+    "forearm_L": [
+     0.7577581423045054,
+     -0.5639298101411307,
+     0.3283074275818521
+    ],
+    "forearm_R": [
+     0.07547908730517332,
+     0.9886274801410763,
+     -0.13007156833637376
+    ],
+    "thigh_L": [
+     0,
+     -1,
+     0
+    ],
+    "thigh_R": [
+     0,
+     -1,
+     0
+    ],
+    "shank_L": [
+     0,
+     -1,
+     0
+    ],
+    "shank_R": [
+     0,
+     -1,
+     0
+    ]
+   }
+  },
+  {
+   "pose": {
+    "trunk_flexion": 30,
+    "trunk_lateral": 15,
+    "trunk_twist": -30,
+    "shoulder_L_plane": 0,
+    "shoulder_R_plane": 0,
+    "shoulder_L_elevation": 90,
+    "shoulder_R_elevation": 0,
+    "shoulder_L_axial": -60,
+    "shoulder_R_axial": 0,
+    "elbow_L_flexion": 90,
+    "elbow_R_flexion": 0,
+    "hip_L_flexion": 40,
+    "hip_R_flexion": 0,
+    "knee_L_flexion": 70,
+    "knee_R_flexion": 0,
+    "pelvis_drop_m": 0
+   },
+   "directions": {
+    "trunk": [
+     0.4829629131445341,
+     0.8365163037378079,
+     0.25881904510252074
+    ],
+    "shoulder_line": [
+     -0.5450846359132259,
+     0.05588571617310937,
+     0.8365163037378078
+    ],
+    "humerus_L": [
+     0.5450846359132259,
+     -0.05588571617310947,
+     -0.8365163037378078
+    ],
+    "humerus_R": [
+     -0.482962913144534,
+     -0.8365163037378078,
+     -0.2588190451025207
+    ],
+    "forearm_L": [
+     0.7609057712310889,
+     0.45190205176018794,
+     0.46562532461428036
+    ],
+    "forearm_R": [
+     -0.48296291314453416,
+     -0.8365163037378079,
+     -0.25881904510252074
+    ],
+    "thigh_L": [
+     0.6427876096865394,
+     -0.766044443118978,
+     0
+    ],
+    "thigh_R": [
+     0,
+     -1,
+     0
+    ],
+    "shank_L": [
+     -0.4999999999999999,
+     -0.8660254037844387,
+     0
+    ],
+    "shank_R": [
+     0,
+     -1,
+     0
+    ]
+   }
+  }
+ ]
+}

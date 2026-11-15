@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="connect-src 'self' ws://127.0.0.1:* ws://localhost:* blob: data:"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Satisfy · Vision Lab · Hands</title>
+    <link rel="icon" href="data:," />
+    <style>
+      :root {
+        color-scheme: dark;
+        font-family: system-ui, sans-serif;
+        font-size: 14px;
+      }
+      body {
+        margin: 0;
+        padding: 12px;
+        background: #111;
+        color: #ddd;
+      }
+      h1 {
+        font-size: 16px;
+        margin: 0 0 8px;
+      }
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+      .panels {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: flex-start;
+      }
+      canvas {
+        background: #000;
+        border: 1px solid #333;
+        display: block;
+      }
+      pre {
+        margin: 0;
+        font-size: 12px;
+        line-height: 1.45;
+        min-width: 300px;
+      }
+      fieldset {
+        border: 1px solid #333;
+        padding: 6px 10px;
+      }
+      .slider {
+        display: grid;
+        grid-template-columns: 150px 180px 60px;
+        align-items: center;
+        gap: 6px;
+      }
+      #status.error {
+        color: #f66;
+      }
+      #label-indicator {
+        padding: 2px 8px;
+        border-radius: 4px;
+        background: #333;
+      }
+      #label-indicator.on {
+        background: #c62828;
+        color: #fff;
+        font-weight: bold;
+      }
+      .note {
+        color: #888;
+        font-size: 12px;
+        max-width: 900px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Vision Lab · hand pinch tracking</h1>
+    <div class="row">
+      <label
+        >Camera
+        <select id="camera"></select
+      ></label>
+      <label
+        >Rotate
+        <select id="rotate">
+          <option value="0">0°</option>
+          <option value="90">90°</option>
+          <option value="270">270°</option>
+        </select>
+      </label>
+      <label
+        >Delegate
+        <select id="delegate">
+          <option value="GPU">GPU (CPU fallback)</option>
+          <option value="CPU">CPU</option>
+        </select>
+      </label>
+      <label
+        >Frame rate
+        <select id="fps">
+          <option value="60">60 (falls back if unsupported)</option>
+          <option value="30">30</option>
+        </select>
+      </label>
+      <label><input type="checkbox" id="mirrored" checked /> Mirrored</label>
+      <button id="start">Start</button>
+      <button id="stop" disabled>Stop</button>
+      <span id="status">idle</span>
+    </div>
+    <div class="panels">
+      <div>
+        <canvas id="preview" width="640" height="360"></canvas>
+        <div class="note">Live preview (on screen only; frames are never saved or sent).</div>
+      </div>
+      <div>
+        <canvas id="trail" width="480" height="360"></canvas>
+        <div class="note">
+          Grab cursor in screen NDC: grey = raw, colour = One Euro filtered, ring = grabbing.
+        </div>
+        <canvas id="meter" width="480" height="44"></canvas>
+        <div class="note">
+          Closed/open meter (grip openness): left of the green tick = closed grip, right of the red
+          tick = clearly open.
+        </div>
+      </div>
+      <pre id="stats">–</pre>
+    </div>
+    <div class="row">
+      <fieldset>
+        <legend>Record landmarks (numbers only, no images; saved only when you click Save)</legend>
+        <label
+          >Note <input id="rec-note" size="24" placeholder="fast drag right hand 0.7 m"
+        /></label>
+        <label
+          >Expected pinches
+          <input id="rec-pinches" type="number" min="0" step="1" style="width: 4em"
+        /></label>
+        <label
+          >Expected hand
+          <select id="rec-hand">
+            <option value="">(any)</option>
+            <option value="right">right</option>
+            <option value="left">left</option>
+          </select>
+        </label>
+        <label
+          >Labelled pose
+          <select id="rec-pose">
+            <option value="">(unlabelled)</option>
+          </select>
+        </label>
+        <button id="rec-start">Record landmarks</button>
+        <button id="rec-stop" disabled>Stop &amp; save JSON</button>
+        <span id="rec-status"></span>
+        <span id="label-indicator">Space: not grabbing</span>
+        <div class="note">
+          Labelled mode (pick a pose): while recording, HOLD SPACE with your other hand exactly
+          while the tracked hand is grabbing, release Space when it lets go. Set "Expected hand" to
+          the grabbing hand; keep the Space hand out of the camera view. Put saved files in
+          packages/vision/test-data/hands/ (gitignored).
+          <code>npx vitest run</code>
+          replays them and checks the pinch/hand expectations you entered.
+        </div>
+      </fieldset>
+    </div>
+    <div class="row">
+      <fieldset>
+        <legend>One Euro (pinch point + landmarks)</legend>
+        <div id="sliders-filter"></div>
+      </fieldset>
+      <fieldset>
+        <legend>Grab thresholds (grip openness, tip-ratio scale)</legend>
+        <div id="sliders-pinch"></div>
+      </fieldset>
+    </div>
+    <p class="note">
+      Thresholds are heuristics. Tune: hold a pinch still and lower minCutoff until the colour
+      cursor stops shaking; then move fast and raise beta until it keeps up. Open/close the hand and
+      set enter/exit so the ratio crosses them cleanly.
+    </p>
+    <script type="module" src="./hands.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "person_id": "example-only",
+  "height_cm": 172,
+  "weight_kg": 65,
+  "sex": "male",
+  "shape_reference": "neutral",
+  "known_measurements": {
+    "chest_cm": 94,
+    "waist_cm": 80,
+    "hip_cm": 99,
+    "shoulder_width_cm": 40,
+    "arm_length_cm": 60,
+    "back_length_cm": 40,
+    "upper_arm_cm": 30,
+    "wrist_cm": 16,
+    "neck_base_cm": 40
+  },
+  "notes": "ILLUSTRATIVE VALUES ONLY, not measured ground truth. Copy to me.json and replace every value with your own tape measurements. Note clothing, posture, tape tension and date. See docs/MEASUREMENTS.md."
+}

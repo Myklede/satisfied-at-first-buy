@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="connect-src 'self' ws://127.0.0.1:* ws://localhost:* blob: data:"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Satisfy · Vision Lab · Pose</title>
+    <link rel="icon" href="data:," />
+    <style>
+      :root {
+        color-scheme: dark;
+        font-family: system-ui, sans-serif;
+        font-size: 14px;
+      }
+      body {
+        margin: 0;
+        padding: 12px;
+        background: #111;
+        color: #ddd;
+      }
+      h1 {
+        font-size: 16px;
+        margin: 0 0 8px;
+      }
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+      .panels {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: flex-start;
+      }
+      canvas {
+        background: #000;
+        border: 1px solid #333;
+        display: block;
+      }
+      #preview {
+        max-width: 46vw;
+        max-height: 70vh;
+      }
+      table {
+        border-collapse: collapse;
+        font-size: 12px;
+      }
+      td,
+      th {
+        border-bottom: 1px solid #262626;
+        padding: 2px 6px;
+        text-align: right;
+        white-space: nowrap;
+      }
+      td:first-child,
+      th:first-child {
+        text-align: left;
+      }
+      .bar {
+        width: 90px;
+        height: 8px;
+        background: #2a2a2a;
+        position: relative;
+      }
+      .bar > i {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        background: #6c6;
+      }
+      .bar.mid > i {
+        background: #db4;
+      }
+      .bar.low > i {
+        background: #c55;
+      }
+      pre {
+        margin: 0;
+        font-size: 12px;
+        line-height: 1.45;
+      }
+      .note {
+        color: #888;
+        font-size: 12px;
+        max-width: 900px;
+      }
+      #status.error {
+        color: #f66;
+      }
+      #calib {
+        font-weight: 600;
+      }
+      td.clamped {
+        color: #f96;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Vision Lab · webcam pose (anatomical angles)</h1>
+    <div class="row">
+      <label
+        >Camera
+        <select id="camera"></select
+      ></label>
+      <label
+        >Model
+        <select id="model">
+          <option value="lite">pose lite</option>
+          <option value="full" selected>pose full</option>
+          <option value="heavy">pose heavy</option>
+        </select>
+      </label>
+      <label
+        >Delegate
+        <select id="delegate">
+          <option value="GPU">GPU (CPU fallback)</option>
+          <option value="CPU">CPU</option>
+        </select>
+      </label>
+      <button id="start">Start</button>
+      <button id="stop" disabled>Stop</button>
+      <span id="status">idle</span>
+    </div>
+    <div class="row">
+      <button id="calibrate" disabled>Calibrate (stand still, arms down, 1 s)</button>
+      <span id="calib">not calibrated (vertical = camera up)</span>
+    </div>
+    <div class="row">
+      <label
+        >Motion
+        <select id="motion"></select>
+      </label>
+      <input id="note" placeholder="note (optional)" size="28" />
+      <button id="record" disabled>Record pose</button>
+      <button id="save" disabled>Stop &amp; save</button>
+      <span id="recStatus"></span>
+    </div>
+    <div class="panels">
+      <div>
+        <canvas id="preview" width="640" height="360"></canvas>
+        <div class="note">
+          On screen only; frames are never saved or sent. "Record pose" saves numbers only
+          (landmarks, timestamps, calibration) as a JSON download; put it in
+          packages/vision/test-data/pose/ (gitignored).
+        </div>
+      </div>
+      <div>
+        <canvas id="avatar" width="440" height="360"></canvas>
+        <div class="note">
+          Stick figure redrawn from the filtered angles only (front | right side). Faded limbs = DOF
+          confidence &lt; 0.5.
+        </div>
+      </div>
+      <div>
+        <table id="dofs">
+          <thead>
+            <tr>
+              <th>DOF</th>
+              <th>value</th>
+              <th>raw</th>
+              <th>confidence</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <pre id="stats">–</pre>
+      </div>
+    </div>
+    <script type="module" src="./pose.ts"></script>
+  </body>
+</html>

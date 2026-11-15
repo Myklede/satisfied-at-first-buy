@@ -1,0 +1,774 @@
+/* Kiosk: large type readable from 1.5 m, fixed layout (no jumps), dark studio frame. */
+.kiosk {
+  --k-accent: #a4e3c8;
+  --k-ink: #eef3f0;
+  --k-muted: #a9b6b4;
+  --k-panel: rgba(17, 24, 28, 0.92);
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background: #11181c;
+  color: var(--k-ink);
+  font-size: 22px;
+  line-height: 1.35;
+  user-select: none;
+}
+.kiosk h1 {
+  font-size: 64px;
+  line-height: 1.05;
+  margin: 0 0 16px;
+  letter-spacing: -0.02em;
+}
+.kiosk h2 {
+  font-size: 44px;
+  line-height: 1.1;
+  margin: 0 0 18px;
+}
+.kiosk h3 {
+  font-size: 34px;
+  margin: 4px 0 8px;
+}
+.kiosk button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+.kiosk [hidden] {
+  display: none !important;
+}
+.k-eyebrow {
+  font-size: 18px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--k-accent);
+}
+.k-lead {
+  font-size: 28px;
+  color: var(--k-ink);
+}
+.k-note {
+  display: block;
+  font-size: 19px;
+  color: var(--k-muted);
+}
+.k-error {
+  display: block;
+  font-size: 20px;
+  color: #ffb4a8;
+  margin-top: 6px;
+}
+.k-primary,
+.k-secondary,
+.k-shop {
+  border-radius: 12px;
+  padding: 16px 28px;
+  font-size: 24px;
+  font-weight: 600;
+}
+.k-primary,
+.k-shop {
+  background: var(--k-accent);
+  color: #0e1a16 !important;
+  border: 0;
+}
+.k-secondary {
+  background: transparent;
+  border: 2px solid #4b5d60;
+}
+.kiosk button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.k-progress {
+  height: 14px;
+  border-radius: 7px;
+  background: #26343a;
+  overflow: hidden;
+  margin: 16px 0;
+}
+.k-progress i {
+  display: block;
+  height: 100%;
+  background: var(--k-accent);
+  transition: width 0.25s linear;
+}
+.k-wide {
+  width: min(640px, 70vw);
+}
+
+/* Stage: one or two 3D canvases filling the window. */
+.k-stage {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+.k-stage.k-two {
+  grid-template-columns: 1fr 1fr;
+  bottom: 452px;
+}
+.ks-you .k-stage {
+  left: 44%;
+}
+.k-canvas {
+  position: relative;
+  isolation: isolate; /* the dress cover's z-index stays inside the canvas */
+  min-width: 0;
+  min-height: 0;
+}
+.k-canvas canvas {
+  display: block;
+}
+.k-canvas .k-dress-cover {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 420ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.k-canvas .k-dress-cover.k-revealing {
+  opacity: 0;
+}
+.ks-result .k-cards {
+  animation: k-result-in 320ms ease-out both;
+}
+@keyframes k-result-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .kiosk *,
+  .kiosk *::before,
+  .kiosk *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+.k-canvas-label {
+  position: absolute;
+  top: 18px;
+  left: 22px;
+  z-index: 2;
+  font-size: 22px;
+  font-weight: 600;
+  color: #20282b;
+  background: rgba(255, 255, 255, 0.75);
+  padding: 6px 14px;
+  border-radius: 8px;
+}
+
+.k-center {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  text-align: center;
+}
+.k-attract {
+  position: absolute;
+  z-index: 2; /* above the 3D stage and its dress cover */
+  left: 6vw;
+  bottom: 9vh;
+  max-width: 34vw;
+  padding: 36px 40px;
+  border-radius: 20px;
+  background: var(--k-panel);
+}
+.k-cta {
+  font-size: 26px;
+  color: var(--k-accent);
+  animation: k-pulse 2.4s ease-in-out infinite;
+}
+@keyframes k-pulse {
+  50% {
+    opacity: 0.45;
+  }
+}
+
+.k-panel {
+  position: absolute;
+  inset: 0 56% 0 0;
+  padding: 56px 56px 120px;
+  background: #131b1f;
+  overflow: auto;
+}
+.k-scan,
+.k-tryon,
+.k-board {
+  inset: 0;
+}
+.k-tryon {
+  bottom: 0;
+  padding-bottom: 150px;
+}
+.k-tabs {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0 22px;
+  flex-wrap: wrap;
+}
+.k-tabs button,
+.k-sizes button {
+  background: #1c282d;
+  border: 2px solid #3a4a4d;
+  border-radius: 10px;
+  padding: 12px 22px;
+  font-size: 24px;
+}
+.kiosk button[aria-pressed='true'] {
+  color: var(--k-accent);
+  background: #2c4339;
+  border-color: var(--k-accent);
+}
+.k-field {
+  display: block;
+  font-size: 22px;
+  color: var(--k-muted);
+  margin-bottom: 26px;
+}
+.k-pair {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+.k-pair input,
+.k-table input {
+  width: 150px;
+  font: inherit;
+  font-size: 40px;
+  padding: 8px 14px;
+  color: var(--k-ink);
+  background: #0d1316;
+  border: 2px solid #3a4a4d;
+  border-radius: 10px;
+}
+.k-table input {
+  font-size: 26px;
+  width: 130px;
+}
+.k-pair em {
+  font-style: normal;
+  font-size: 28px;
+}
+
+/* Scan */
+.k-scan {
+  display: grid;
+  grid-template-columns: 1fr 520px;
+  padding: 0;
+}
+.k-scan-preview {
+  position: relative;
+  background: #000;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+.k-video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transform: scaleX(-1); /* mirror, like a mirror */
+}
+.k-scan-wait {
+  position: absolute;
+  font-size: 28px;
+}
+.k-scan-side {
+  padding: 48px 40px;
+  background: #131b1f;
+}
+.k-guidance {
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--k-accent);
+  min-height: 3.4em;
+  margin: 18px 0 6px;
+}
+.k-scan-result {
+  list-style: none;
+  padding: 0;
+  font-size: 28px;
+}
+.k-scan-result li {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #2a353a;
+  padding: 8px 0;
+}
+
+/* Fitting / result */
+.k-banner {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 420px;
+  padding: 40px 56px;
+  background: #131b1f;
+}
+.k-result {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  pointer-events: none;
+}
+.k-result > * {
+  pointer-events: auto;
+}
+.k-cards {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 84px;
+  height: 368px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+/* Agent M: the card's content was ~35 px taller than the card on the kiosk display (1536x864
+   CSS px, and 1600x900): the Try moves / store row was clipped, its lower 2/3 behind the footer,
+   so a judge clicking its centre hit the footer (a dead click). Only the collar note (it
+   scrolls) and the store note give way now; the button row always shows in full. */
+.k-card {
+  display: flex;
+  flex-direction: column;
+  padding: 14px 32px 10px;
+  background: #131b1f;
+  border-right: 1px solid #2a353a;
+  overflow: hidden auto;
+}
+.k-card > * {
+  flex-shrink: 0;
+}
+.k-card > .k-storenote {
+  /* Gives way first (it sat below the clipped row before, so it was never visible here). */
+  flex-shrink: 1000;
+  min-height: 0;
+  overflow: hidden;
+}
+.k-reason {
+  font-size: 22px;
+  margin: 0 0 6px;
+}
+.k-card > .k-note {
+  font-size: 15px;
+  margin: 0 0 4px;
+}
+.k-card > .k-collar {
+  /* Three lines; down to one when the card is short (the text scrolls). */
+  flex: 0 1 4.05em;
+  min-height: 1.35em;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  font-size: 14px;
+}
+.k-sizes {
+  display: flex;
+  gap: 8px;
+  margin: 6px 0 8px;
+}
+.k-sizes button {
+  font-size: 20px;
+  padding: 8px 16px;
+}
+.k-shop {
+  font-size: 20px;
+  padding: 10px 20px;
+  margin-right: 12px;
+}
+.k-bodybar {
+  position: absolute;
+  bottom: 468px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 22px;
+  align-items: baseline;
+  padding: 10px 22px;
+  border-radius: 12px;
+  background: var(--k-panel);
+  font-size: 20px;
+  white-space: nowrap;
+}
+.k-actions {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.k-footer {
+  position: absolute;
+  z-index: 5;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 84px;
+  padding: 0 32px;
+  justify-content: flex-end;
+  background: #0d1316;
+  border-top: 1px solid #2a353a;
+}
+.k-tryon .k-actions {
+  margin-top: 20px;
+}
+.k-result:has(.k-tryon) .k-bodybar {
+  display: none;
+}
+.k-table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 21px;
+  margin: 10px 0 18px;
+}
+.k-table th,
+.k-table td {
+  text-align: left;
+  padding: 12px 14px;
+  border-bottom: 1px solid #2a353a;
+  vertical-align: top;
+}
+.k-table td b {
+  display: block;
+  font-size: 28px;
+}
+.k-table td small {
+  color: var(--k-muted);
+}
+.k-how {
+  color: var(--k-muted);
+  max-width: 520px;
+  font-size: 19px;
+}
+.k-check {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  font-size: 22px;
+}
+.k-check input {
+  width: 30px;
+  height: 30px;
+}
+.k-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 12px 0 18px;
+}
+.k-summary div {
+  padding: 18px 22px;
+  border-radius: 14px;
+  background: #1c282d;
+}
+.k-summary b {
+  display: block;
+  font-size: 44px;
+  color: var(--k-accent);
+}
+.k-summary span,
+.k-summary small {
+  color: var(--k-muted);
+}
+
+.k-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 24px;
+  background: rgba(10, 15, 18, 0.88);
+  font-size: 44px;
+}
+.k-diag {
+  position: absolute;
+  z-index: 30;
+  right: 12px;
+  top: 12px;
+  max-width: 46vw;
+  white-space: pre-wrap;
+  font:
+    13px/1.4 Consolas,
+    monospace;
+  background: rgba(0, 0, 0, 0.82);
+  color: #c7f2dc;
+  padding: 12px 14px;
+  border-radius: 8px;
+  pointer-events: none;
+}
+.k-attract .k-cta,
+.k-attract h1 {
+  user-select: none;
+}
+.k-shoprow {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.k-shoprow .k-note {
+  font-size: 17px;
+}
+
+/* Feel the fabric (hand pull, prompts/05) */
+.ks-feel .k-stage {
+  bottom: 84px;
+}
+.k-feel {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.k-feel > * {
+  pointer-events: auto;
+}
+.k-feel-top {
+  position: absolute;
+  top: 24px;
+  left: 32px;
+  right: 32px;
+  color: #20282b;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+.k-feel-top h2 {
+  font-size: 40px;
+}
+.k-feel-top .k-note {
+  color: #3d4a4d;
+  position: fixed;
+  top: 166px;
+  right: 24px;
+  max-width: 240px;
+  margin: 0;
+  font-size: 16px;
+}
+/* Reserve a header band on smaller/scaled displays so the title stays clear of the head.
+   The camera stays top-right; the readout panel scrolls above the lower zip controls. */
+@media (max-width: 1600px) {
+  .kiosk.ks-feel {
+    background: #dfddd8;
+  }
+  .ks-feel .k-stage {
+    top: 128px;
+  }
+  .k-feel-top {
+    right: 280px;
+  }
+  .kiosk .k-feel-top h2 {
+    font-size: clamp(24px, 2.5vw, 34px);
+    margin-bottom: 12px;
+  }
+  .k-feel-compare {
+    max-height: calc(100% - 370px);
+    overflow-y: auto;
+  }
+}
+.k-feel-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 108px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 24px;
+  border-radius: 40px;
+  background: rgba(17, 24, 28, 0.82);
+  font-size: 24px;
+  white-space: nowrap;
+  transition: background 200ms;
+}
+/* Narrow screens: keep the hint clear of the bottom-left zip panel (32 + 330 px wide). */
+@media (max-width: 1440px) {
+  .k-feel-hint {
+    left: 386px;
+    transform: none;
+    max-width: calc(100vw - 386px - 24px);
+    white-space: normal;
+    font-size: clamp(14px, 1.8vw, 22px);
+    padding: 10px 16px;
+    gap: 10px;
+  }
+}
+.k-feel-hint.missed {
+  background: rgba(120, 40, 30, 0.88);
+}
+.k-feel-hint.resisting {
+  background: rgba(130, 90, 10, 0.9);
+}
+.k-feel-hint.grabbing {
+  background: rgba(20, 90, 50, 0.9);
+}
+.k-hand-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 3px solid var(--k-ink);
+  box-sizing: border-box;
+  animation: k-hand-close 1.6s ease-in-out infinite;
+}
+@keyframes k-hand-close {
+  0%,
+  35% {
+    transform: scale(1);
+    border-width: 3px;
+  }
+  60%,
+  85% {
+    transform: scale(0.62);
+    border-width: 9px;
+  }
+  100% {
+    transform: scale(1);
+    border-width: 3px;
+  }
+}
+.k-feel-preview {
+  position: absolute;
+  right: 24px;
+  top: 24px;
+  width: 240px;
+  height: 135px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #000;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+}
+.k-feel-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scaleX(-1); /* mirror, like a mirror */
+}
+.k-feel-error {
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -50%);
+  max-width: 760px;
+  padding: 28px 36px;
+  border-radius: 14px;
+  background: var(--k-panel);
+  font-size: 26px;
+  text-align: center;
+}
+
+/* The one money-shot annotation: readable at 1.5 m (review 03 M3). */
+.kiosk .fit-label-large {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 14px;
+  font-size: 22px;
+  color: #f4f7f5;
+  border-width: 2px;
+  border-radius: 10px;
+  background: #0a111be6;
+}
+.kiosk .fit-label-large small {
+  font-size: 14px;
+  color: #b9c6c0;
+}
+.k-badge {
+  display: inline-block;
+  margin-left: 10px;
+  padding: 2px 10px;
+  border: 1px solid #e8c181;
+  border-radius: 999px;
+  color: #e8c181;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  vertical-align: middle;
+}
+.k-loading {
+  color: #9fb4ab;
+  font-size: 14px;
+  min-height: 1.35em;
+  margin: 0 0 4px;
+}
+.k-unvalidated {
+  margin: 0 0 12px;
+  padding: 10px 14px;
+  border-left: 3px solid #e8c181;
+  background: #e8c18114;
+  color: #f0dcb4;
+}
+.k-motion .motion-studio {
+  z-index: 15;
+}
+.k-moves {
+  font-size: 20px;
+  padding: 8px 18px;
+  border-radius: 12px;
+}
+.k-storenote {
+  display: block;
+  margin-top: 6px;
+}
+
+/* Prompt 06 F1/F2: one-line hints. */
+.k-hint {
+  margin: 4px 0 10px;
+  font-size: 19px;
+  color: var(--k-muted);
+}
+/* Operator cue (agent S): grey while the jackets' shader programs compile, green once every one
+   is linked (html[data-kiosk-warm="1"] for scripts). Tiny and low-contrast: not a judge feature. */
+.k-warm {
+  position: absolute;
+  z-index: 2;
+  left: 12px;
+  bottom: 12px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #9aa3a8;
+  opacity: 0.6;
+  pointer-events: none;
+}
+.k-warm-on {
+  background: #3fae6a;
+}
+
+.k-exit-hint {
+  position: absolute;
+  z-index: 2;
+  top: 18px;
+  right: 24px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 15px;
+  color: #e9eef0; /* legible on the light attract floor */
+  background: rgba(20, 28, 32, 0.6);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* F2: camera picker (scan + try-on; shown when there is more than one camera or a stored choice). */
+.kiosk .k-cam-picker {
+  display: inline-flex;
+  gap: 0.5em;
+  align-items: center;
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  opacity: 0.85;
+}
+.kiosk .k-cam-picker select {
+  max-width: 18rem;
+  font: inherit;
+}

@@ -1,0 +1,63 @@
+# Dependencies and repository-local caches
+node_modules/
+.venv/
+.cache/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+*.egg-info/
+
+# Build and test output
+dist/
+coverage/
+htmlcov/
+.coverage
+*.tsbuildinfo
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Personal measurements and derived validation exports
+data/ground-truth/*.json
+!data/ground-truth/*.example.json
+data/ground-truth/worn/
+# Explicit validation exports may contain personal derived measurements.
+docs/validation/body-*.md
+!docs/validation/body-fixes-review.md
+!docs/validation/body-reference.md
+docs/validation/garment-personal-*.md
+docs/validation/realism-personal-*
+
+# OS/editor state
+.DS_Store
+Thumbs.db
+Desktop.ini
+.idea/
+.vscode/
+*.log
+
+# Vision assets copied for the web app (scripts/kiosk-assets.mjs)
+apps/web/public/vision/
+# Anonymous accuracy board (opt-in only, local)
+data/accuracy/
+
+# Amazon product pages saved by the user for Fit Agent tests (third-party content: local only)
+data/amazon-pages/
+
+# Reference photos of the real jackets (product photos are copyrighted; local only)
+data/reference-photos/
+
+# Look-dev side-by-sides contain the user's local reference photos (agent L1a): keep local.
+docs/validation/look-l1a-*.png
+docs/validation/look-l1b-*.png
+docs/validation/look-*.png
+
+# Third-party test videos (stock, Nike references, venue recordings): local only, never committed.
+data/test-videos/
+
+# F4T (?f4tex=1): chart textures derived from the user's own jacket photos (scripts/f4t-textures.py): local only.
+apps/web/public/local-textures/

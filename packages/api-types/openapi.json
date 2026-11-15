@@ -1,0 +1,4707 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Satisfy at the First Buy \u2014 Body Engine",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/motion/presets": {
+      "get": {
+        "tags": [
+          "motion"
+        ],
+        "summary": "Presets",
+        "operationId": "presets_motion_presets_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Motion"
+                  },
+                  "type": "array",
+                  "title": "Response Presets Motion Presets Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/motion/{body_id}/rig.bin": {
+      "get": {
+        "tags": [
+          "motion"
+        ],
+        "summary": "Rig",
+        "operationId": "rig_motion__body_id__rig_bin_get",
+        "parameters": [
+          {
+            "name": "body_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$",
+              "title": "Body Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/octet-stream": {}
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/motion/{body_id}/sdf.bin": {
+      "get": {
+        "tags": [
+          "motion"
+        ],
+        "summary": "Sdf",
+        "operationId": "sdf_motion__body_id__sdf_bin_get",
+        "parameters": [
+          {
+            "name": "body_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$",
+              "title": "Body Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/octet-stream": {}
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/motion/{body_id}/anchors": {
+      "get": {
+        "tags": [
+          "motion"
+        ],
+        "summary": "Anchors",
+        "operationId": "anchors_motion__body_id__anchors_get",
+        "parameters": [
+          {
+            "name": "body_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$",
+              "title": "Body Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnchorsResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/motion/{body_id}/{motion_id}/frames.bin": {
+      "get": {
+        "tags": [
+          "motion"
+        ],
+        "summary": "Frames",
+        "operationId": "frames_motion__body_id___motion_id__frames_bin_get",
+        "parameters": [
+          {
+            "name": "body_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$",
+              "title": "Body Id"
+            }
+          },
+          {
+            "name": "motion_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z_]{1,32}$",
+              "title": "Motion Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/octet-stream": {}
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/agent/status": {
+      "get": {
+        "tags": [
+          "fit-agent"
+        ],
+        "summary": "Status",
+        "operationId": "status_agent_status_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Status Agent Status Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/agent/extract": {
+      "post": {
+        "tags": [
+          "fit-agent"
+        ],
+        "summary": "Extract",
+        "operationId": "extract_agent_extract_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExtractRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExtractionView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/agent/recommend": {
+      "post": {
+        "tags": [
+          "fit-agent"
+        ],
+        "summary": "Recommend Endpoint",
+        "operationId": "recommend_endpoint_agent_recommend_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecommendRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecommendResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/agent/compare": {
+      "post": {
+        "tags": [
+          "fit-agent"
+        ],
+        "summary": "Compare",
+        "operationId": "compare_agent_compare_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompareRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompareResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/agent/profile": {
+      "get": {
+        "tags": [
+          "fit-agent"
+        ],
+        "summary": "Get Profile",
+        "operationId": "get_profile_agent_profile_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Get Profile Agent Profile Get"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "fit-agent"
+        ],
+        "summary": "Put Profile",
+        "operationId": "put_profile_agent_profile_put",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProfileIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Put Profile Agent Profile Put"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "fit-agent"
+        ],
+        "summary": "Delete Profile",
+        "operationId": "delete_profile_agent_profile_delete",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Delete Profile Agent Profile Delete"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/agent/learning": {
+      "get": {
+        "tags": [
+          "fit-agent"
+        ],
+        "summary": "Get Learning",
+        "operationId": "get_learning_agent_learning_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Get Learning Agent Learning Get"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "fit-agent"
+        ],
+        "summary": "Reset Learning",
+        "operationId": "reset_learning_agent_learning_delete",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Reset Learning Agent Learning Delete"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/agent/purchases": {
+      "post": {
+        "tags": [
+          "fit-agent"
+        ],
+        "summary": "Add Purchase",
+        "operationId": "add_purchase_agent_purchases_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PurchaseIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Add Purchase Agent Purchases Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/agent/feedback": {
+      "post": {
+        "tags": [
+          "fit-agent"
+        ],
+        "summary": "Feedback",
+        "operationId": "feedback_agent_feedback_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FeedbackIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Feedback Agent Feedback Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/agent/learning/{purchase_id}": {
+      "delete": {
+        "tags": [
+          "fit-agent"
+        ],
+        "summary": "Undo",
+        "operationId": "undo_agent_learning__purchase_id__delete",
+        "parameters": [
+          {
+            "name": "purchase_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{32}$",
+              "title": "Purchase Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Undo Agent Learning  Purchase Id  Delete"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "summary": "Health",
+        "operationId": "health_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/body/capabilities": {
+      "get": {
+        "summary": "Capabilities",
+        "operationId": "capabilities_body_capabilities_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CapabilitiesResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/body/fit": {
+      "post": {
+        "summary": "Fit",
+        "operationId": "fit_body_fit_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FitRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FitResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/body/{body_id}": {
+      "delete": {
+        "summary": "Forget",
+        "description": "Kiosk reset: drop this body and everything derived from it from RAM now.",
+        "operationId": "forget_body__body_id__delete",
+        "parameters": [
+          {
+            "name": "body_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$",
+              "title": "Body Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ForgetResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/body/{body_id}/mesh.glb": {
+      "get": {
+        "summary": "Mesh",
+        "operationId": "mesh_body__body_id__mesh_glb_get",
+        "parameters": [
+          {
+            "name": "body_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$",
+              "title": "Body Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "model/gltf-binary": {}
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/body/{body_id}/landmarks": {
+      "get": {
+        "summary": "Landmarks",
+        "operationId": "landmarks_body__body_id__landmarks_get",
+        "parameters": [
+          {
+            "name": "body_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$",
+              "title": "Body Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LandmarkResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/body/{body_id}/uncertainty": {
+      "get": {
+        "summary": "Uncertainty",
+        "operationId": "uncertainty_body__body_id__uncertainty_get",
+        "parameters": [
+          {
+            "name": "body_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$",
+              "title": "Body Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UncertaintyResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products": {
+      "get": {
+        "summary": "Products",
+        "operationId": "products_products_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/GarmentSpec"
+                  },
+                  "type": "array",
+                  "title": "Response Products Products Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/{product_id}": {
+      "get": {
+        "summary": "Product",
+        "operationId": "product_products__product_id__get",
+        "parameters": [
+          {
+            "name": "product_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$",
+              "title": "Product Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GarmentSpec"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/garment/options": {
+      "get": {
+        "summary": "Garment Options",
+        "operationId": "garment_options_garment_options_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GarmentOptions"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/fit/{fit_id}/{size}/cloth": {
+      "get": {
+        "summary": "Cloth Asset",
+        "operationId": "cloth_asset_fit__fit_id___size__cloth_get",
+        "parameters": [
+          {
+            "name": "fit_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$",
+              "title": "Fit Id"
+            }
+          },
+          {
+            "name": "size",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,23}$",
+              "title": "Size"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClothAsset"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/collision/{sdf_id}.bin": {
+      "get": {
+        "summary": "Collision Binary",
+        "operationId": "collision_binary_collision__sdf_id__bin_get",
+        "parameters": [
+          {
+            "name": "sdf_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$",
+              "title": "Sdf Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/octet-stream": {}
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/fit/garment": {
+      "post": {
+        "summary": "Fit Garment",
+        "operationId": "fit_garment_fit_garment_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GarmentFitRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GarmentFitResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/fit/{fit_id}/{size}/garment.glb": {
+      "get": {
+        "summary": "Garment Mesh",
+        "operationId": "garment_mesh_fit__fit_id___size__garment_glb_get",
+        "parameters": [
+          {
+            "name": "fit_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$",
+              "title": "Fit Id"
+            }
+          },
+          {
+            "name": "size",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,23}$",
+              "title": "Size"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "model/gltf-binary": {}
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AnchorsResponse": {
+        "properties": {
+          "version": {
+            "type": "string",
+            "title": "Version"
+          },
+          "frame": {
+            "type": "string",
+            "title": "Frame"
+          },
+          "ring_samples": {
+            "type": "integer",
+            "title": "Ring Samples"
+          },
+          "ring_index": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Ring Index"
+          },
+          "rings": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/AttachmentModel"
+            },
+            "type": "object",
+            "title": "Rings"
+          },
+          "tapes": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/AttachmentModel"
+            },
+            "type": "object",
+            "title": "Tapes"
+          },
+          "points": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Points"
+          },
+          "heights_m": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Heights M"
+          },
+          "exposure_vertices": {
+            "additionalProperties": {
+              "items": {
+                "type": "integer"
+              },
+              "type": "array"
+            },
+            "type": "object",
+            "title": "Exposure Vertices"
+          },
+          "waistband_default": {
+            "type": "string",
+            "title": "Waistband Default"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "version",
+          "frame",
+          "ring_samples",
+          "ring_index",
+          "rings",
+          "tapes",
+          "points",
+          "heights_m",
+          "exposure_vertices",
+          "waistband_default"
+        ],
+        "title": "AnchorsResponse"
+      },
+      "AttachmentModel": {
+        "properties": {
+          "vertices": {
+            "items": {
+              "items": {
+                "type": "integer"
+              },
+              "type": "array"
+            },
+            "type": "array",
+            "title": "Vertices"
+          },
+          "weights": {
+            "items": {
+              "items": {
+                "type": "number"
+              },
+              "type": "array"
+            },
+            "type": "array",
+            "title": "Weights"
+          },
+          "rest": {
+            "items": {
+              "items": {
+                "type": "number"
+              },
+              "type": "array"
+            },
+            "type": "array",
+            "title": "Rest"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "vertices",
+          "weights",
+          "rest"
+        ],
+        "title": "AttachmentModel"
+      },
+      "BodyChartSize": {
+        "properties": {
+          "chest": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SourcedMeasurement"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "waist": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SourcedMeasurement"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "hip": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SourcedMeasurement"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "BodyChartSize"
+      },
+      "CapabilitiesResponse": {
+        "properties": {
+          "phenotype_labels": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Phenotype Labels"
+          },
+          "shape_reference_supported": {
+            "type": "boolean",
+            "title": "Shape Reference Supported"
+          },
+          "shape_references": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "neutral",
+                "african",
+                "asian",
+                "caucasian"
+              ]
+            },
+            "type": "array",
+            "title": "Shape References"
+          },
+          "measurements": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Measurements"
+          },
+          "default_density_kg_m3": {
+            "type": "number",
+            "enum": [
+              980.0,
+              1010.0
+            ],
+            "title": "Default Density Kg M3",
+            "default": 1010.0
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "phenotype_labels",
+          "shape_reference_supported",
+          "shape_references",
+          "measurements"
+        ],
+        "title": "CapabilitiesResponse"
+      },
+      "ChartValue": {
+        "properties": {
+          "value": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 300.0,
+                "exclusiveMinimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          },
+          "min": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 300.0,
+                "exclusiveMinimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Min"
+          },
+          "max": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 300.0,
+                "exclusiveMinimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max"
+          },
+          "raw": {
+            "type": "string",
+            "maxLength": 120,
+            "title": "Raw",
+            "default": ""
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "ChartValue",
+        "description": "A chart cell in the chart's own unit, exactly as printed (checked against the page)."
+      },
+      "ClothAsset": {
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "Key"
+          },
+          "pose": {
+            "type": "string",
+            "title": "Pose",
+            "default": "relaxed27-absolute-elbow12-v2"
+          },
+          "rest": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "title": "Rest"
+          },
+          "initial": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "title": "Initial"
+          },
+          "triangles": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "title": "Triangles"
+          },
+          "panels": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "title": "Panels"
+          },
+          "elastic": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "title": "Elastic"
+          },
+          "stitch": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "title": "Stitch"
+          },
+          "loft": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "title": "Loft"
+          },
+          "welds": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "title": "Welds"
+          },
+          "tethers": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "title": "Tethers"
+          },
+          "tether_lengths": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "title": "Tether Lengths"
+          },
+          "cuff_colliders": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/CuffCollider"
+            },
+            "type": "object",
+            "title": "Cuff Colliders"
+          },
+          "paths": {
+            "additionalProperties": {
+              "items": {
+                "type": "integer"
+              },
+              "type": "array"
+            },
+            "type": "object",
+            "title": "Paths"
+          },
+          "landmarks": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Landmarks"
+          },
+          "body_landmarks": {
+            "additionalProperties": {
+              "prefixItems": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "type": "array",
+              "maxItems": 3,
+              "minItems": 3
+            },
+            "type": "object",
+            "title": "Body Landmarks"
+          },
+          "body_positions": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "title": "Body Positions"
+          },
+          "body_triangles": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "title": "Body Triangles"
+          },
+          "sdf": {
+            "$ref": "#/components/schemas/SdfData"
+          },
+          "config": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Config"
+          },
+          "rest_measurements_cm": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Rest Measurements Cm"
+          },
+          "colour": {
+            "type": "string",
+            "title": "Colour"
+          },
+          "finish": {
+            "type": "string",
+            "title": "Finish"
+          },
+          "layer_m": {
+            "type": "number",
+            "title": "Layer M"
+          },
+          "stretch_max_source": {
+            "type": "string",
+            "title": "Stretch Max Source"
+          },
+          "build_ms": {
+            "type": "number",
+            "title": "Build Ms"
+          },
+          "warnings": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Warnings"
+          },
+          "fabric_surface": {
+            "type": "string",
+            "enum": [
+              "outer",
+              "neutral"
+            ],
+            "title": "Fabric Surface",
+            "default": "outer"
+          },
+          "render_offsets": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "title": "Render Offsets"
+          },
+          "attachments": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "title": "Attachments"
+          },
+          "attachment_offsets": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "title": "Attachment Offsets"
+          },
+          "body_arm_faces": {
+            "additionalProperties": {
+              "items": {
+                "type": "integer"
+              },
+              "type": "array"
+            },
+            "type": "object",
+            "title": "Body Arm Faces"
+          },
+          "body_arm_routes": {
+            "additionalProperties": {
+              "items": {
+                "prefixItems": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ],
+                "type": "array",
+                "maxItems": 3,
+                "minItems": 3
+              },
+              "type": "array"
+            },
+            "type": "object",
+            "title": "Body Arm Routes"
+          },
+          "render_uv": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "title": "Render Uv"
+          },
+          "quilt": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "title": "Quilt"
+          },
+          "stitch_distance_m": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "title": "Stitch Distance M"
+          },
+          "puff_frames": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "title": "Puff Frames"
+          },
+          "puff_components": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "title": "Puff Components"
+          },
+          "maximum_loft_m": {
+            "type": "number",
+            "title": "Maximum Loft M",
+            "default": 0
+          },
+          "neck_collider": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CuffCollider"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "render_details": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Render Details"
+          },
+          "render_material_v": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "title": "Render Material V"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "key",
+          "rest",
+          "initial",
+          "triangles",
+          "panels",
+          "elastic",
+          "stitch",
+          "loft",
+          "welds",
+          "paths",
+          "landmarks",
+          "body_landmarks",
+          "body_positions",
+          "body_triangles",
+          "sdf",
+          "config",
+          "rest_measurements_cm",
+          "colour",
+          "finish",
+          "layer_m",
+          "stretch_max_source",
+          "build_ms"
+        ],
+        "title": "ClothAsset"
+      },
+      "CompareRequest": {
+        "properties": {
+          "preference": {
+            "type": "string",
+            "enum": [
+              "fitted",
+              "regular",
+              "relaxed"
+            ],
+            "title": "Preference",
+            "default": "regular"
+          },
+          "layer": {
+            "type": "string",
+            "enum": [
+              "t-shirt",
+              "hoodie"
+            ],
+            "title": "Layer",
+            "default": "t-shirt"
+          },
+          "asins": {
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Z0-9]{10}$"
+            },
+            "type": "array",
+            "maxItems": 2,
+            "minItems": 2,
+            "title": "Asins"
+          },
+          "body": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ProfileBody"
+              },
+              {
+                "$ref": "#/components/schemas/SessionBody"
+              }
+            ],
+            "title": "Body",
+            "discriminator": {
+              "propertyName": "mode",
+              "mapping": {
+                "profile": "#/components/schemas/ProfileBody",
+                "session": "#/components/schemas/SessionBody"
+              }
+            }
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "asins",
+          "body"
+        ],
+        "title": "CompareRequest"
+      },
+      "CompareResponse": {
+        "properties": {
+          "products": {
+            "items": {
+              "$ref": "#/components/schemas/RecommendResponse"
+            },
+            "type": "array",
+            "title": "Products"
+          },
+          "summary": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Summary"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "products",
+          "summary"
+        ],
+        "title": "CompareResponse"
+      },
+      "CuffCollider": {
+        "properties": {
+          "path": {
+            "items": {
+              "prefixItems": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "type": "array",
+              "maxItems": 3,
+              "minItems": 3
+            },
+            "type": "array",
+            "title": "Path"
+          },
+          "distances_m": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "title": "Distances M"
+          },
+          "guide_radii_m": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "title": "Guide Radii M"
+          },
+          "stop_distance_m": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Stop Distance M"
+          },
+          "opening_m": {
+            "type": "number",
+            "title": "Opening M"
+          },
+          "fits_minimum_section": {
+            "type": "boolean",
+            "title": "Fits Minimum Section"
+          },
+          "source": {
+            "type": "string",
+            "title": "Source"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "path",
+          "distances_m",
+          "guide_radii_m",
+          "stop_distance_m",
+          "opening_m",
+          "fits_minimum_section",
+          "source"
+        ],
+        "title": "CuffCollider"
+      },
+      "ExtractRequest": {
+        "properties": {
+          "page": {
+            "$ref": "#/components/schemas/PageContent"
+          },
+          "chart_type_override": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "garment",
+                  "body"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Chart Type Override"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "page"
+        ],
+        "title": "ExtractRequest"
+      },
+      "ExtractedSize": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,23}$",
+            "title": "Name"
+          },
+          "measurements": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/ChartValue"
+            },
+            "propertyNames": {
+              "enum": [
+                "chest",
+                "waist",
+                "hip",
+                "hem",
+                "shoulder",
+                "sleeve",
+                "sleeve_cb",
+                "length",
+                "bicep"
+              ]
+            },
+            "type": "object",
+            "title": "Measurements"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "name",
+          "measurements"
+        ],
+        "title": "ExtractedSize"
+      },
+      "Extraction": {
+        "properties": {
+          "asin": {
+            "type": "string",
+            "pattern": "^[A-Z0-9]{10}$",
+            "title": "Asin"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 400,
+            "title": "Title",
+            "default": ""
+          },
+          "brand": {
+            "type": "string",
+            "maxLength": 200,
+            "title": "Brand",
+            "default": ""
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "jacket",
+              "coat",
+              "hoodie",
+              "sweatshirt",
+              "t-shirt",
+              "shirt",
+              "polo",
+              "sweater",
+              "top"
+            ],
+            "title": "Category"
+          },
+          "chart_type": {
+            "type": "string",
+            "enum": [
+              "garment",
+              "body"
+            ],
+            "title": "Chart Type"
+          },
+          "unit": {
+            "type": "string",
+            "enum": [
+              "cm",
+              "in"
+            ],
+            "title": "Unit"
+          },
+          "flat_fields": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "chest",
+                "waist",
+                "hip",
+                "hem",
+                "shoulder",
+                "sleeve",
+                "sleeve_cb",
+                "length",
+                "bicep"
+              ]
+            },
+            "type": "array",
+            "title": "Flat Fields",
+            "default": []
+          },
+          "fit_intent": {
+            "type": "string",
+            "enum": [
+              "slim",
+              "regular",
+              "loose",
+              "oversized"
+            ],
+            "title": "Fit Intent",
+            "default": "regular"
+          },
+          "construction": {
+            "type": "string",
+            "enum": [
+              "set_in",
+              "drop_shoulder",
+              "raglan"
+            ],
+            "title": "Construction",
+            "default": "set_in"
+          },
+          "fabric": {
+            "type": "string",
+            "maxLength": 1000,
+            "title": "Fabric",
+            "default": ""
+          },
+          "sizes": {
+            "items": {
+              "$ref": "#/components/schemas/ExtractedSize"
+            },
+            "type": "array",
+            "maxItems": 30,
+            "minItems": 1,
+            "title": "Sizes"
+          },
+          "headers": {
+            "additionalProperties": {
+              "type": "string",
+              "maxLength": 120
+            },
+            "propertyNames": {
+              "enum": [
+                "chest",
+                "waist",
+                "hip",
+                "hem",
+                "shoulder",
+                "sleeve",
+                "sleeve_cb",
+                "length",
+                "bicep"
+              ]
+            },
+            "type": "object",
+            "title": "Headers",
+            "default": {}
+          },
+          "evidence": {
+            "items": {
+              "type": "string",
+              "maxLength": 300
+            },
+            "type": "array",
+            "maxItems": 20,
+            "title": "Evidence",
+            "default": []
+          },
+          "assumptions": {
+            "items": {
+              "type": "string",
+              "maxLength": 300
+            },
+            "type": "array",
+            "maxItems": 20,
+            "title": "Assumptions",
+            "default": []
+          },
+          "provenance": {
+            "$ref": "#/components/schemas/Provenance"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "asin",
+          "category",
+          "chart_type",
+          "unit",
+          "sizes",
+          "provenance"
+        ],
+        "title": "Extraction"
+      },
+      "ExtractionView": {
+        "properties": {
+          "extraction": {
+            "$ref": "#/components/schemas/Extraction"
+          },
+          "source_label": {
+            "type": "string",
+            "title": "Source Label"
+          },
+          "garment_estimated": {
+            "type": "boolean",
+            "title": "Garment Estimated"
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notes"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "extraction",
+          "source_label",
+          "garment_estimated",
+          "notes"
+        ],
+        "title": "ExtractionView"
+      },
+      "Fabric": {
+        "properties": {
+          "composition": {
+            "type": "string",
+            "maxLength": 1000,
+            "minLength": 1,
+            "title": "Composition"
+          },
+          "elastane_pct": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 100.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Elastane Pct"
+          },
+          "stretch_max": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 3.0,
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Stretch Max"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "composition"
+        ],
+        "title": "Fabric"
+      },
+      "FeedbackIn": {
+        "properties": {
+          "purchase_id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{32}$",
+            "title": "Purchase Id"
+          },
+          "answers": {
+            "additionalProperties": {
+              "type": "string",
+              "enum": [
+                "tight",
+                "right",
+                "loose"
+              ]
+            },
+            "propertyNames": {
+              "enum": [
+                "shoulder",
+                "chest",
+                "hem",
+                "sleeve",
+                "bicep",
+                "collar"
+              ]
+            },
+            "type": "object",
+            "minProperties": 1,
+            "title": "Answers"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "purchase_id",
+          "answers"
+        ],
+        "title": "FeedbackIn"
+      },
+      "FitChoices": {
+        "properties": {
+          "preference": {
+            "type": "string",
+            "enum": [
+              "fitted",
+              "regular",
+              "relaxed"
+            ],
+            "title": "Preference",
+            "default": "regular"
+          },
+          "layer": {
+            "type": "string",
+            "enum": [
+              "t-shirt",
+              "hoodie"
+            ],
+            "title": "Layer",
+            "default": "t-shirt"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "FitChoices"
+      },
+      "FitRequest": {
+        "properties": {
+          "height_cm": {
+            "type": "number",
+            "maximum": 220.0,
+            "minimum": 120.0,
+            "title": "Height Cm"
+          },
+          "weight_kg": {
+            "type": "number",
+            "maximum": 200.0,
+            "minimum": 30.0,
+            "title": "Weight Kg"
+          },
+          "sex": {
+            "type": "string",
+            "enum": [
+              "female",
+              "male"
+            ],
+            "title": "Sex"
+          },
+          "known_measurements": {
+            "$ref": "#/components/schemas/KnownMeasurements"
+          },
+          "shape_reference": {
+            "type": "string",
+            "enum": [
+              "neutral",
+              "african",
+              "asian",
+              "caucasian"
+            ],
+            "title": "Shape Reference",
+            "default": "neutral"
+          },
+          "density_kg_m3": {
+            "type": "number",
+            "enum": [
+              980.0,
+              1010.0
+            ],
+            "title": "Density Kg M3",
+            "default": 1010.0
+          },
+          "scan_measurements": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ScanMeasurements"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "height_cm",
+          "weight_kg",
+          "sex"
+        ],
+        "title": "FitRequest"
+      },
+      "FitResponse": {
+        "properties": {
+          "body_id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$",
+            "title": "Body Id"
+          },
+          "phenotypes": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Phenotypes"
+          },
+          "local_changes": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Local Changes"
+          },
+          "measurements": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/Measurement"
+            },
+            "type": "object",
+            "title": "Measurements"
+          },
+          "mass_kg": {
+            "type": "number",
+            "title": "Mass Kg"
+          },
+          "volume_m3": {
+            "type": "number",
+            "title": "Volume M3"
+          },
+          "density_kg_m3": {
+            "type": "number",
+            "title": "Density Kg M3",
+            "default": 1010.0
+          },
+          "targets": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Targets"
+          },
+          "residuals": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Residuals"
+          },
+          "fit_ms": {
+            "type": "number",
+            "title": "Fit Ms"
+          },
+          "converged": {
+            "type": "boolean",
+            "title": "Converged"
+          },
+          "warnings": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Warnings"
+          },
+          "scan": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ScanFitReport"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "body_id",
+          "phenotypes",
+          "local_changes",
+          "measurements",
+          "mass_kg",
+          "volume_m3",
+          "targets",
+          "residuals",
+          "fit_ms",
+          "converged",
+          "warnings"
+        ],
+        "title": "FitResponse"
+      },
+      "ForgetResponse": {
+        "properties": {
+          "body_id": {
+            "type": "string",
+            "title": "Body Id"
+          },
+          "removed": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Removed"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "body_id",
+          "removed"
+        ],
+        "title": "ForgetResponse",
+        "description": "Kiosk reset result: how many in-memory cache entries were removed."
+      },
+      "GarmentFitRequest": {
+        "properties": {
+          "body_id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$",
+            "title": "Body Id"
+          },
+          "product_id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$",
+            "title": "Product Id"
+          },
+          "layer_cm": {
+            "type": "number",
+            "maximum": 2.0,
+            "minimum": 0.0,
+            "title": "Layer Cm",
+            "default": 0.3
+          },
+          "preference": {
+            "type": "string",
+            "enum": [
+              "fitted",
+              "regular",
+              "relaxed"
+            ],
+            "title": "Preference",
+            "default": "regular"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "body_id",
+          "product_id"
+        ],
+        "title": "GarmentFitRequest"
+      },
+      "GarmentFitResponse": {
+        "properties": {
+          "fit_id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$",
+            "title": "Fit Id"
+          },
+          "body_id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$",
+            "title": "Body Id"
+          },
+          "product_id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$",
+            "title": "Product Id"
+          },
+          "sizes": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/SizeFit"
+            },
+            "type": "object",
+            "title": "Sizes"
+          },
+          "recommended_size": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Recommended Size"
+          },
+          "comparison_zones": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Comparison Zones"
+          },
+          "explanation": {
+            "type": "string",
+            "title": "Explanation"
+          },
+          "layer_cm": {
+            "type": "number",
+            "title": "Layer Cm"
+          },
+          "preference": {
+            "type": "string",
+            "title": "Preference"
+          },
+          "loft_cm": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Loft Cm"
+          },
+          "loft_uncertainty_cm": {
+            "type": "number",
+            "title": "Loft Uncertainty Cm"
+          },
+          "heatmap_tight_cm": {
+            "type": "number",
+            "title": "Heatmap Tight Cm",
+            "default": 0.5
+          },
+          "heatmap_loose_cm": {
+            "type": "number",
+            "title": "Heatmap Loose Cm",
+            "default": 3.0
+          },
+          "note": {
+            "type": "string",
+            "title": "Note"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "fit_id",
+          "body_id",
+          "product_id",
+          "sizes",
+          "recommended_size",
+          "explanation",
+          "layer_cm",
+          "preference",
+          "loft_cm",
+          "loft_uncertainty_cm",
+          "note"
+        ],
+        "title": "GarmentFitResponse"
+      },
+      "GarmentOptions": {
+        "properties": {
+          "layer_presets_cm": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Layer Presets Cm",
+            "default": {
+              "t-shirt": 0.3,
+              "hoodie": 0.9
+            }
+          },
+          "preferences": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Preferences",
+            "default": [
+              "fitted",
+              "regular",
+              "relaxed"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "GarmentOptions"
+      },
+      "GarmentSize": {
+        "properties": {
+          "shoulder": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SourcedMeasurement"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "chest": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SourcedMeasurement"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "hem": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SourcedMeasurement"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "length_hps": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SourcedMeasurement"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "length_back": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SourcedMeasurement"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "sleeve": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SourcedMeasurement"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "bicep": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SourcedMeasurement"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "sleeve_cb": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SourcedMeasurement"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "chest_inner": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SourcedMeasurement"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "hem_inner": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SourcedMeasurement"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "collar_inner": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SourcedMeasurement"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "collar_height": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SourcedMeasurement"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "GarmentSize"
+      },
+      "GarmentSpec": {
+        "properties": {
+          "product_id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$",
+            "title": "Product Id"
+          },
+          "url": {
+            "type": "string",
+            "maxLength": 2000,
+            "pattern": "^https://[^\\s]+$",
+            "title": "Url"
+          },
+          "brand": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Brand"
+          },
+          "category": {
+            "type": "string",
+            "const": "jacket",
+            "title": "Category"
+          },
+          "chart_type": {
+            "type": "string",
+            "enum": [
+              "garment",
+              "body"
+            ],
+            "title": "Chart Type"
+          },
+          "unit": {
+            "type": "string",
+            "const": "cm",
+            "title": "Unit",
+            "default": "cm"
+          },
+          "owned_size": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,23}$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Owned Size"
+          },
+          "sizes": {
+            "patternProperties": {
+              "^[A-Za-z0-9][A-Za-z0-9_.-]{0,23}$": {
+                "$ref": "#/components/schemas/GarmentSize"
+              }
+            },
+            "type": "object",
+            "maxProperties": 30,
+            "minProperties": 1,
+            "title": "Sizes"
+          },
+          "fabric": {
+            "$ref": "#/components/schemas/Fabric"
+          },
+          "notes": {
+            "type": "string",
+            "maxLength": 3000,
+            "title": "Notes",
+            "default": ""
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 200,
+            "title": "Title",
+            "default": ""
+          },
+          "style": {
+            "type": "string",
+            "maxLength": 100,
+            "title": "Style",
+            "default": ""
+          },
+          "colourway": {
+            "type": "string",
+            "maxLength": 100,
+            "title": "Colourway",
+            "default": ""
+          },
+          "url_aliases": {
+            "items": {
+              "type": "string",
+              "maxLength": 2000,
+              "pattern": "^https://[^\\s]+$"
+            },
+            "type": "array",
+            "maxItems": 10,
+            "title": "Url Aliases"
+          },
+          "construction": {
+            "type": "string",
+            "enum": [
+              "set_in",
+              "drop_shoulder",
+              "raglan"
+            ],
+            "title": "Construction",
+            "default": "set_in"
+          },
+          "fit_intent": {
+            "type": "string",
+            "enum": [
+              "slim",
+              "regular",
+              "loose",
+              "oversized"
+            ],
+            "title": "Fit Intent",
+            "default": "regular"
+          },
+          "loft_cm": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 10.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Loft Cm"
+          },
+          "loft_uncertainty_cm": {
+            "type": "number",
+            "maximum": 2.0,
+            "minimum": 0.0,
+            "title": "Loft Uncertainty Cm",
+            "default": 0.0
+          },
+          "hem_elastic": {
+            "type": "boolean",
+            "title": "Hem Elastic",
+            "default": false
+          },
+          "body_chart_type": {
+            "type": "string",
+            "const": "body",
+            "title": "Body Chart Type",
+            "default": "body"
+          },
+          "body_chart": {
+            "patternProperties": {
+              "^[A-Za-z0-9][A-Za-z0-9_.-]{0,23}$": {
+                "$ref": "#/components/schemas/BodyChartSize"
+              }
+            },
+            "type": "object",
+            "title": "Body Chart"
+          },
+          "visual": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ProductVisual"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "product_id",
+          "url",
+          "brand",
+          "category",
+          "chart_type",
+          "sizes",
+          "fabric"
+        ],
+        "title": "GarmentSpec"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "HealthResponse": {
+        "properties": {
+          "model_loaded": {
+            "type": "boolean",
+            "title": "Model Loaded"
+          },
+          "anny_version": {
+            "type": "string",
+            "title": "Anny Version"
+          },
+          "engine_version": {
+            "type": "string",
+            "title": "Engine Version"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "model_loaded",
+          "anny_version",
+          "engine_version"
+        ],
+        "title": "HealthResponse"
+      },
+      "Hold": {
+        "properties": {
+          "start_s": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Start S"
+          },
+          "end_s": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "End S"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "start_s",
+          "end_s"
+        ],
+        "title": "Hold"
+      },
+      "Keyframe": {
+        "properties": {
+          "t_s": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "T S"
+          },
+          "pose": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Pose"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "t_s",
+          "pose"
+        ],
+        "title": "Keyframe"
+      },
+      "KnownMeasurements": {
+        "properties": {
+          "chest_cm": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 200.0,
+                "minimum": 45.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Chest Cm"
+          },
+          "waist_cm": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 200.0,
+                "minimum": 40.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Waist Cm"
+          },
+          "hip_cm": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 200.0,
+                "minimum": 50.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hip Cm"
+          },
+          "shoulder_width_cm": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 65.0,
+                "minimum": 20.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Shoulder Width Cm"
+          },
+          "shoulder_arc_cm": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 100.0,
+                "minimum": 20.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Shoulder Arc Cm"
+          },
+          "arm_length_cm": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 100.0,
+                "minimum": 30.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Arm Length Cm"
+          },
+          "back_length_cm": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 80.0,
+                "minimum": 25.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Back Length Cm"
+          },
+          "upper_arm_cm": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 70.0,
+                "minimum": 12.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Upper Arm Cm"
+          },
+          "wrist_cm": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 35.0,
+                "minimum": 10.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Wrist Cm"
+          },
+          "neck_base_cm": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 65.0,
+                "minimum": 20.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Neck Base Cm"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "KnownMeasurements"
+      },
+      "LandmarkResponse": {
+        "properties": {
+          "coordinate_frame": {
+            "type": "string",
+            "const": "metres Y-up +Z-front A-pose",
+            "title": "Coordinate Frame",
+            "default": "metres Y-up +Z-front A-pose"
+          },
+          "landmarks": {
+            "additionalProperties": {
+              "prefixItems": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "type": "array",
+              "maxItems": 3,
+              "minItems": 3
+            },
+            "type": "object",
+            "title": "Landmarks"
+          },
+          "girth_polylines": {
+            "additionalProperties": {
+              "items": {
+                "prefixItems": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ],
+                "type": "array",
+                "maxItems": 3,
+                "minItems": 3
+              },
+              "type": "array"
+            },
+            "type": "object",
+            "title": "Girth Polylines"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "landmarks",
+          "girth_polylines"
+        ],
+        "title": "LandmarkResponse"
+      },
+      "Measurement": {
+        "properties": {
+          "value_cm": {
+            "type": "number",
+            "title": "Value Cm"
+          },
+          "method": {
+            "type": "string",
+            "title": "Method"
+          },
+          "uncertainty": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/MeasurementBand"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "value_cm",
+          "method"
+        ],
+        "title": "Measurement"
+      },
+      "MeasurementBand": {
+        "properties": {
+          "lower_cm": {
+            "type": "number",
+            "title": "Lower Cm"
+          },
+          "upper_cm": {
+            "type": "number",
+            "title": "Upper Cm"
+          },
+          "accepted_samples": {
+            "type": "integer",
+            "title": "Accepted Samples"
+          },
+          "attempted_samples": {
+            "type": "integer",
+            "title": "Attempted Samples"
+          },
+          "method": {
+            "type": "string",
+            "title": "Method",
+            "default": "conditional phenotype ensemble q10-q90; not calibrated population confidence"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "lower_cm",
+          "upper_cm",
+          "accepted_samples",
+          "attempted_samples"
+        ],
+        "title": "MeasurementBand"
+      },
+      "Motion": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "duration_s": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Duration S"
+          },
+          "hold": {
+            "$ref": "#/components/schemas/Hold"
+          },
+          "keyframes": {
+            "items": {
+              "$ref": "#/components/schemas/Keyframe"
+            },
+            "type": "array",
+            "title": "Keyframes"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "label",
+          "duration_s",
+          "hold",
+          "keyframes"
+        ],
+        "title": "Motion"
+      },
+      "PageContent": {
+        "properties": {
+          "asin": {
+            "type": "string",
+            "pattern": "^[A-Z0-9]{10}$",
+            "title": "Asin"
+          },
+          "url": {
+            "type": "string",
+            "maxLength": 2000,
+            "pattern": "^https://www\\.amazon\\.com/[^\\s]*$",
+            "title": "Url"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 400,
+            "title": "Title",
+            "default": ""
+          },
+          "brand": {
+            "type": "string",
+            "maxLength": 200,
+            "title": "Brand",
+            "default": ""
+          },
+          "bullets": {
+            "items": {
+              "type": "string",
+              "maxLength": 1000
+            },
+            "type": "array",
+            "maxItems": 20,
+            "title": "Bullets",
+            "default": []
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 6000,
+            "title": "Description",
+            "default": ""
+          },
+          "size_options": {
+            "items": {
+              "type": "string",
+              "maxLength": 120
+            },
+            "type": "array",
+            "maxItems": 40,
+            "title": "Size Options",
+            "default": []
+          },
+          "tables": {
+            "items": {
+              "$ref": "#/components/schemas/PageTable"
+            },
+            "type": "array",
+            "maxItems": 12,
+            "title": "Tables",
+            "default": []
+          },
+          "chart_origin": {
+            "type": "string",
+            "enum": [
+              "in_dom",
+              "popover_opened",
+              "not_found",
+              "saved_page"
+            ],
+            "title": "Chart Origin",
+            "default": "in_dom"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "asin",
+          "url"
+        ],
+        "title": "PageContent"
+      },
+      "PageTable": {
+        "properties": {
+          "heading": {
+            "type": "string",
+            "maxLength": 300,
+            "title": "Heading",
+            "default": ""
+          },
+          "rows": {
+            "items": {
+              "items": {
+                "type": "string",
+                "maxLength": 120
+              },
+              "type": "array",
+              "maxItems": 20
+            },
+            "type": "array",
+            "maxItems": 60,
+            "minItems": 1,
+            "title": "Rows"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "rows"
+        ],
+        "title": "PageTable"
+      },
+      "ProductVisual": {
+        "properties": {
+          "quilting": {
+            "$ref": "#/components/schemas/VisualFact"
+          },
+          "chamber_height": {
+            "$ref": "#/components/schemas/VisualMeasure"
+          },
+          "chamber_width": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/VisualMeasure"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "yoke_depth": {
+            "$ref": "#/components/schemas/VisualMeasure"
+          },
+          "sleeve_chamber_height": {
+            "$ref": "#/components/schemas/VisualMeasure"
+          },
+          "hood": {
+            "$ref": "#/components/schemas/VisualFact"
+          },
+          "hood_features": {
+            "items": {
+              "$ref": "#/components/schemas/VisualFact"
+            },
+            "type": "array",
+            "title": "Hood Features"
+          },
+          "front": {
+            "$ref": "#/components/schemas/VisualFact"
+          },
+          "storm_flap_width": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/VisualMeasure"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "pockets": {
+            "$ref": "#/components/schemas/VisualFact"
+          },
+          "pocket_top": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/VisualMeasure"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "pocket_length": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/VisualMeasure"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "cuffs": {
+            "$ref": "#/components/schemas/VisualFact"
+          },
+          "hem": {
+            "$ref": "#/components/schemas/VisualFact"
+          },
+          "finish": {
+            "$ref": "#/components/schemas/VisualFact"
+          },
+          "colour_hex": {
+            "$ref": "#/components/schemas/VisualFact"
+          },
+          "logo": {
+            "type": "string",
+            "const": "omitted",
+            "title": "Logo",
+            "default": "omitted"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "quilting",
+          "chamber_height",
+          "yoke_depth",
+          "sleeve_chamber_height",
+          "hood",
+          "hood_features",
+          "front",
+          "pockets",
+          "cuffs",
+          "hem",
+          "finish",
+          "colour_hex"
+        ],
+        "title": "ProductVisual"
+      },
+      "ProfileBody": {
+        "properties": {
+          "mode": {
+            "type": "string",
+            "const": "profile",
+            "title": "Mode"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "mode"
+        ],
+        "title": "ProfileBody"
+      },
+      "ProfileIn": {
+        "properties": {
+          "consent": {
+            "type": "boolean",
+            "const": true,
+            "title": "Consent"
+          },
+          "fit_request": {
+            "$ref": "#/components/schemas/FitRequest"
+          },
+          "choices": {
+            "$ref": "#/components/schemas/FitChoices",
+            "default": {
+              "preference": "regular",
+              "layer": "t-shirt"
+            }
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "consent",
+          "fit_request"
+        ],
+        "title": "ProfileIn"
+      },
+      "Provenance": {
+        "properties": {
+          "source": {
+            "type": "string",
+            "enum": [
+              "reviewed",
+              "rules",
+              "llm"
+            ],
+            "title": "Source"
+          },
+          "provider": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 40
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Provider"
+          },
+          "extracted_by": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Extracted By"
+          },
+          "reviewed": {
+            "type": "boolean",
+            "title": "Reviewed",
+            "default": false
+          },
+          "date": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}",
+            "title": "Date"
+          },
+          "source_page": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[^/\\\\:*?\\\"<>|]{1,200}$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Page"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "source",
+          "extracted_by",
+          "date"
+        ],
+        "title": "Provenance"
+      },
+      "PurchaseIn": {
+        "properties": {
+          "asin": {
+            "type": "string",
+            "pattern": "^[A-Z0-9]{10}$",
+            "title": "Asin"
+          },
+          "size": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,23}$",
+            "title": "Size"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 400,
+            "title": "Title",
+            "default": ""
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "asin",
+          "size"
+        ],
+        "title": "PurchaseIn"
+      },
+      "RecommendRequest": {
+        "properties": {
+          "preference": {
+            "type": "string",
+            "enum": [
+              "fitted",
+              "regular",
+              "relaxed"
+            ],
+            "title": "Preference",
+            "default": "regular"
+          },
+          "layer": {
+            "type": "string",
+            "enum": [
+              "t-shirt",
+              "hoodie"
+            ],
+            "title": "Layer",
+            "default": "t-shirt"
+          },
+          "page": {
+            "$ref": "#/components/schemas/PageContent"
+          },
+          "body": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ProfileBody"
+              },
+              {
+                "$ref": "#/components/schemas/SessionBody"
+              }
+            ],
+            "title": "Body",
+            "discriminator": {
+              "propertyName": "mode",
+              "mapping": {
+                "profile": "#/components/schemas/ProfileBody",
+                "session": "#/components/schemas/SessionBody"
+              }
+            }
+          },
+          "chart_type_override": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "garment",
+                  "body"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Chart Type Override"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "page",
+          "body"
+        ],
+        "title": "RecommendRequest"
+      },
+      "RecommendResponse": {
+        "properties": {
+          "asin": {
+            "type": "string",
+            "title": "Asin"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "recommended_size": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Recommended Size"
+          },
+          "sizes": {
+            "items": {
+              "$ref": "#/components/schemas/SizeView"
+            },
+            "type": "array",
+            "title": "Sizes"
+          },
+          "comparison_zones": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Comparison Zones"
+          },
+          "explanation": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Explanation"
+          },
+          "trace": {
+            "items": {
+              "$ref": "#/components/schemas/TraceStep"
+            },
+            "type": "array",
+            "title": "Trace"
+          },
+          "extraction": {
+            "$ref": "#/components/schemas/ExtractionView"
+          },
+          "personal_offsets_cm": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Personal Offsets Cm"
+          },
+          "preference": {
+            "type": "string",
+            "title": "Preference"
+          },
+          "layer": {
+            "type": "string",
+            "title": "Layer"
+          },
+          "three_d": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Three D"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "asin",
+          "title",
+          "recommended_size",
+          "sizes",
+          "comparison_zones",
+          "explanation",
+          "trace",
+          "extraction",
+          "personal_offsets_cm",
+          "preference",
+          "layer"
+        ],
+        "title": "RecommendResponse"
+      },
+      "ScanFitEntry": {
+        "properties": {
+          "value_cm": {
+            "type": "number",
+            "title": "Value Cm"
+          },
+          "sigma_cm": {
+            "type": "number",
+            "title": "Sigma Cm"
+          },
+          "fitted_cm": {
+            "type": "number",
+            "title": "Fitted Cm"
+          },
+          "residual_cm": {
+            "type": "number",
+            "title": "Residual Cm"
+          },
+          "method": {
+            "type": "string",
+            "title": "Method"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "value_cm",
+          "sigma_cm",
+          "fitted_cm",
+          "residual_cm",
+          "method"
+        ],
+        "title": "ScanFitEntry"
+      },
+      "ScanFitReport": {
+        "properties": {
+          "source": {
+            "type": "string",
+            "const": "webcam_scan",
+            "title": "Source",
+            "default": "webcam_scan"
+          },
+          "calibration": {
+            "type": "string",
+            "title": "Calibration"
+          },
+          "weighting": {
+            "type": "string",
+            "title": "Weighting"
+          },
+          "entries": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/ScanFitEntry"
+            },
+            "type": "object",
+            "title": "Entries"
+          },
+          "overridden_by_tape": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Overridden By Tape"
+          },
+          "base_body_id": {
+            "type": "string",
+            "title": "Base Body Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "calibration",
+          "weighting",
+          "entries",
+          "overridden_by_tape",
+          "base_body_id"
+        ],
+        "title": "ScanFitReport",
+        "description": "Records that, and how, a webcam scan influenced this body."
+      },
+      "ScanMeasurements": {
+        "properties": {
+          "shoulder_width_cm": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ScanValue"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "chest_cm": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ScanValue"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "waist_cm": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ScanValue"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "hip_cm": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ScanValue"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "arm_length_cm": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ScanValue"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "calibration": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_.:-]{1,64}$",
+            "title": "Calibration",
+            "default": "uncalibrated"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "ScanMeasurements",
+        "description": "Names match @satisfy/vision ScanMeasurementName. Fitted with weight 1/sigma^2."
+      },
+      "ScanValue": {
+        "properties": {
+          "value_cm": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Value Cm"
+          },
+          "sigma_cm": {
+            "type": "number",
+            "maximum": 100000.0,
+            "minimum": 0.1,
+            "title": "Sigma Cm"
+          },
+          "method": {
+            "type": "string",
+            "maxLength": 400,
+            "title": "Method",
+            "default": ""
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "value_cm",
+          "sigma_cm"
+        ],
+        "title": "ScanValue",
+        "description": "One @satisfy/vision ScanMeasurement: value and 1-sigma uncertainty in cm."
+      },
+      "SdfData": {
+        "properties": {
+          "sdf_id": {
+            "type": "string",
+            "title": "Sdf Id"
+          },
+          "origin": {
+            "prefixItems": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "type": "array",
+            "maxItems": 3,
+            "minItems": 3,
+            "title": "Origin"
+          },
+          "dimensions": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "title": "Dimensions"
+          },
+          "spacing": {
+            "type": "number",
+            "title": "Spacing"
+          },
+          "byte_length": {
+            "type": "integer",
+            "title": "Byte Length"
+          },
+          "distance_bias_m": {
+            "type": "number",
+            "title": "Distance Bias M",
+            "default": 0
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "sdf_id",
+          "origin",
+          "dimensions",
+          "spacing",
+          "byte_length"
+        ],
+        "title": "SdfData"
+      },
+      "SessionBody": {
+        "properties": {
+          "mode": {
+            "type": "string",
+            "const": "session",
+            "title": "Mode"
+          },
+          "fit_request": {
+            "$ref": "#/components/schemas/FitRequest"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "mode",
+          "fit_request"
+        ],
+        "title": "SessionBody"
+      },
+      "SizeFit": {
+        "properties": {
+          "size": {
+            "type": "string",
+            "title": "Size"
+          },
+          "zones": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/ZoneMetric"
+            },
+            "type": "object",
+            "title": "Zones"
+          },
+          "score": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Score"
+          },
+          "coverage": {
+            "type": "number",
+            "title": "Coverage"
+          },
+          "estimated": {
+            "type": "boolean",
+            "title": "Estimated"
+          },
+          "geometry_available": {
+            "type": "boolean",
+            "title": "Geometry Available"
+          },
+          "missing_fields": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Missing Fields"
+          },
+          "anchors": {
+            "additionalProperties": {
+              "prefixItems": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "type": "array",
+              "maxItems": 3,
+              "minItems": 3
+            },
+            "type": "object",
+            "title": "Anchors"
+          },
+          "polylines": {
+            "additionalProperties": {
+              "items": {
+                "prefixItems": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ],
+                "type": "array",
+                "maxItems": 3,
+                "minItems": 3
+              },
+              "type": "array"
+            },
+            "type": "object",
+            "title": "Polylines"
+          },
+          "warnings": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Warnings"
+          },
+          "build_ms": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Build Ms"
+          },
+          "elastic_zones": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Elastic Zones"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "size",
+          "zones",
+          "score",
+          "coverage",
+          "estimated",
+          "geometry_available",
+          "missing_fields",
+          "anchors",
+          "polylines",
+          "warnings"
+        ],
+        "title": "SizeFit"
+      },
+      "SizeView": {
+        "properties": {
+          "size": {
+            "type": "string",
+            "title": "Size"
+          },
+          "score": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Score"
+          },
+          "coverage": {
+            "type": "number",
+            "title": "Coverage"
+          },
+          "zones": {
+            "items": {
+              "$ref": "#/components/schemas/ZoneView"
+            },
+            "type": "array",
+            "title": "Zones"
+          },
+          "estimated_garment_cm": {
+            "additionalProperties": {
+              "items": {
+                "type": "number"
+              },
+              "type": "array"
+            },
+            "type": "object",
+            "title": "Estimated Garment Cm",
+            "default": {}
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "size",
+          "score",
+          "coverage",
+          "zones"
+        ],
+        "title": "SizeView"
+      },
+      "SourcedMeasurement": {
+        "properties": {
+          "value_cm": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 300.0,
+                "exclusiveMinimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value Cm"
+          },
+          "min_cm": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 300.0,
+                "exclusiveMinimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Min Cm"
+          },
+          "max_cm": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 300.0,
+                "exclusiveMinimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Cm"
+          },
+          "source": {
+            "type": "string",
+            "enum": [
+              "tape_measured",
+              "retailer_chart",
+              "web_lookup",
+              "derived_grading"
+            ],
+            "title": "Source"
+          },
+          "source_detail": {
+            "type": "string",
+            "maxLength": 1000,
+            "minLength": 1,
+            "title": "Source Detail"
+          },
+          "uncertainty_cm": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 100.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Uncertainty Cm"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "source",
+          "source_detail"
+        ],
+        "title": "SourcedMeasurement"
+      },
+      "TraceStep": {
+        "properties": {
+          "step": {
+            "type": "string",
+            "enum": [
+              "read_page",
+              "classify_chart",
+              "compute_fit",
+              "choose",
+              "explain"
+            ],
+            "title": "Step"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "done",
+              "skipped",
+              "failed"
+            ],
+            "title": "Status"
+          },
+          "detail": {
+            "type": "string",
+            "title": "Detail"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "step",
+          "status",
+          "detail"
+        ],
+        "title": "TraceStep"
+      },
+      "UncertaintyResponse": {
+        "properties": {
+          "bands": {
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/MeasurementBand"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "type": "object",
+            "title": "Bands"
+          },
+          "accepted_samples": {
+            "type": "integer",
+            "title": "Accepted Samples"
+          },
+          "attempted_samples": {
+            "type": "integer",
+            "title": "Attempted Samples"
+          },
+          "compute_ms": {
+            "type": "number",
+            "title": "Compute Ms"
+          },
+          "note": {
+            "type": "string",
+            "title": "Note"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "bands",
+          "accepted_samples",
+          "attempted_samples",
+          "compute_ms",
+          "note"
+        ],
+        "title": "UncertaintyResponse"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "VisualFact": {
+        "properties": {
+          "value": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Value"
+          },
+          "source": {
+            "type": "string",
+            "enum": [
+              "retailer_copy",
+              "photo_estimate",
+              "model_assumption"
+            ],
+            "title": "Source"
+          },
+          "approximate": {
+            "type": "boolean",
+            "title": "Approximate"
+          },
+          "source_detail": {
+            "type": "string",
+            "maxLength": 1200,
+            "minLength": 1,
+            "title": "Source Detail"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "value",
+          "source",
+          "approximate",
+          "source_detail"
+        ],
+        "title": "VisualFact"
+      },
+      "VisualMeasure": {
+        "properties": {
+          "value_cm": {
+            "type": "number",
+            "maximum": 200.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Value Cm"
+          },
+          "source": {
+            "type": "string",
+            "enum": [
+              "retailer_copy",
+              "photo_estimate",
+              "model_assumption"
+            ],
+            "title": "Source"
+          },
+          "approximate": {
+            "type": "boolean",
+            "title": "Approximate"
+          },
+          "uncertainty_cm": {
+            "type": "number",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Uncertainty Cm"
+          },
+          "source_detail": {
+            "type": "string",
+            "maxLength": 1200,
+            "minLength": 1,
+            "title": "Source Detail"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "value_cm",
+          "source",
+          "approximate",
+          "uncertainty_cm",
+          "source_detail"
+        ],
+        "title": "VisualMeasure"
+      },
+      "ZoneMetric": {
+        "properties": {
+          "value_cm": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value Cm"
+          },
+          "lower_cm": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lower Cm"
+          },
+          "upper_cm": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Upper Cm"
+          },
+          "metric": {
+            "type": "string",
+            "title": "Metric"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "tight",
+              "fit",
+              "relaxed",
+              "too_big",
+              "unknown"
+            ],
+            "title": "Status"
+          },
+          "explanation": {
+            "type": "string",
+            "title": "Explanation"
+          },
+          "estimated": {
+            "type": "boolean",
+            "title": "Estimated",
+            "default": false
+          },
+          "design_ease_cm": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Design Ease Cm"
+          },
+          "position_vs_hip_cm": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Position Vs Hip Cm"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "metric",
+          "status",
+          "explanation"
+        ],
+        "title": "ZoneMetric"
+      },
+      "ZoneView": {
+        "properties": {
+          "zone": {
+            "type": "string",
+            "enum": [
+              "shoulder",
+              "chest",
+              "hem",
+              "sleeve",
+              "bicep",
+              "collar"
+            ],
+            "title": "Zone"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "tight",
+              "fit",
+              "relaxed",
+              "too_big",
+              "unknown"
+            ],
+            "title": "Status"
+          },
+          "value_cm": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value Cm"
+          },
+          "value_in": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value In"
+          },
+          "metric": {
+            "type": "string",
+            "title": "Metric"
+          },
+          "adjusted_status": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "tight",
+                  "fit",
+                  "relaxed",
+                  "too_big",
+                  "unknown"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Adjusted Status"
+          },
+          "adjusted_value_cm": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Adjusted Value Cm"
+          },
+          "personal_offset_cm": {
+            "type": "number",
+            "title": "Personal Offset Cm",
+            "default": 0.0
+          },
+          "estimated": {
+            "type": "boolean",
+            "title": "Estimated"
+          },
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "display_delta_cm": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Display Delta Cm"
+          },
+          "display_scale_cm": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Display Scale Cm"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "zone",
+          "label",
+          "status",
+          "value_cm",
+          "value_in",
+          "metric",
+          "estimated",
+          "text"
+        ],
+        "title": "ZoneView"
+      }
+    }
+  }
+}
